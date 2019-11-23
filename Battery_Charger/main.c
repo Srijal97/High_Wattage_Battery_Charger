@@ -33,7 +33,7 @@ void main(void)
     // PLL, WatchDog, enable Peripheral Clocks
     // This example function is found in the F2806x_SysCtrl.c file.
     //
-     InitSysCtrl();
+    InitSysCtrl();
 
     //
     // Step 2. Initialize GPIO:
@@ -101,7 +101,6 @@ void main(void)
     GPIO_setup_init();
 
 
-    //LCD_INIT();
 
     while(1)
     {

@@ -33,7 +33,7 @@ float pidOutput2_old = 0;
 //}
 
 
-Uint16 PID(float process_variable, float setpoint, float Kp, float Ki, float Kd){
+Uint16 PID(float setpoint, float process_variable, float Kp, float Ki, float Kd){
 
     //static float lastInput = 0;
     static float cumulative_error = 0;

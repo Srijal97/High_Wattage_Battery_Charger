@@ -17,21 +17,11 @@
 extern float pwm_pot_adc;
 extern float freq_pot_adc;
 
-extern float pwm_pot_adc_old;
-
 extern float IP_V_DC;
 extern float OP_V_DC;
 extern float OP_I_DC;
 
 extern char operation_mode;
-
-extern float CC_Kp;
-extern float CC_Ki;
-extern float CC_Kd;
-
-extern float CV_Kp;
-extern float CV_Ki;
-extern float CV_Kd;
 
 extern Uint16 CC_Kp_discrete;
 extern Uint16 CC_Ki_discrete;
@@ -70,9 +60,9 @@ __interrupt void Scheduler_timer0_ISR(void)
      *  tasks will be called based on the tickCount value which
      *  reflect the time interval*/
 
-    static int taskCount = 0;
+    static int task_count = 0;
 
-    taskCount++;    // incrementing the counter at every tick
+    task_count++;    // incrementing the counter at every tick
 
     /* clear the PIE flags and clear the timer flags*/
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
@@ -92,38 +82,25 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     //OP_I_DC = pwm_pot_adc;
 
+    // voltage sensing has a gain of 0.0157 V/V for R33 at 10k
+    // at R33 = 4.7k, 120V -> 1121, 135V -> 1367, 150V -> 1404
+    static const Uint16 voltage_setpoint = 1404;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
+
+    // current setpoint of 1117 corresponds to 10A
+    static const Uint16 current_setpoint = 3909;  //1117;
+
+
+    //SATURATE(voltage_setpoint, 2000, 2500);
+
     // Cascaded PI controller with Inner Voltage and Outer Current Loop
 
-    Uint16 I_PID_output = CC_PI_discrete(560, (Uint16)OP_I_DC, CC_Kp_discrete, CC_Ki_discrete);
+    Uint16 I_PID_output = CC_PI_discrete(current_setpoint, (Uint16)OP_I_DC, CC_Kp_discrete, CC_Ki_discrete);
 
-    Uint16 Vref = (Uint16)(((float)(I_PID_output)/4095)*2000);
+    Uint16 Vref = (Uint16)(((float)(I_PID_output)/4095) * voltage_setpoint);
 
     Uint16 V_PID_output = CV_PI_discrete(Vref, (Uint16)OP_V_DC, CV_Kp_discrete, CV_Kp_discrete);
 
     PWM_updatePhase(V_PID_output / 2);
-
-
-//    if (operation_mode == CV_MODE) {
-////        Uint16 PID_output = PID(OP_V_DC, (float)560, CV_Kp, CV_Ki, CV_Kd);
-////
-////        PWM_updatePhase(PID_output / 2);
-//
-//        PWM_updatePhase(2250);
-//
-//        if (OP_I_DC > 560) {   // 560 corresponds to roughly 5A
-//            operation_mode = CC_MODE;
-//        }
-//    }
-//    else if (operation_mode == CC_MODE) {
-//        Uint16 PID_output = PID(OP_I_DC, (float)560, CC_Kp, CC_Ki, CC_Kd);
-//
-//        PWM_updatePhase(PID_output / 2);
-//
-//        if (OP_I_DC < 450) {   // 560 corresponds to roughly 5A
-//            operation_mode = CV_MODE;
-//        }
-//    }
-
 
 
 #ifdef VAR_PWM_FREQ_ALLOW
@@ -132,18 +109,17 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     /* Call the serial monitor update function
      * every ___ seconds*/
-    if(taskCount%10 == 0)
-    {
-        //SCI_UpdateMonitor();
-    }
+//    if(taskCount%10 == 0)
+//    {
+//        SCI_UpdateMonitor();
+//    }
 
-    if(taskCount == (int)(HEART_BEAT_LED_PRD/SCH_TICK_VAL))
+    if(task_count == (int)(HEART_BEAT_LED_PRD/SCH_TICK_VAL))
     {
         GpioDataRegs.GPATOGGLE.bit.GPIO13 = 1;
-        taskCount=0;
+        task_count=0;
     }
 
-    //GpioDataRegs.GPADAT.all =   ((GpioDataRegs.GPADAT.all) & (~LCD_DATABUS)) | (data<<18);
 }
 
 void sleep_mode(void)
