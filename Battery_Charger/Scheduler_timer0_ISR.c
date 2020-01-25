@@ -20,6 +20,7 @@ extern float freq_pot_adc;
 extern float IP_V_DC;
 extern float OP_V_DC;
 extern float OP_I_DC;
+extern float BAT_I_DC;
 
 extern char operation_mode;
 
@@ -54,13 +55,14 @@ void Scheduler_timer0_ISR_Init(void)
 
 __interrupt void Scheduler_timer0_ISR(void)
 {
-    /* Tick Interval = 10 ms
+    /* Tick Interval = 100us
      * taskCount is used to manage the tasks to
      *  be called by keeping a record of number of ticks.
      *  tasks will be called based on the tickCount value which
-     *  reflect the time interval*/
+     *  reflect the time interval
+     */
 
-    static int task_count = 0;
+    static long int task_count = 0;
 
     task_count++;    // incrementing the counter at every tick
 
@@ -84,19 +86,21 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     // voltage sensing has a gain of 0.0157 V/V for R33 at 10k
     // at R33 = 4.7k, 120V -> 1121, 135V -> 1367, 150V -> 1404
-    static const Uint16 voltage_setpoint = 1404;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
+    static const Uint16 voltage_setpoint = 1121;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
 
     // current setpoint of 1117 corresponds to 10A
-    static const Uint16 current_setpoint = 3909;  //1117;
+    static const Uint16 total_curr_setpoint = 2234;  //1117;
+    static const Uint16 batt_curr_setpoint = 1117;
 
 
     //SATURATE(voltage_setpoint, 2000, 2500);
 
     // Cascaded PI controller with Inner Voltage and Outer Current Loop
 
-    Uint16 I_PID_output = CC_PI_discrete(current_setpoint, (Uint16)OP_I_DC, CC_Kp_discrete, CC_Ki_discrete);
+    Uint16 I1_PID_output = CC_PI_discrete1(total_curr_setpoint, (Uint16)OP_I_DC, CC_Kp_discrete, CC_Ki_discrete);
+    Uint16 I2_PID_output = CC_PI_discrete2(batt_curr_setpoint, (Uint16)BAT_I_DC, CC_Kp_discrete, CC_Ki_discrete);
 
-    Uint16 Vref = (Uint16)(((float)(I_PID_output)/4095) * voltage_setpoint);
+    Uint16 Vref = (Uint16)(((float)(I1_PID_output)/4095) * ((float)(I2_PID_output)/4095) * voltage_setpoint);
 
     Uint16 V_PID_output = CV_PI_discrete(Vref, (Uint16)OP_V_DC, CV_Kp_discrete, CV_Kp_discrete);
 
@@ -114,7 +118,8 @@ __interrupt void Scheduler_timer0_ISR(void)
 //        SCI_UpdateMonitor();
 //    }
 
-    if(task_count == (int)(HEART_BEAT_LED_PRD/SCH_TICK_VAL))
+
+    if(task_count == (long int)(HEART_BEAT_LED_PRD/SCH_TICK_VAL))
     {
         GpioDataRegs.GPATOGGLE.bit.GPIO13 = 1;
         task_count=0;

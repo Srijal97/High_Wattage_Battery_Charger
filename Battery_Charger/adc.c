@@ -16,6 +16,8 @@ extern float IP_V_DC;  // connected to ADC INA2
 extern float OP_V_DC;  // connected to ADC INA5
 extern float OP_I_DC;  // connected to ADC INA6
 
+extern float BAT_I_DC;
+
 Uint16 ReceivedChar;
 extern char msg[];
 
@@ -45,6 +47,9 @@ void ADC_setup(void)
     AdcRegs.ADCSOC6CTL.bit.CHSEL  = 6;  // Set SOC1 channel select to ADCINA1
     AdcRegs.ADCSOC6CTL.bit.TRIGSEL = 0; // set the trigger to software only
 
+    AdcRegs.ADCSOC7CTL.bit.CHSEL  = 9;  // Set SOC7 channel select to ADCINB1
+    AdcRegs.ADCSOC7CTL.bit.TRIGSEL = 0; // set the trigger to software only
+
 
     /* Set SOC0 and SOC1 acquisition
      * period to 26 ADCCLK*/
@@ -54,6 +59,7 @@ void ADC_setup(void)
     AdcRegs.ADCSOC2CTL.bit.ACQPS  = 25;
     AdcRegs.ADCSOC5CTL.bit.ACQPS  = 25;
     AdcRegs.ADCSOC6CTL.bit.ACQPS  = 25;
+    AdcRegs.ADCSOC7CTL.bit.ACQPS  = 25;
 
     AdcRegs.INTSEL1N2.bit.INT1SEL = 6;  // Connect ADCINT1 to EOC1
     AdcRegs.INTSEL1N2.bit.INT1E   = 1;  // Enable ADCINT1
@@ -94,6 +100,7 @@ void ADC_processVal(void)
     AdcRegs.ADCSOCFRC1.bit.SOC2 = 1;
     AdcRegs.ADCSOCFRC1.bit.SOC5 = 1;
     AdcRegs.ADCSOCFRC1.bit.SOC6 = 1;
+    AdcRegs.ADCSOCFRC1.bit.SOC7 = 1;
 
     while(AdcRegs.ADCINTFLG.bit.ADCINT1 == 0); // wait till conversion is complete
     AdcRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;      // clear the flag
@@ -109,6 +116,7 @@ void ADC_processVal(void)
     IP_V_DC = AdcResult.ADCRESULT2;
     OP_V_DC = AdcResult.ADCRESULT5;
     OP_I_DC = AdcResult.ADCRESULT6;
+    BAT_I_DC = AdcResult.ADCRESULT7;
 
     EDIS;
 

@@ -66,7 +66,7 @@ Uint16 PID(float setpoint, float process_variable, float Kp, float Ki, float Kd)
 }
 
 
-Uint16 CC_PI_discrete(Uint16 Setpoint, Uint16 PV, Uint16 Kpd, Uint16 Kid)
+Uint16 CC_PI_discrete1(Uint16 Setpoint, Uint16 PV, Uint16 Kpd, Uint16 Kid)
 {
     volatile int16 Ek  = 0;
 
@@ -93,6 +93,36 @@ Uint16 CC_PI_discrete(Uint16 Setpoint, Uint16 PV, Uint16 Kpd, Uint16 Kid)
 
     return PID_out;  // The return value will be 0 to 4095
 }
+
+Uint16 CC_PI_discrete2(Uint16 Setpoint, Uint16 PV, Uint16 Kpd, Uint16 Kid)
+{
+    volatile int16 Ek  = 0;
+
+    volatile int16 P_Term  = 0;
+    volatile int16 I_Term  = 0;
+    volatile int16 delPV   = 0;
+    volatile Uint16 PID_out = 0;
+
+    static int16 Ck     = 0;
+    static Uint16 PVk_1  = 0;
+
+    Ek     = (int16) (Setpoint - PV);
+
+    delPV  = (int16) (PV - PVk_1);
+    P_Term = (int16) ((Kpd * (int32)delPV) >> 12);   // Kp = 4096  then Kpd = Kp/4096
+    I_Term = (int16) ((Kid * (int32)Ek   ) >> 16);   // Ki = 65535 then Kid = Ki/65535
+
+    Ck = (int16) (Ck - P_Term + I_Term);
+    SATURATE(Ck, -2048, 2047);
+
+    PVk_1   = PV; // Apply the History
+
+    PID_out = (Uint16) (2048 + Ck);
+
+    return PID_out;  // The return value will be 0 to 4095
+}
+
+
 
 Uint16 CV_PI_discrete(Uint16 Setpoint, Uint16 PV, Uint16 Kpd, Uint16 Kid)
 {
