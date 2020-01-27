@@ -1,6 +1,6 @@
 # FIXED
 
-F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c
+F2806x_CpuTimers.obj: C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c
 F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
 F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Adc.h
 F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_BootVars.h
@@ -33,7 +33,7 @@ F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/com
 F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h
 F2806x_CpuTimers.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
 
-C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c: 
+C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Adc.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_BootVars.h: 
