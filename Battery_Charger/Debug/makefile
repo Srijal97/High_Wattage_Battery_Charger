@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS
+CG_TOOL_ROOT := C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -27,11 +27,12 @@ ORDERED_OBJS += \
 "./Scheduler_timer0_ISR.obj" \
 "./Serial.obj" \
 "./adc.obj" \
+"./commands.obj" \
 "./gpio.obj" \
 "./main.obj" \
 "./pwm.obj" \
 "../F28069.cmd" \
-"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd" \
+"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -160,22 +161,22 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 Battery_Charger.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --float_support=fpu32 --vcu_support=vcu0 --define=_DEBUG --define=LARGE_MODEL -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"Battery_Charger.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/lib" -i"C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Battery_Charger_linkInfo.xml" --rom_model -o "Battery_Charger.out" $(ORDERED_OBJS)
+	"C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --float_support=fpu32 --vcu_support=vcu0 --define=_DEBUG --define=LARGE_MODEL -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"Battery_Charger.map" --stack_size=0x300 --warn_sections -i"C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/lib" -i"C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Battery_Charger_linkInfo.xml" --rom_model -o "Battery_Charger.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 Battery_Charger.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: C2000 Hex Utility'
-	"C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/bin/hex2000"  -o "Battery_Charger.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/bin/hex2000"  -o "Battery_Charger.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2806x_Adc.obj" "F2806x_CSMPasswords.obj" "F2806x_CodeStartBranch.obj" "F2806x_CpuTimers.obj" "F2806x_DefaultIsr.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_Sci.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "FLASH.obj" "LCD.obj" "PID.obj" "Scheduler_timer0_ISR.obj" "Serial.obj" "adc.obj" "gpio.obj" "main.obj" "pwm.obj" 
-	-$(RM) "F2806x_Adc.d" "F2806x_CpuTimers.d" "F2806x_DefaultIsr.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_Sci.d" "F2806x_SysCtrl.d" "FLASH.d" "LCD.d" "PID.d" "Scheduler_timer0_ISR.d" "Serial.d" "adc.d" "gpio.d" "main.d" "pwm.d" 
+	-$(RM) "F2806x_Adc.obj" "F2806x_CSMPasswords.obj" "F2806x_CodeStartBranch.obj" "F2806x_CpuTimers.obj" "F2806x_DefaultIsr.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_Sci.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "FLASH.obj" "LCD.obj" "PID.obj" "Scheduler_timer0_ISR.obj" "Serial.obj" "adc.obj" "commands.obj" "gpio.obj" "main.obj" "pwm.obj" 
+	-$(RM) "F2806x_Adc.d" "F2806x_CpuTimers.d" "F2806x_DefaultIsr.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_Sci.d" "F2806x_SysCtrl.d" "FLASH.d" "LCD.d" "PID.d" "Scheduler_timer0_ISR.d" "Serial.d" "adc.d" "commands.d" "gpio.d" "main.d" "pwm.d" 
 	-$(RM) "F2806x_CSMPasswords.d" "F2806x_CodeStartBranch.d" "F2806x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

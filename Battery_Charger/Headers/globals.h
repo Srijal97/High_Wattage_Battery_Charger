@@ -22,7 +22,7 @@ float IP_V_DC = 0;
 float OP_V_DC = 0;
 float OP_I_DC = 0;
 float BAT_I_DC = 0;
-
+int systemState;
 Uint16 CC_Kp_discrete = 4000;
 Uint16 CC_Ki_discrete = 1000;
 

@@ -33,7 +33,7 @@ void main(void)
     // PLL, WatchDog, enable Peripheral Clocks
     // This example function is found in the F2806x_SysCtrl.c file.
     //
-    InitSysCtrl();
+   InitSysCtrl();
 
     //
     // Step 2. Initialize GPIO:
@@ -88,14 +88,27 @@ void main(void)
     EINT;                              // Enable Global interrupt INTM
     ERTM;                              // Enable Global realtime interrupt DBGM
 
+    EALLOW;  // This is needed to write to EALLOW protected registers
+            PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
+            EDIS;   // This is needed to disable write to EALLOW protected registers
+
+
     InitSciaGpio();
     InitAdc();
     AdcOffsetSelfCal();
 
-    scia_fifo_init();      // Initialize the SCI FIFO
-    scia_echoback_init();  // Initalize SCI for echoback
 
-    ADC_setup();
+    scia_fifo_init();
+    SerialInit();// Initialize the SCI FIFO
+//    scia_echoback_init();  // Initalize SCI for echoback
+
+        PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
+           PieCtrlRegs.PIEIER9.bit.INTx1=1;     // PIE Group 9, INT1
+    //       PieCtrlRegs.PIEIER9.bit.INTx2=1;     // PIE Group 9, INT2
+           IER |= 0x100;                         // Enable CPU INT
+           EINT;
+
+           ADC_setup();
     PWM_setup_init();
     Scheduler_timer0_ISR_Init();
     GPIO_setup_init();
