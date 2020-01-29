@@ -11,7 +11,7 @@
 #include <pwm.h>
 #include <PID.h>
 #include <gpio.h>
-#include <Scheduler_timer0_ISR.h>
+#include "Scheduler_timer0_ISR.h"
 #include <Serial.h>
 
 extern float pwm_pot_adc;
@@ -30,6 +30,9 @@ extern Uint16 CC_Ki_discrete;
 extern Uint16 CV_Kp_discrete;
 extern Uint16 CV_Ki_discrete;
 
+extern float power_out_factor;
+extern int system_state;
+
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -43,8 +46,6 @@ void Scheduler_timer0_ISR_Init(void)
     EALLOW;  // This is needed to write to EALLOW protected register
     PieVectTable.TINT0 = &Scheduler_timer0_ISR;
     EDIS;    // This is needed to disable write to EALLOW protected registers
-
-    InitCpuTimers();
 
     ConfigCpuTimer(&CpuTimer0, CPU_FREQ_VAL, SCH_TICK_VAL);
 
@@ -70,10 +71,37 @@ __interrupt void Scheduler_timer0_ISR(void)
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
     CpuTimer0Regs.TCR.bit.TIF = 1;
 
+    if (system_state == 1) {
 
-    /* processing the ADC values by using filters
-     * this is done every tick interval */
-    ADC_processVal();
+        static Uint32 soft_start_count = 0;
+
+        soft_start_count++;
+
+        //for (soft_start_count = 1; soft_start_count <= 30000; soft_start_count++) {
+        power_out_factor = (float)soft_start_count/30000;
+        //}
+
+        if (soft_start_count == 30000) {
+            system_state = 2;
+            soft_start_count = 0;
+        }
+    }
+
+    if (system_state == 3) {
+
+        static Uint32 soft_stop_count = 30000;
+
+        soft_stop_count--;
+
+        //for (soft_start_count = 1; soft_start_count <= 30000; soft_start_count++) {
+        power_out_factor = (float)soft_stop_count/30000;
+        //}
+
+        if (soft_stop_count == 0) {
+            system_state = 0;
+            soft_stop_count = 30000;
+        }
+    }
 
 
     //PWM_updatePhase(pwm_pot_adc*2250/2800);
@@ -102,9 +130,11 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     Uint16 Vref = (Uint16)(((float)(I1_PID_output)/4095) * ((float)(I2_PID_output)/4095) * voltage_setpoint);
 
-    Uint16 V_PID_output = CV_PI_discrete(Vref, (Uint16)OP_V_DC, CV_Kp_discrete, CV_Kp_discrete);
+    Uint16 V_PID_output = CV_PI_discrete(Vref, (Uint16)OP_V_DC, CV_Kp_discrete, CV_Kp_discrete) * power_out_factor;
 
-    PWM_updatePhase(V_PID_output / 2);
+    V_PID_output = map(V_PID_output, 0, 4095, 0, 2250);
+
+    PWM_updatePhase(V_PID_output);
 
 
 #ifdef VAR_PWM_FREQ_ALLOW
@@ -121,7 +151,7 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     if(task_count == (long int)(HEART_BEAT_LED_PRD/SCH_TICK_VAL))
     {
-        GpioDataRegs.GPATOGGLE.bit.GPIO13 = 1;
+        //GpioDataRegs.GPATOGGLE.bit.GPIO13 = 1;
         task_count=0;
     }
 

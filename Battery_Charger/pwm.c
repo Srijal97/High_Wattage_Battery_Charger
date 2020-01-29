@@ -111,6 +111,67 @@ void PWM_updatePhase(Uint16 phaseShift)
     EDIS;
 }
 
+
+void PWM_force_low_EPWM1() {
+    EALLOW;
+
+    EPwm1Regs.AQCSFRC.bit.CSFB = 0x1;
+    EPwm1Regs.AQCSFRC.bit.CSFA = 0x1;
+    EPwm1Regs.DBCTL.bit.POLSEL = DB_ACTV_HI;
+
+    EDIS;
+}
+
+void PWM_force_high_EPWM1() {
+    EALLOW;
+
+    EPwm1Regs.AQCSFRC.bit.CSFB = 0x2;
+    EPwm1Regs.AQCSFRC.bit.CSFA = 0x2;
+    EPwm1Regs.DBCTL.bit.POLSEL = DB_ACTV_HI;
+
+    EDIS;
+}
+
+void PWM_disable_force_EPWM1() {
+    EALLOW;
+
+    EPwm1Regs.DBCTL.bit.POLSEL = DB_ACTV_HIC;
+    EPwm1Regs.AQCSFRC.bit.CSFB = 0x0;
+    EPwm1Regs.AQCSFRC.bit.CSFA = 0x0;
+
+    EDIS;
+}
+
+void PWM_force_low_EPWM2() {
+    EALLOW;
+
+    EPwm2Regs.AQCSFRC.bit.CSFB = 0x1;
+    EPwm2Regs.AQCSFRC.bit.CSFA = 0x1;
+    EPwm2Regs.DBCTL.bit.POLSEL = DB_ACTV_HI;
+
+    EDIS;
+}
+
+void PWM_force_high_EPWM2() {
+    EALLOW;
+
+    EPwm2Regs.AQCSFRC.bit.CSFB = 0x2;
+    EPwm2Regs.AQCSFRC.bit.CSFA = 0x2;
+    EPwm2Regs.DBCTL.bit.POLSEL = DB_ACTV_HI;
+
+    EDIS;
+}
+
+void PWM_disable_force_EPWM2() {
+    EALLOW;
+
+    EPwm2Regs.DBCTL.bit.POLSEL = DB_ACTV_HIC;
+    EPwm2Regs.AQCSFRC.bit.CSFB = 0x0;
+    EPwm2Regs.AQCSFRC.bit.CSFA = 0x0;
+
+    EDIS;
+}
+
 #ifdef VAR_PWM_FREQ_ALLOW
 void PWM_updateFrequency(void)
 {

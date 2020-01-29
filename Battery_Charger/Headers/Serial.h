@@ -13,12 +13,10 @@
 //
 // Function Prototypes
 //
-extern void scia_echoback_init(void);
+extern void SerialInit(void);
 extern void scia_fifo_init(void);
 extern void scia_xmit(int a);
-extern void scia_msg(char *msg);
-extern void scia_send(char * msg, int n);
-void SCI_UpdateMonitor(void);
-
-
+void SCI_UpdateMonitor(char *msg);
+//char scia_rec(void);
+__interrupt void sciaRxFifoIsr(void);
 #endif /* SERIAL_H_ */

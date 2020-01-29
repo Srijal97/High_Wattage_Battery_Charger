@@ -1,7 +1,6 @@
 # FIXED
 
 Serial.obj: ../Serial.c
-Serial.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
@@ -35,9 +34,10 @@ Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/includ
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
+Serial.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h
+Serial.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h
 
 ../Serial.c: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 
@@ -71,3 +71,5 @@ C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_I2c
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h: 

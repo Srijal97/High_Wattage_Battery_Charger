@@ -27,8 +27,10 @@ C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_SysC
 ../LCD.c \
 ../PID.c \
 ../Scheduler_timer0_ISR.c \
+../Scheduler_timer1_ISR.c \
 ../Serial.c \
 ../adc.c \
+../commands.c \
 ../gpio.c \
 ../main.c \
 ../pwm.c 
@@ -46,8 +48,10 @@ C_DEPS += \
 ./LCD.d \
 ./PID.d \
 ./Scheduler_timer0_ISR.d \
+./Scheduler_timer1_ISR.d \
 ./Serial.d \
 ./adc.d \
+./commands.d \
 ./gpio.d \
 ./main.d \
 ./pwm.d 
@@ -68,8 +72,10 @@ OBJS += \
 ./LCD.obj \
 ./PID.obj \
 ./Scheduler_timer0_ISR.obj \
+./Scheduler_timer1_ISR.obj \
 ./Serial.obj \
 ./adc.obj \
+./commands.obj \
 ./gpio.obj \
 ./main.obj \
 ./pwm.obj 
@@ -95,8 +101,10 @@ OBJS__QUOTED += \
 "LCD.obj" \
 "PID.obj" \
 "Scheduler_timer0_ISR.obj" \
+"Scheduler_timer1_ISR.obj" \
 "Serial.obj" \
 "adc.obj" \
+"commands.obj" \
 "gpio.obj" \
 "main.obj" \
 "pwm.obj" 
@@ -114,8 +122,10 @@ C_DEPS__QUOTED += \
 "LCD.d" \
 "PID.d" \
 "Scheduler_timer0_ISR.d" \
+"Scheduler_timer1_ISR.d" \
 "Serial.d" \
 "adc.d" \
+"commands.d" \
 "gpio.d" \
 "main.d" \
 "pwm.d" 
@@ -138,8 +148,10 @@ C_SRCS__QUOTED += \
 "../LCD.c" \
 "../PID.c" \
 "../Scheduler_timer0_ISR.c" \
+"../Scheduler_timer1_ISR.c" \
 "../Serial.c" \
 "../adc.c" \
+"../commands.c" \
 "../gpio.c" \
 "../main.c" \
 "../pwm.c" 

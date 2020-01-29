@@ -18,9 +18,9 @@
 #include <macros.h>
 #include <main.h>               // Project header file
 #include <pwm.h>
-#include <Scheduler_timer0_ISR.h>
 #include <Serial.h>
 #include "Scheduler_timer0_ISR.h"
+#include "Scheduler_timer1_ISR.h"
 #include "string.h"
 
 //
@@ -85,28 +85,45 @@ void main(void)
 
 
     IER |= M_INT1;                     // Enable CPU Interrupt 1
+    IER |= M_INT13;
     EINT;                              // Enable Global interrupt INTM
     ERTM;                              // Enable Global realtime interrupt DBGM
+
+    EALLOW;  // This is needed to write to EALLOW protected registers
+                PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
+                EDIS;   // This is needed to disable write to EALLOW protected registers
+
 
     InitSciaGpio();
     InitAdc();
     AdcOffsetSelfCal();
 
     scia_fifo_init();      // Initialize the SCI FIFO
-    scia_echoback_init();  // Initalize SCI for echoback
+    SerialInit();// Initialize the SCI FIFO
+    //scia_echoback_init();  // Initalize SCI for echoback
+
+
+    PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
+    PieCtrlRegs.PIEIER9.bit.INTx1=1;     // PIE Group 9, INT1
+    //.PieCtrlRegs.PIEIER9.bit.INTx2=1;     // PIE Group 9, INT2
+    IER |= 0x100;                         // Enable CPU INT
+    EINT;
+
 
     ADC_setup();
     PWM_setup_init();
+
+    InitCpuTimers();
     Scheduler_timer0_ISR_Init();
+    Scheduler_timer1_ISR_Init();
     GPIO_setup_init();
-
-
 
     while(1)
     {
         /*processor goes to sleep while
          * all the peripherals are running*/
         sleep_mode();
+
     }
 }
 
