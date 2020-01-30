@@ -39,42 +39,40 @@ char data;
 int comStart;
 int i = 0;
 
-void SerialInit()
+void SerialInit() {
+    //
+    // Note: Clocks were turned on to the SCIA peripheral
+    // in the InitSysCtrl() function
+    //
 
-    {
-        //
-        // Note: Clocks were turned on to the SCIA peripheral
-        // in the InitSysCtrl() function
-        //
+    //
+    // 1 stop bit,  No loopback, No parity,8 char bits, async mode,
+    // idle-line protocol
+    //
+    SciaRegs.SCICCR.all =0x0007;
 
-        //
-        // 1 stop bit,  No loopback, No parity,8 char bits, async mode,
-        // idle-line protocol
-        //
-        SciaRegs.SCICCR.all =0x0007;
+    //
+    // enable TX, RX, internal SCICLK, Disable RX ERR, SLEEP, TXWAKE
+    //
+    SciaRegs.SCICTL1.all =0x0003;
 
-        //
-        // enable TX, RX, internal SCICLK, Disable RX ERR, SLEEP, TXWAKE
-        //
-        SciaRegs.SCICTL1.all =0x0003;
+    SciaRegs.SCICTL2.bit.TXINTENA = 0;
+    SciaRegs.SCICTL2.bit.RXBKINTENA = 0;
 
-        SciaRegs.SCICTL2.bit.TXINTENA = 0;
-        SciaRegs.SCICTL2.bit.RXBKINTENA = 0;
-
-        PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
+    PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
     //    PieVectTable.SCITXINTA = &sciaTxFifoIsr;
-        //
-        // 9600 baud @LSPCLK = 22.5MHz (90 MHz SYSCLK)
-        //
-        SciaRegs.SCIHBAUD    =0x0001;
-        SciaRegs.SCILBAUD    =0x0024;
+    //
+    // 9600 baud @LSPCLK = 22.5MHz (90 MHz SYSCLK)
+    //
+    SciaRegs.SCIHBAUD    =0x0001;
+    SciaRegs.SCILBAUD    =0x0024;
 
-        SciaRegs.SCICTL1.all =0x0023;  // Relinquish SCI from Reset
+    SciaRegs.SCICTL1.all =0x0023;  // Relinquish SCI from Reset
     int i;
     for(i = 0; i<2; i++)
-        {
-            sdataA[i] = i;
-        }
+    {
+        sdataA[i] = i;
+    }
     //rdata_pointA = sdataA[0];
 
 
@@ -90,29 +88,22 @@ error(void)
     for (;;);
 }
 
-__interrupt void
-sciaRxFifoIsr(void)
+__interrupt void sciaRxFifoIsr(void)
 {
 
     data = SciaRegs.SCIRXBUF.all;
-    if(data=='<')
-    {
+    if(data=='<') {
         comStart = 1;
         i=0;
     }
-    else if(data =='>')
-       {
-           comStart = 0;
-           i=0;recOp(rdataA);
-       }
-    if (comStart == 1)
-        {
-            *(rdataA+i)=data;  // Read data
-            i++;if(i==5){i=0;}
-        }
-
-//
-
+    else if(data =='>') {
+        comStart = 0;
+        i=0;recOp(rdataA);
+    }
+    if (comStart == 1) {
+        *(rdataA+i)=data;  // Read data
+        i++;if(i==5){i=0;}
+    }
 
     SciaRegs.SCIFFRX.bit.RXFFOVRCLR=1;   // Clear Overflow flag
     SciaRegs.SCIFFRX.bit.RXFFINTCLR=1;   // Clear Interrupt flag
@@ -123,8 +114,7 @@ sciaRxFifoIsr(void)
 //
 // scia_fifo_init -
 //
-void
-scia_fifo_init()
+void scia_fifo_init()
 {
     //
     // 1 stop bit,  No loopback, No parity,8 char bits, async mode,

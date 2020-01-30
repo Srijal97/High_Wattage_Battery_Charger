@@ -24,8 +24,8 @@
 #define EPWM_2A_DUTY_20KHZ  2250                // epwm 2A uncomment for Duty Cycle 50% of 15KHz
 #define EPWM_2B_DUTY_20KHZ  2250                // epwm 2A uncomment for Duty Cycle 50% of 15KHz
 
-#define EPWM_1_DEADBAND	    100                 // dead band clock cycle count
-#define EPWM_2_DEADBAND     100                 // dead band clock cycle count
+#define EPWM_1_DEADBAND	    0                 // dead band clock cycle count
+#define EPWM_2_DEADBAND     0                 // dead band clock cycle count
 
 
 void PWM_setup_init(void);
@@ -34,6 +34,14 @@ void PWM_setup_EPWM_1(void);
 void PWM_setup_EPWM_2(void);
 
 void PWM_updatePhase(Uint16 phaseShift);
+
+void PWM_force_high_EPWM1();
+void PWM_force_low_EPWM1();
+void PWM_disable_force_EPWM1();
+
+void PWM_force_high_EPWM2();
+void PWM_force_low_EPWM2();
+void PWM_disable_force_EPWM2();
 
 #ifdef VAR_PWM_FREQ_ALLOW
 void PWM_updateFrequency(void);

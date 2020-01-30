@@ -1,0 +1,101 @@
+//#include <variables.h>
+
+void pointer_display_horiz()                          //checks the cursor position. 
+{
+    lcd_gotoxy(0,2);
+    lcd_putsf(" ");
+    lcd_gotoxy(1,2);
+    lcd_putsf(" ");
+    lcd_gotoxy(2,2);
+    lcd_putsf(" ");
+    lcd_gotoxy(3,2);
+    lcd_putsf(" ");
+    lcd_gotoxy(Pointer_horiz,2);                      //Pointer displays arrow at that position
+    lcd_putsf("^");
+}
+
+void pointer_display_vert()                          //checks the cursor position. 
+{
+    lcd_gotoxy(0,0);
+    lcd_putsf(" ");
+    lcd_gotoxy(0,1);
+    lcd_putsf(" ");
+    lcd_gotoxy(0,2);
+    lcd_putsf(" ");
+    lcd_gotoxy(0,3);
+    lcd_putsf(" ");
+    lcd_gotoxy(0,Pointer_vert);                      //Pointer displays arrow at that position
+    lcd_putsf(">");
+}
+
+void RTC_pointer()
+{
+    lcd_gotoxy(6,2);
+    sprintf(disptime1, "%02d:%02d:%02d", hr1, min1, sec1);
+    lcd_puts(disptime1);
+       
+    lcd_gotoxy(6,0);
+    sprintf(dispdate1, "%02d/%02d/%4d", dd1, mm1, 2000+yy1); 
+    lcd_puts(dispdate1); 
+    
+    lcd_gotoxy(15,1);
+    lcd_puts(" ");
+    lcd_gotoxy(10,1);            
+    lcd_puts(" ");   
+    lcd_gotoxy(7,1);
+    lcd_puts(" ");
+    lcd_gotoxy(13,3);
+    lcd_puts(" "); 
+    lcd_gotoxy(10,3);
+    lcd_puts(" ");
+    lcd_gotoxy(7,3);
+    lcd_puts(" ");
+      
+    switch(rtc_setter)
+    {
+        case 3:                         //Years
+            lcd_gotoxy(15,1);
+            lcd_puts("^");        
+        break;
+        case 4:                         //Months
+            lcd_gotoxy(10,1);            
+            lcd_puts("^");
+        break;
+        case 5:                         //Days
+            lcd_gotoxy(7,1);
+            lcd_puts("^");
+        break;
+        case 0:                         //Seconds
+            lcd_gotoxy(13,3);
+            lcd_puts("^");
+        break;            
+        case 1:                         //Minutes
+            lcd_gotoxy(10,3);
+            lcd_puts("^");
+        break;
+        case 2:                         //Hours
+            lcd_gotoxy(7,3);
+            lcd_puts("^");
+        break;
+    }      
+}
+
+void show_pass()
+{
+    sprintf(disp_pass,"%04d",temp_pass);
+    lcd_gotoxy(0,1);
+    lcd_puts(disp_pass);
+}
+
+void show_volt()
+{
+    sprintf(disp_volt,"%03d",voltage);
+    lcd_gotoxy(0,1);
+    lcd_puts(disp_volt);
+}
+void show_current()
+{
+    sprintf(disp_current,"%03d",current);
+    lcd_gotoxy(0,1);
+    lcd_puts(disp_current);
+}

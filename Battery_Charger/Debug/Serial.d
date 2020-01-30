@@ -34,8 +34,8 @@ Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/includ
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h
 Serial.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
-Serial.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/Serial.h
-Serial.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/commands.h
+Serial.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h
+Serial.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h
 
 ../Serial.c: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
@@ -71,5 +71,5 @@ C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_I2c
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/Serial.h: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/commands.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h: 

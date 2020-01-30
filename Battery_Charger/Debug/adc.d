@@ -1,8 +1,8 @@
 # FIXED
 
 adc.obj: ../adc.c
-adc.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/adc.h
-adc.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h
+adc.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/adc.h
+adc.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h
 adc.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h
 adc.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h
 adc.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
@@ -38,8 +38,8 @@ adc.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F
 adc.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
 
 ../adc.c: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/adc.h: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/adc.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 

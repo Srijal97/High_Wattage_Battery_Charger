@@ -1,0 +1,160 @@
+//#include <variables.h> 
+
+void val_change(int add_subt)
+{
+    if(add_subt)                        // Subtraction
+    {   switch(rtc_setter)
+        {
+            case 3:                         //Years
+                yy1--;   
+            break;
+            case 4:                         //Months
+                mm1--;
+                mm1 = (mm1<=0)? (12+mm1) : (mm1%13);            
+            break;
+            case 5:                         //Days
+                dd1--;
+                switch(mm1)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        dd1 = (dd1<=0)?(dd1+31):dd1;
+                        break;
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        dd1 = (dd1<=0)?(dd1+30):dd1;
+                        break;
+                    case 2:  
+                        if(yy1%4 == 0)
+                        {dd1 = (dd1<=0)?(dd1+29):dd1;}
+                        else
+                        {dd1 = (dd1<=0)?(dd1+28):dd1;}
+                        break; 
+                }
+            break;
+            case 0:                         //Seconds
+                sec1--;                
+            break;            
+            case 1:                         //Minutes
+                min1--;                
+            break;
+            case 2:                         //Hours
+                hr1--;
+                
+            break;
+        }
+    } 
+    else                               // Addition
+    {   switch(rtc_setter)
+        {
+            case 3:                         //Years
+                yy1++;    
+            break;
+            case 4:                         //Month
+                mm1++;
+                mm1 = (mm1<=0)? (12+mm1) : (mm1%13);            
+            break;
+            case 5:                         //Days
+                dd1++;
+                switch(mm1)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        dd1 = (dd1<=0)?(dd1+31):(dd1%32);
+                        break;
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        dd1 = (dd1<=0)?(dd1+30):(dd1%31);
+                        break;
+                    case 2:  
+                        if(yy1%4 == 0)
+                        {dd1 = (dd1<=0)?(dd1+29):(dd1%30);}
+                        else
+                        {dd1 = (dd1<=0)?(dd1+28):(dd1%29);}
+                        break; 
+                }
+            break;
+            case 2:                         //Hours
+                hr1++;
+                hr1 = (hr1%24);
+            break;            
+            case 1:                         //Minutes
+                min1++;
+                min1 = (min1%60);
+                
+            break;
+            case 0:                         //Seconds
+                sec1++;
+                sec1 = (sec1%60);
+                
+            break;
+        }
+    }
+}
+
+
+void reset_pass(int next)
+{   
+    int change = pow(10,(next-Pointer_horiz-1));
+    pointer_display_horiz();
+    delay_ms(100);
+    if (PINE.2 == 0)                                            //UP     1
+       {
+        while(PINE.2 == 0);  
+        if(change == 1)
+        {temp_pass = temp_pass + (change);}
+        else
+        {temp_pass = temp_pass + 1 + (change);}
+        temp_pass = temp_pass % 10000;
+        show_pass();      
+        pointer_display_horiz();
+       }
+                                    
+    if (PINE.3 == 0)                                            //Next   2
+       {
+        while(PINE.3 == 0);
+        Pointer_horiz++;
+        
+        Pointer_horiz = Pointer_horiz % next;        
+        pointer_display_horiz();
+       }
+       
+    if (PINE.0 == 0)                                             //ENTER 3
+        {  
+         while(PINE.0 == 0); 
+         lcd_clear();
+         lcd_gotoxy(0,0);
+         lcd_puts("Setting pswd to:");
+         show_pass();      
+         password = temp_pass; 
+         flag = 11;
+         temp_pass = 0000; 
+         Screen = 1; 
+         delay_ms(4000);
+        }  
+        
+    if (PINE.1 == 0)                                            //ESCAPE 4
+       {
+        while(PINE.1 == 0);    
+        flag = 11;
+        if(Screen > 100)
+        {Screen = Screen/10;}
+        else        
+        {Screen = (Screen/10)-1;}
+        //flag = 1;
+       }
+}

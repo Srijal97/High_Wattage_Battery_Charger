@@ -25,6 +25,7 @@ ORDERED_OBJS += \
 "./LCD.obj" \
 "./PID.obj" \
 "./Scheduler_timer0_ISR.obj" \
+"./Scheduler_timer1_ISR.obj" \
 "./Serial.obj" \
 "./adc.obj" \
 "./commands.obj" \
@@ -175,8 +176,8 @@ Battery_Charger.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2806x_Adc.obj" "F2806x_CSMPasswords.obj" "F2806x_CodeStartBranch.obj" "F2806x_CpuTimers.obj" "F2806x_DefaultIsr.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_Sci.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "FLASH.obj" "LCD.obj" "PID.obj" "Scheduler_timer0_ISR.obj" "Serial.obj" "adc.obj" "commands.obj" "gpio.obj" "main.obj" "pwm.obj" 
-	-$(RM) "F2806x_Adc.d" "F2806x_CpuTimers.d" "F2806x_DefaultIsr.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_Sci.d" "F2806x_SysCtrl.d" "FLASH.d" "LCD.d" "PID.d" "Scheduler_timer0_ISR.d" "Serial.d" "adc.d" "commands.d" "gpio.d" "main.d" "pwm.d" 
+	-$(RM) "F2806x_Adc.obj" "F2806x_CSMPasswords.obj" "F2806x_CodeStartBranch.obj" "F2806x_CpuTimers.obj" "F2806x_DefaultIsr.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_Sci.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "FLASH.obj" "LCD.obj" "PID.obj" "Scheduler_timer0_ISR.obj" "Scheduler_timer1_ISR.obj" "Serial.obj" "adc.obj" "commands.obj" "gpio.obj" "main.obj" "pwm.obj" 
+	-$(RM) "F2806x_Adc.d" "F2806x_CpuTimers.d" "F2806x_DefaultIsr.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_Sci.d" "F2806x_SysCtrl.d" "FLASH.d" "LCD.d" "PID.d" "Scheduler_timer0_ISR.d" "Scheduler_timer1_ISR.d" "Serial.d" "adc.d" "commands.d" "gpio.d" "main.d" "pwm.d" 
 	-$(RM) "F2806x_CSMPasswords.d" "F2806x_CodeStartBranch.d" "F2806x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

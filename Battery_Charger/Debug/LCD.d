@@ -1,8 +1,8 @@
 # FIXED
 
 LCD.obj: ../LCD.c
-LCD.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/LCD.h
-LCD.obj: E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h
+LCD.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/LCD.h
+LCD.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h
 LCD.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h
 LCD.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h
 LCD.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
@@ -38,8 +38,8 @@ LCD.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F
 LCD.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
 
 ../LCD.c: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/LCD.h: 
-E:/PDC-\ Battery\ Charger/1ccs\ git\ edit/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/LCD.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 

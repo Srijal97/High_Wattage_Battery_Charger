@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "string.h"
 char *msg="";
-extern int systemState;
+extern int system_state;
     //commands will be given a 3 digit numeric code and followed by corresponding data if any
     //Commands-
     //    000-  noOp
@@ -67,14 +67,19 @@ void mainOn()
 {
     msg = "<001>-System is Turning On";
     SCI_UpdateMonitor(msg);
-    systemState=1;
+    if (system_state == 0) {  // if off then soft start
+        system_state = 1;
+    }
+
 }
 
 void mainOff()
 {
     msg = "<002>";
     SCI_UpdateMonitor(msg);
-    systemState=3;
+    if (system_state == 2) {  // if on then soft stop
+        system_state = 3;
+    }
 
 }
 
