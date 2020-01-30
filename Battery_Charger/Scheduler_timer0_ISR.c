@@ -78,8 +78,10 @@ __interrupt void Scheduler_timer0_ISR(void)
         soft_start_count++;
 
         //for (soft_start_count = 1; soft_start_count <= 30000; soft_start_count++) {
-        power_out_factor = (float)soft_start_count/30000;
+        power_out_factor = (int)soft_start_count/300;
         //}
+
+        power_out_factor = (float)power_out_factor/100;
 
         if (soft_start_count == 30000) {
             system_state = 2;
@@ -94,8 +96,10 @@ __interrupt void Scheduler_timer0_ISR(void)
         soft_stop_count--;
 
         //for (soft_start_count = 1; soft_start_count <= 30000; soft_start_count++) {
-        power_out_factor = (float)soft_stop_count/30000;
+        power_out_factor = (int)soft_stop_count/300;
         //}
+
+        power_out_factor = (float)power_out_factor/100;
 
         if (soft_stop_count == 0) {
             system_state = 0;
@@ -114,11 +118,11 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     // voltage sensing has a gain of 0.0157 V/V for R33 at 10k
     // at R33 = 4.7k, 120V -> 1121, 135V -> 1367, 150V -> 1404
-    static const Uint16 voltage_setpoint = 1121;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
+    const Uint16 voltage_setpoint = 1121;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
 
     // current setpoint of 1117 corresponds to 10A
-    static const Uint16 total_curr_setpoint = 2234;  //1117;
-    static const Uint16 batt_curr_setpoint = 1117;
+    const Uint16 total_curr_setpoint = 2234;  //1117;
+    const Uint16 batt_curr_setpoint = 1117;
 
 
     //SATURATE(voltage_setpoint, 2000, 2500);

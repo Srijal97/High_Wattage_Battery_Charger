@@ -114,12 +114,19 @@ void ADC_processVal(void)
     while(AdcRegs.ADCINTFLG.bit.ADCINT1 == 0); // wait till conversion is complete
     AdcRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;      // clear the flag
 
+
+
+    pwm_pot_adc_old = pwm_pot_adc;
+    freq_pot_adc_old = freq_pot_adc;
+
+    IP_V_DC_old = IP_V_DC;
+    OP_V_DC_old = OP_V_DC;
+    OP_I_DC_old = OP_I_DC;
+    BAT_I_DC_old = BAT_I_DC;
+
+
     /* result is copied to voltage
      * variables from the registers*/
-
-
-
-
     pwm_pot_adc = AdcResult.ADCRESULT0;
     freq_pot_adc = AdcResult.ADCRESULT1;
 
