@@ -11,8 +11,11 @@
 
 #include "macros.h"
 
+
 void Scheduler_timer0_ISR_Init(void);
 __interrupt void Scheduler_timer0_ISR(void);
+
+
 
 
 void sleep_mode(void);

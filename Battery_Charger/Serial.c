@@ -33,11 +33,12 @@ void error(void);
 //
 // Globals
 //
-char sdataA[5];    // Send data for SCI-A
-char rdataA[4]; // Received data for SCI-A
-char data;
-int comStart;
-int i = 0;
+char tx_data[] = {'<', '0', '0', '0', '-', '0', '0', '0', '0', '>'};    // Send data for SCI-A
+char rx_data[] = {'<', '0', '0', '0', '-', '0', '0', '0', '0', '>'}; // Received data for SCI-A
+
+const int MAX_TX_LENGTH = 10;
+
+extern int serial_data_received;
 
 void SerialInit() {
     //
@@ -64,16 +65,17 @@ void SerialInit() {
     //
     // 9600 baud @LSPCLK = 22.5MHz (90 MHz SYSCLK)
     //
-    SciaRegs.SCIHBAUD    =0x0001;
-    SciaRegs.SCILBAUD    =0x0024;
+    SciaRegs.SCIHBAUD = 0x0001;
+    SciaRegs.SCILBAUD = 0x0024;
 
-    SciaRegs.SCICTL1.all =0x0023;  // Relinquish SCI from Reset
-    int i;
-    for(i = 0; i<2; i++)
-    {
-        sdataA[i] = i;
-    }
-    //rdata_pointA = sdataA[0];
+
+    SciaRegs.SCICTL1.all = 0x0023;  // Relinquish SCI from Reset
+//    int i;
+//    for(i = 0; i<2; i++)
+//    {
+//        tx_data[i] = i;
+//    }
+    //rdata_pointA = tx_data[0];
 
 
 }
@@ -91,24 +93,42 @@ error(void)
 __interrupt void sciaRxFifoIsr(void)
 {
 
-    data = SciaRegs.SCIRXBUF.all;
-    if(data=='<') {
-        comStart = 1;
-        i=0;
+    static int com_started = 0;
+    static int rx_index = 0;
+
+    char data = SciaRegs.SCIRXBUF.all;
+
+    if(data == '<' && com_started == 0 && serial_data_received == 0) {
+        rx_data[0] = data;  //  data
+
+        com_started = 1;
+        rx_index++;
     }
-    else if(data =='>') {
-        comStart = 0;
-        i=0;recOp(rdataA);
+    else if(data == '>') {
+        if (com_started) {
+            rx_data[rx_index] = data;  //  data
+
+            com_started = 0;
+            rx_index = 0;
+            serial_data_received = 1;
+
+            process_rx_command(rx_data);
+            serial_data_received = 0;
+        }
     }
-    if (comStart == 1) {
-        *(rdataA+i)=data;  // Read data
-        i++;if(i==5){i=0;}
+    else if (com_started == 1) {
+        rx_data[rx_index] = data;  // Read data
+        rx_index++;
     }
 
-    SciaRegs.SCIFFRX.bit.RXFFOVRCLR=1;   // Clear Overflow flag
-    SciaRegs.SCIFFRX.bit.RXFFINTCLR=1;   // Clear Interrupt flag
+    if (rx_index == MAX_TX_LENGTH) {
+        rx_index = 0;
+    }
 
-    PieCtrlRegs.PIEACK.all|=0x100;       // Issue PIE ack
+    SciaRegs.SCIFFRX.bit.RXFFOVRCLR = 1;   // Clear Overflow flag
+    SciaRegs.SCIFFRX.bit.RXFFINTCLR = 1;   // Clear Interrupt flag
+
+    PieCtrlRegs.PIEACK.all |= 0x100;       // Issue PIE ack
 }
 
 //
@@ -125,32 +145,32 @@ void scia_fifo_init()
     //
     // enable TX, RX, internal SCICLK, Disable RX ERR, SLEEP, TXWAKE
     //
-    SciaRegs.SCICTL1.all =0x0003;
-    SciaRegs.SCICTL2.bit.TXINTENA =1;
-    SciaRegs.SCICTL2.bit.RXBKINTENA =1;
+    SciaRegs.SCICTL1.all = 0x0003;
+    SciaRegs.SCICTL2.bit.TXINTENA = 1;
+    SciaRegs.SCICTL2.bit.RXBKINTENA = 1;
     SciaRegs.SCIHBAUD = ((Uint16)SCI_PRD) >> 8;
     SciaRegs.SCILBAUD = SCI_PRD;
-//    SciaRegs.SCICCR.bit.LOOPBKENA =1;   // Enable loop back
-    SciaRegs.SCIFFTX.all=0xC022;
-    SciaRegs.SCIFFRX.all=0x0021;
-    SciaRegs.SCIFFCT.all=0x00;
+//    SciaRegs.SCICCR.bit.LOOPBKENA = 1;   // Enable loop back
+    SciaRegs.SCIFFTX.all = 0xC022;
+    SciaRegs.SCIFFRX.all = 0x0021;
+    SciaRegs.SCIFFCT.all = 0x00;
 
-    SciaRegs.SCICTL1.all =0x0023;       // Relinquish SCI from Reset
-    SciaRegs.SCIFFTX.bit.TXFIFOXRESET=1;
-    SciaRegs.SCIFFRX.bit.RXFIFORESET=1;
+    SciaRegs.SCICTL1.all = 0x0023;       // Relinquish SCI from Reset
+    SciaRegs.SCIFFTX.bit.TXFIFOXRESET = 1;
+    SciaRegs.SCIFFRX.bit.RXFIFORESET = 1;
 }
 
-void SCI_UpdateMonitor(char * msg)
+void SCI_UpdateMonitor(char *msg)
 {
-    int countChar = 0;
+    int char_index = 0;
 
-    while(msg[countChar]!='\0')
+    while(msg[char_index] != '\0' && char_index < 100)
     {
-        scia_xmit(msg[countChar]);
-        countChar++;
+        scia_xmit(msg[char_index]);
+        char_index++;
     }
-    SciaRegs.SCIFFTX.bit.TXFFINTCLR=1;  // Clear SCI Interrupt flag
-        PieCtrlRegs.PIEACK.all|=0x100;      // Issue PIE ACK
+    SciaRegs.SCIFFTX.bit.TXFFINTCLR = 1;  // Clear SCI Interrupt flag
+    PieCtrlRegs.PIEACK.all |= 0x100;      // Issue PIE ACK
 }
 
 void scia_xmit(int a)
@@ -159,7 +179,7 @@ void scia_xmit(int a)
     {
 
     }
-    SciaRegs.SCITXBUF=a;
+    SciaRegs.SCITXBUF = a;
 
     //ReceivedChare = SciaRegs.SCIRXBUF.all;
 }

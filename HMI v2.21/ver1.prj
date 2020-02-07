@@ -6,9 +6,9 @@ A=NeVaDa
 C=
 D=12-Aug-2019 5:09:52 PM
 Files=1
-OpenedFiles=11
+OpenedFiles=4
 OF1=ver1.c
-Active1=1
+Active1=0
 OutputListFilesDirectory=List
 OutputObjectFilesDirectory=Obj
 OutputExecutableFilesDirectory=Exe
@@ -21,23 +21,23 @@ Active0=0
 EditorPanel0=0
 PageIndex0=0
 EditorPanel1=0
-TimeStamp1=1346266001
+TimeStamp1=1346805482
 PageIndex1=1
-OF2=Inputs.c
-Active2=0
+OF2=commands.c
+Active2=1
 EditorPanel2=0
-TimeStamp2=1345881779
+TimeStamp2=1346805563
 PageIndex2=2
 TimeStamp0=1345471405
-OF3=Display_functions.c
+OF3=commands.h
 Active3=0
 EditorPanel3=0
-TimeStamp3=1345751824
+TimeStamp3=1346272960
 PageIndex3=3
-OF4=variables.h
+OF4=ver1.h
 Active4=0
 EditorPanel4=0
-TimeStamp4=1346215706
+TimeStamp4=1345883361
 PageIndex4=4
 OF5=commands.c
 Active5=0
@@ -171,7 +171,7 @@ WarningUnknownPragma=1
 LinkerWarnings=1
 DebugBootLoader=0
 WatchAVR8LAutoVariables=0
-Build=237
+Build=355
 UseEEPROMLocation0=1
 ExternalInterruptVectors=0
 IncludePath0=
@@ -238,7 +238,7 @@ LibraryPath28=
 LibraryPath29=
 LibraryPath30=
 LibraryPath31=
-COFFileTimeStamp=1346275056
+COFFileTimeStamp=1346725463
 OutputFormat=1
 EnhancedFunctionParameterPassing=1
 WarningCantInlineFunction=1
@@ -413,7 +413,7 @@ UserProgPath=
 UserProgCmdLine=
 UserProgWorkDir=
 [BookmarksFoldedCode]
-Files=27
+Files=28
 F1=C:\cvavr2\inc\alcd.h
 F2=C:\cvavr2\inc\spi.h
 F3=ver1.c
@@ -441,6 +441,7 @@ F24=..\CodeVisionAVR\inc\mega128_bits.h
 F25=..\CodeVisionAVR\inc\mega128.h
 F26=commands.h
 F27=..\CodeVisionAVR\inc\alcd.h
+F28=List\ver1.asm
 [Bookmarks1]
 TimeStamp=1032673607
 Row=26
@@ -478,13 +479,13 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1346266251
+TimeStamp=1346805615
 [Bookmarks3]
-TimeStamp=1346266001
-Row=230
-Column=88
+TimeStamp=1346805482
+Row=214
+Column=0
 ScrollPosX=0
-ScrollPosY=209
+ScrollPosY=304
 BK0=-1
 BK1=-1
 BK2=-1
@@ -602,9 +603,9 @@ BK9=-1
 [FoldedCode9]
 Blocks=0
 [Bookmarks10]
-TimeStamp=1346215706
-Row=19
-Column=4
+TimeStamp=1346790809
+Row=0
+Column=0
 ScrollPosX=0
 ScrollPosY=0
 BK0=-1
@@ -672,11 +673,11 @@ BK9=-1
 [FoldedCode13]
 Blocks=0
 [Bookmarks14]
-TimeStamp=1345881779
-Row=6
-Column=32
+TimeStamp=1346790799
+Row=0
+Column=0
 ScrollPosX=0
-ScrollPosY=6
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -704,7 +705,7 @@ BK7=-1
 BK8=-1
 BK9=-1
 [Bookmarks16]
-TimeStamp=1345751824
+TimeStamp=1346790803
 Row=0
 Column=0
 ScrollPosX=0
@@ -780,7 +781,7 @@ Blocks=0
 [FoldedCode1]
 Blocks=0
 [CompilerDebug]
-Build=237
+Build=292
 Chip=ATmega128
 CPUClock=8000000
 MemoryModel=1
@@ -896,44 +897,73 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 237
-L18=17770 line(s) compiled
+L17=Build: 292
+L18=17842 line(s) compiled
 L19=No errors
-L20=24 warning(s)
+L20=23 warning(s)
 L21=
 L22=Bit variables area: 0x2 to 0x2
 L23=Bit variables size: 1 byte(s)
 L24=
 L25=Data Stack area: 0x100 to 0x4FF
 L26=Data Stack size: 1024 byte(s)
-L27=Estimated Data Stack usage: 14 byte(s)
+L27=Estimated Data Stack usage: 16 byte(s)
 L28=
-L29=RAM Global variables area: 0x500 to 0x606
-L30=RAM Global variables size: 263 byte(s)
+L29=RAM Global variables area: 0x500 to 0x6A9
+L30=RAM Global variables size: 426 byte(s)
 L31=
-L32=Hardware Stack area: 0x607 to 0x10FF
-L33=Hardware Stack size: 2809 byte(s)
+L32=Hardware Stack area: 0x6AA to 0x10FF
+L33=Hardware Stack size: 2646 byte(s)
 L34=
 L35=Heap size: 0 byte(s)
 L36=
 L37=EEPROM usage: 0 byte(s), 0.0% of EEPROM
-L38=Program size: 1252 words (2504 bytes), 1.9% of FLASH
+L38=Program size: 1796 words (3592 bytes), 2.7% of FLASH
 Lines=39
-L39=12 words (24 bytes), 0.9% reduced by Code Compression
+L39=26 words (52 bytes), 1.4% reduced by Code Compression
 [BuildInfoAssembler]
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3664): No EEPROM data, deleting E:\PDC- Battery Charger\HMI v2.21\Exe\ver1.eep
+L4=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(4272): No EEPROM data, deleting E:\PDC- Battery Charger\HMI v2.21\Exe\ver1.eep
 L5=
 L6=ATmega128 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x0009c8   1834    670   2504  131072   1.9%
-L10=[.dseg] 0x000100 0x000607      0    263    263    4096   6.4%
+L9=[.cseg] 0x000000 0x000e08   2828    764   3592  131072   2.7%
+L10=[.dseg] 0x000100 0x0006aa      0    426    426    4096  10.4%
 L11=[.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 L12=
 Lines=12
+L13=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3878): error: Undefined symbol: __scl_bit
+L14=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3881): error: Undefined symbol: __sda_bit
+L15=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3883): error: Undefined symbol: __scl_bit
+L16=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3886): error: Undefined symbol: __sda_bit
+L17=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3888): error: Undefined symbol: __scl_bit
+L18=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3894): error: Undefined symbol: __sda_bit
+L19=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3895): error: Undefined symbol: __scl_bit
+L20=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3897): error: Undefined symbol: __scl_bit
+L21=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3899): error: Undefined symbol: __sda_bit
+L22=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3909): error: Undefined symbol: __scl_bit
+L23=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3912): error: Undefined symbol: __scl_bit
+L24=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3916): error: Undefined symbol: __sda_bit
+L25=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3918): error: Undefined symbol: __scl_bit
+L26=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3926): error: Undefined symbol: __sda_bit
+L27=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3929): error: Undefined symbol: __sda_bit
+L28=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3932): error: Undefined symbol: __scl_bit
+L29=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3934): error: Undefined symbol: __scl_bit
+L30=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3936): error: Undefined symbol: __sda_bit
+L31=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3944): error: Undefined symbol: __sda_bit
+L32=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3947): error: Undefined symbol: __sda_bit
+L33=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3950): error: Undefined symbol: __scl_bit
+L34=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3953): error: Undefined symbol: __scl_bit
+L35=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3956): error: Undefined symbol: __scl_bit
+L36=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3959): error: Undefined symbol: __sda_bit
+L37=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3961): error: Undefined symbol: __scl_bit
+L38=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3964): error: Undefined symbol: __sda_bit
+L39=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(3966): error: Undefined symbol: __scl_bit
+L40=E:\PDC- Battery Charger\HMI v2.21\List\ver1.asm(4042): No EEPROM data, deleting E:\PDC- Battery Charger\HMI v2.21\Exe\ver1.eep
+L41=
 [DefinedSymbolsDebug]
 Count=0
 [StartUp]
@@ -978,11 +1008,11 @@ BK7=-1
 BK8=-1
 BK9=-1
 [Bookmarks22]
-TimeStamp=1346215314
-Row=212
-Column=64
+TimeStamp=1346805563
+Row=301
+Column=18
 ScrollPosX=0
-ScrollPosY=181
+ScrollPosY=294
 BK0=-1
 BK1=-1
 BK2=-1
@@ -1012,10 +1042,6 @@ BK9=-1
 [FoldedCode23]
 Blocks=0
 [FoldedCode20]
-Blocks=0
-[FoldedCode3]
-Blocks=0
-[FoldedCode21]
 Blocks=0
 [Bookmarks24]
 TimeStamp=982084387
@@ -1054,11 +1080,11 @@ BK9=-1
 [FoldedCode25]
 Blocks=0
 [Bookmarks26]
-TimeStamp=1346215168
-Row=5
+TimeStamp=1346272960
+Row=0
 Column=0
 ScrollPosX=0
-ScrollPosY=0
+ScrollPosY=66
 BK0=-1
 BK1=-1
 BK2=-1
@@ -1069,10 +1095,6 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode26]
-Blocks=0
-[FoldedCode15]
-Blocks=0
 [Bookmarks27]
 TimeStamp=1032675656
 Row=0
@@ -1091,36 +1113,52 @@ BK8=-1
 BK9=-1
 [FoldedCode27]
 Blocks=0
-[FoldedCode22]
+[Bookmarks28]
+TimeStamp=1346668630
+Row=3870
+Column=0
+ScrollPosX=0
+ScrollPosY=3836
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode28]
 Blocks=0
-[FoldedCode10]
-Blocks=0
-[FoldedCode16]
+[FoldedCode15]
 Blocks=0
 [FoldedCode14]
 Blocks=0
+[FoldedCode16]
+Blocks=0
+[FoldedCode10]
+Blocks=0
+[FoldedCode3]
+Blocks=0
+[FoldedCode21]
+Blocks=0
+[FoldedCode26]
+Blocks=0
+[FoldedCode22]
+Blocks=0
 [HeadersList]
 Files=1
-F1=E:\PDC- Battery Charger\HMI v2.21\ver1.c
+F1=D:\HMI v2.21\ver1.c
 [Header1]
-Files=20
-F1=..\CodeVisionAVR\inc\mega128.h
-F2=..\CodeVisionAVR\inc\mega128_bits.h
-F3=..\CodeVisionAVR\inc\delay.h
-F4=..\CodeVisionAVR\inc\stdio.h
-F5=..\CodeVisionAVR\inc\io.h
-F6=..\CodeVisionAVR\inc\stdarg.h
-F7=..\CodeVisionAVR\inc\stdlib.h
-F8=..\CodeVisionAVR\inc\Math.h
-F9=commands.c
-F10=commands.h
-F11=..\CodeVisionAVR\inc\alcd.h
-F12=ver1.h
-F13=..\CodeVisionAVR\inc\i2c.h
-F14=..\CodeVisionAVR\inc\ds1307.h
-F15=..\CodeVisionAVR\inc\spi.h
-F16=Thermocouple.c
-F17=variables.h
-F18=Display_functions.c
-F19=Change.c
-F20=Inputs.c
+Files=10
+F1=C:\cvavr2\inc\mega128.h
+F2=C:\cvavr2\inc\mega128_bits.h
+F3=C:\cvavr2\inc\delay.h
+F4=C:\cvavr2\inc\stdio.h
+F5=C:\cvavr2\inc\stdarg.h
+F6=C:\cvavr2\inc\stdlib.h
+F7=C:\cvavr2\inc\Math.h
+F8=commands.c
+F9=commands.h
+F10=ver1.h

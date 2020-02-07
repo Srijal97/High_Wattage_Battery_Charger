@@ -14,6 +14,16 @@ void GPIO_setup_init(void)
 	GPIO_enable_PWM();
 	GPIO_setupLedPins();
 	GPIO_setupLCDPins();
+
+
+	// config reset switch on GPIO 34
+	EALLOW;
+	GpioCtrlRegs.GPBPUD.bit.GPIO34 = 0;   // enable pullup
+	GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 0;  // general purpose I/O
+	GpioCtrlRegs.GPBDIR.bit.GPIO34 = 0;  // direction input
+
+    EDIS;
+
 }
 
 void GPIO_setupLedPins(void)

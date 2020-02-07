@@ -22,6 +22,7 @@
 #include "Scheduler_timer0_ISR.h"
 #include "Scheduler_timer1_ISR.h"
 #include "string.h"
+#include "commands.h"
 
 //
 // Main
@@ -84,15 +85,11 @@ void main(void)
     //
 
 
-    IER |= M_INT1;                     // Enable CPU Interrupt 1
-    IER |= M_INT13;
-    EINT;                              // Enable Global interrupt INTM
-    ERTM;                              // Enable Global realtime interrupt DBGM
-
     EALLOW;  // This is needed to write to EALLOW protected registers
                 PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
                 EDIS;   // This is needed to disable write to EALLOW protected registers
 
+    GPIO_setup_init();
 
     InitSciaGpio();
     InitAdc();
@@ -111,18 +108,42 @@ void main(void)
 
 
     ADC_setup();
+
+    PWM_force_low_EPWM1();
+    PWM_force_low_EPWM2();
+
     PWM_setup_init();
 
     InitCpuTimers();
     Scheduler_timer0_ISR_Init();
     Scheduler_timer1_ISR_Init();
-    GPIO_setup_init();
+
+
+    IER |= M_INT1;                     // Enable CPU Interrupt 1
+    IER |= M_INT13;
+    EINT;                              // Enable Global interrupt INTM
+    ERTM;                              // Enable Global realtime interrupt DBGM
+
+
 
     while(1)
     {
         /*processor goes to sleep while
          * all the peripherals are running*/
-        sleep_mode();
+        //sleep_mode();
+
+        static Uint32 txValuesTime = 0;
+
+        if(delay_count_timer0 - txValuesTime > 5000) {
+            txFaultState();
+            //txInputVoltage();
+            txOutputVoltage();
+            txOutputCurrent();
+            txBatteryCurrent();
+
+            txValuesTime = delay_count_timer0;
+
+        }
 
     }
 }

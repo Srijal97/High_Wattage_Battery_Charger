@@ -26,4 +26,3 @@ int flag = 0;
 
 char disp_volt[3];
 char disp_current[3];
-

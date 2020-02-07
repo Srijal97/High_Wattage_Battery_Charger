@@ -45,9 +45,11 @@ main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/pwm.h
 main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h
 main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer0_ISR.h
 main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer1_ISR.h
-main.obj: C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/string.h
-main.obj: C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/_ti_config.h
-main.obj: C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/linkage.h
+main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/string.h
+main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/_ti_config.h
+main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/linkage.h
+main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/sys/cdefs.h
+main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h
 
 ../main.c: 
 C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/adc.h: 
@@ -94,6 +96,8 @@ C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/pwm.h:
 C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h: 
 C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer0_ISR.h: 
 C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer1_ISR.h: 
-C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/string.h: 
-C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/_ti_config.h: 
-C:/ti/ccs901/ccs/tools/compiler/ti-cgt-c2000_18.12.1.LTS/include/linkage.h: 
+C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/string.h: 
+C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/_ti_config.h: 
+C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/linkage.h: 
+C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/sys/cdefs.h: 
+C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h: 

@@ -26,12 +26,12 @@ float OP_I_DC = 0;
 float BAT_I_DC = 0;
 
 const Uint16 OP_V_DC_MAX_SETPOINT = 1404;  // 150V
-const Uint16 OP_V_DC_MIN_SETPOINT = 747;  // 80V
+const Uint16 OP_V_DC_MIN_SETPOINT = 373;  // 50V
 
 const Uint16 IP_V_DC_MAX_SETPOINT = 0;
 const Uint16 IP_V_DC_MIN_SETPOINT = 0;
 
-const Uint16 OP_I_DC_MAX_SETPOINT = 1117;  // 36A
+const Uint16 OP_I_DC_MAX_SETPOINT = 4000;  // 36A
 const Uint16 BAT_I_DC_MAX_SETPOINT = 2792; // 25A
 
 
@@ -47,7 +47,18 @@ float power_out_factor = 0;
 
 int system_state = 0;  // 0: OFF, 1: soft start, 2: ON, 3: soft stop
 
-int fault_condition = 0;
+int fault_condition = 0x00; // bit 0: output under voltage
+                            // bit 1: output over voltage
+                            // bit 2: input under voltage
+                            // bit 3: input over voltage
+                            // bit 4: output over current
+                            // bit 5: battery over current
+
+
+int serial_data_received = 0;
+
+Uint32 delay_count_timer1 = 0;
+Uint32 delay_count_timer0 = 0;
 
 
 #endif /* GLOBALS_H_ */

@@ -7,22 +7,22 @@ SHELL = cmd.exe
 # Add inputs and outputs from these tool invocations to the build variables 
 CMD_SRCS += \
 ../F28069.cmd \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd 
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd 
 
 ASM_SRCS += \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CSMPasswords.asm \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CodeStartBranch.asm \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_usDelay.asm 
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CSMPasswords.asm \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CodeStartBranch.asm \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_usDelay.asm 
 
 C_SRCS += \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Adc.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_DefaultIsr.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieCtrl.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieVect.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Sci.c \
-C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_SysCtrl.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Adc.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_DefaultIsr.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieCtrl.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieVect.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Sci.c \
+C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_SysCtrl.c \
 ../FLASH.c \
 ../LCD.c \
 ../PID.c \
@@ -136,14 +136,14 @@ ASM_DEPS__QUOTED += \
 "F2806x_usDelay.d" 
 
 C_SRCS__QUOTED += \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Adc.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_DefaultIsr.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieCtrl.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieVect.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Sci.c" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_SysCtrl.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Adc.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CpuTimers.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_DefaultIsr.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieCtrl.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_PieVect.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_Sci.c" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_SysCtrl.c" \
 "../FLASH.c" \
 "../LCD.c" \
 "../PID.c" \
@@ -157,8 +157,8 @@ C_SRCS__QUOTED += \
 "../pwm.c" 
 
 ASM_SRCS__QUOTED += \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CSMPasswords.asm" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CodeStartBranch.asm" \
-"C:/TI/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_usDelay.asm" 
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CSMPasswords.asm" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_CodeStartBranch.asm" \
+"C:/ti/c2000/C2000Ware_1_00_06_00/device_support/f2806x/common/source/F2806x_usDelay.asm" 
 
 

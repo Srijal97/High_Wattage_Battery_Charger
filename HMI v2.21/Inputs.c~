@@ -92,7 +92,7 @@ void input_volt(int next)
             show_volt();      
             //Voltage = temp_volt; 
             flag = 11; 
-            Screen = 33; 
+            Screen = 30; 
             delay_ms(2000);
          }
          else
@@ -105,7 +105,7 @@ void input_volt(int next)
             lcd_gotoxy(0,2);
             lcd_putsf("135 volts");
             voltage = 000;
-            Screen = 330;
+            Screen = 300;
             flag = 11; 
             delay_ms(2000); 
          }               
@@ -159,7 +159,7 @@ void input_current(int next)
             lcd_puts("Current set to:");
             show_current();      
             flag = 11; 
-            Screen = 33; 
+            Screen = 30; 
             delay_ms(2000);
          }
          else
@@ -172,7 +172,7 @@ void input_current(int next)
             lcd_gotoxy(0,2);
             lcd_putsf("20 amps");
             current = 000;
-            Screen = 331;
+            Screen = 301;
             flag = 11; 
             delay_ms(2000); 
          }               

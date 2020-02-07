@@ -25,7 +25,7 @@
 
 /* The following define the Scheduler Tick Value in Micro-Seconds*/
 #define SCH_TICK_VAL        (int)100//uSec
-#define SCH_T1_TICK_VAL        (int)10//uSec
+#define SCH_T1_TICK_VAL        (int)25//uSec
 
 #define HEART_BEAT_LED_PRD  (Uint32)1000000//usec
 
