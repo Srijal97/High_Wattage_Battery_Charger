@@ -29,17 +29,3 @@ void pointer_display_vert()                          //checks the cursor positio
 }
 
 
-
-void show_volt()
-{
-    sprintf(disp_volt,"%03d",voltage);
-    lcd_gotoxy(0,1);
-    lcd_puts(disp_volt);
-}
-void show_current()
-{
-    sprintf(disp_current,"%02d",current);
-    lcd_gotoxy(0,1);
-    lcd_puts(disp_current);
-}
-

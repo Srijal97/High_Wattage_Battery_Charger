@@ -39,7 +39,6 @@ extern int fault_condition;
 
 extern Uint32 delay_count_timer0;
 
-extern const Uint16 VOLTAGE_SENS_OFFSET_ERR;
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -151,8 +150,6 @@ __interrupt void Scheduler_timer0_ISR(void)
 
     SATURATE(output_voltage_setpoint, 1027, 1261);
     SATURATE(batt_curr_setpoint, 985, 1970);
-
-    output_voltage_setpoint -= VOLTAGE_SENS_OFFSET_ERR;
 
     // Cascaded PI controller with Inner Voltage and Outer Current Loop
 

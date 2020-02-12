@@ -63,7 +63,7 @@ PORTB.3 == KEYPAD 3
 #define DATA_OVERRUN (1<<DOR0)
 
 
-int data_received = 0;
+//int data_received = 0;
 
 // USART0 Receiver buffer
 #define RX_BUFFER_SIZE0 32
@@ -260,9 +260,20 @@ void Screen1()
     Pointer_horiz = 0;
     Pointer_vert = 0;
     lcd_clear();
-    lcd_gotoxy(0,0);
-    lcd_puts("Welcome to HMI");
-    delay_ms(1000);  
+    lcd_gotoxy(0,1);
+    lcd_puts("  High Wattage  ");
+    lcd_gotoxy(0,2);
+    lcd_puts(" Battery Charger");
+    delay_ms(1000);              
+    
+    
+    // default current and voltage value sent to DSP at start
+    set_voltage = 110;
+    xmitString("<014-0110");
+    
+    set_current = 10;    
+    xmitString("<015-0010");
+    
     Screen = 2;    
     Current_Screen = 1; 
     main_screen_trigger = 1;
@@ -353,7 +364,8 @@ void Main_Screen()
     lcd_puts(disp_set_voltage); 
        
     lcd_gotoxy(12,0);
-    sprintf(disp_set_btcurrent,"%03d",set_current);
+    sprintf(disp_set_btcurrent,"%03d",set_current);                           //12220
+    // sprintf(disp_set_btcurrent,"%03d",set_current);
     lcd_puts(disp_set_btcurrent);
      
    // current_mainscreen_flag = 0;
@@ -503,13 +515,14 @@ lcd_init(16);
             {     
                 lcd_clear();
                 lcd_gotoxy(0,0);
-                lcd_puts("FaulT:");
+                lcd_puts("Fault ID:");
                 lcd_gotoxy(4,2);
                 
                 
                 lcd_puts(fltArray);
                  
-                while(fault_flag == 1)machine_state();
+                while(fault_flag == 1)
+                machine_state();
             } 
             
             if (Screen == 1)        //runs only at start
@@ -529,7 +542,7 @@ lcd_init(16);
                 lcd_puts(disp_actual_voltage); 
                         
                 lcd_gotoxy(12,1);
-                sprintf(disp_actual_btcurrent,"%03d",actual_btcurrent);
+                sprintf(disp_actual_btcurrent,"%02d.%01d",actual_btcurrentip,actual_btcurrentdp);
                 lcd_puts("000"); 
                 lcd_gotoxy(12,1);
                 lcd_puts(disp_actual_btcurrent);    
@@ -541,7 +554,7 @@ lcd_init(16);
                 lcd_puts(disp_actual_ipvoltage); 
                          
                 lcd_gotoxy(12,2);
-                sprintf(disp_actual_opcurrent,"%03d",actual_opcurrent);
+                sprintf(disp_actual_opcurrent,"%02d.%01d",actual_opcurrentip,actual_opcurrentdp);
                 lcd_puts("000"); 
                 lcd_gotoxy(12,2);
                 lcd_puts(disp_actual_opcurrent);

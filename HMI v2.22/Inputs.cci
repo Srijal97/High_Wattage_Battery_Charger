@@ -1,4 +1,4 @@
-VERSION:3 SOURCE_TIMESTAMP:504C695C
+VERSION:3 SOURCE_TIMESTAMP:504C9759
 NODE:F LEVEL:0 LINE:5 "input(int next)"
-NODE:F LEVEL:0 LINE:72 "input_volt(int next)"
-NODE:F LEVEL:0 LINE:148 "input_current(int next)"
+NODE:F LEVEL:0 LINE:67 "input_volt(int next)"
+NODE:F LEVEL:0 LINE:154 "input_current(int next)"

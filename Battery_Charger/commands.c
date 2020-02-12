@@ -25,6 +25,9 @@ extern float BAT_I_DC;
 extern Uint16 batt_curr_setpoint;
 extern Uint16 output_voltage_setpoint;
 
+
+extern const Uint16 VOLTAGE_SENS_OFFSET_ERR;
+
 // commands will be given a 3 digit numeric code and followed by corresponding data if any
 
 void noOp()
@@ -99,8 +102,19 @@ void txFaultState() {
 }
 
 void txInputVoltage() {
+    int ip_voltage = (float)IP_V_DC * 0.3065;
 
     char tx_str[] = {'<', '0', '1', '2', '-', '0', '0', '0', '0', '>'};
+
+    tx_str[8] = ip_voltage % 10 + 48;
+    ip_voltage = ip_voltage/10;
+    tx_str[7] = ip_voltage % 10 + 48;
+    ip_voltage = ip_voltage/10;
+    tx_str[6] = ip_voltage % 10 + 48;
+    ip_voltage = ip_voltage/10;
+    tx_str[5] = ip_voltage % 10 + 48;
+    ip_voltage = ip_voltage/10;
+
     SCI_UpdateMonitor(tx_str);
 }
 
@@ -159,12 +173,14 @@ void rxSetOutputVoltage(int rx_volt_value)
 {
     output_voltage_setpoint = (Uint16)((float)rx_volt_value * 9.34);
 
+    output_voltage_setpoint -= VOLTAGE_SENS_OFFSET_ERR;
+
 }
 
 void rxSetBatteryCurrent(int rx_current_value)
 {
-    batt_curr_setpoint = (Uint16)((float)rx_current_value * 98.5);
 
+    batt_curr_setpoint = (Uint16)((float)rx_current_value * 98.5);
 }
 
 void process_rx_command(char *rx_str) { // rx_str = "<001-xxxx>"

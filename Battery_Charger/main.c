@@ -146,14 +146,15 @@ void main(void)
         //sleep_mode();
 
         static Uint32 txValuesTime = 0;
-
+        //static int i = 0;
         if(delay_count_timer0 - txValuesTime > 5000) {
 
-           // txInputVoltage();
+            txInputVoltage();
             txOutputVoltage();
             txOutputCurrent();
             txBatteryCurrent();
-
+            //i++;
+            //if(i%80 == 0)
             txFaultState();
 
             txValuesTime = delay_count_timer0;

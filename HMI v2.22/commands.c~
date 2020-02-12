@@ -15,13 +15,17 @@ int Screen = 1;
 int Current_Screen = 0;
 int Pointer_horiz = 0, Pointer_vert = 0, Pt;
 
-
-long set_voltage = 000;
-long set_current = 000;
-static int actual_voltage = 000;
-static int actual_btcurrent = 000;
-static int actual_ipvoltage = 000;
-static int actual_opcurrent = 000;
+int temp_voltage = 0;
+int temp_current = 0;
+long set_voltage = 0;
+long set_current = 0;
+//float set_current = 00.0;                        //12/2/20
+static int actual_voltage = 0;
+static int actual_btcurrentdp = 0;
+static int actual_btcurrentip = 0;
+static int actual_ipvoltage = 0;
+static int actual_opcurrentdp = 0;
+static int actual_opcurrentip = 0;
 
 int set_flag=0;
 int flag = 0;
@@ -233,7 +237,8 @@ void rxmainOff()
 void rxresetFault()
 {      
    fault_flag = 0;    
-   current_mainscreen_flag = 1; 
+   current_mainscreen_flag = 1;
+   status = 0; 
 }
 
 void rxfaultDetect(int val)
@@ -247,7 +252,7 @@ void rxfaultDetect(int val)
     {   
         PORTF &= ~0x40;
         fault_flag = 1;
-        mainOff();
+       // mainOff();
         
     }
     for(i=0;i<8;i++)
@@ -283,7 +288,12 @@ void rxreadOutputVolt(int val)
 
 void rxreadBatteryAmp(int val)
 {  
-    actual_btcurrent = val;      
+    int decimalPart;
+    int integerPart;
+    decimalPart = val%10;
+    integerPart = val/10;
+    actual_btcurrentdp = decimalPart;
+    actual_btcurrentip = integerPart;      
 }
 
 void rxreadInputVolt(int val)
@@ -293,7 +303,12 @@ void rxreadInputVolt(int val)
 
 void rxreadOutputCurrent(int val)
 {
-    actual_opcurrent = val;
+    int decimalPart;
+    int integerPart;
+    decimalPart = val%10;
+    integerPart = val/10;
+    actual_opcurrentdp = decimalPart;
+    actual_opcurrentip = integerPart;
 }
 
 
@@ -360,7 +375,7 @@ void comDecode(char * rec)
         case 15: noOp();                    break;
         case 16: noOp();                    break;
         case 17: noOp();                    break;
-        default: xmitString("Invalid command received");
+        default: ;
    }
    
 //    if (icmd == 1) {  // <001>

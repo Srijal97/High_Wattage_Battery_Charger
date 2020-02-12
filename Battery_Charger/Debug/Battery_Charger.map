@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v18.12.4                    
 ******************************************************************************
->> Linked Tue Feb 11 21:05:54 2020
+>> Linked Wed Feb 12 18:45:09 2020
 
 OUTPUT FILE NAME:   <Battery_Charger.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 003f5109
+ENTRY POINT SYMBOL: "_c_int00"  address: 003f5148
 
 
 MEMORY CONFIGURATION
@@ -21,7 +21,7 @@ PAGE 0:
   FLASHE                003e4000   00004000  00000000  00004000  RWIX
   FLASHD                003e8000   00004000  0000001f  00003fe1  RWIX
   FLASHC                003ec000   00004000  00000000  00004000  RWIX
-  FLASHA                003f4000   00003f80  00001596  000029ea  RWIX
+  FLASHA                003f4000   00003f80  000015d5  000029ab  RWIX
   CSM_RSVD              003f7f80   00000076  00000076  00000000  RWIX
   BEGIN                 003f7ff6   00000002  00000002  00000000  RWIX
   CSM_PWL_P0            003f7ff8   00000008  00000008  00000000  RWIX
@@ -106,20 +106,20 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.cinit     0    003f5478    0000011e     
-                  003f5478    0000006a     main.obj (.cinit)
-                  003f54e2    00000031     PID.obj (.cinit)
-                  003f5513    00000023     commands.obj (.cinit:_select_function)
-                  003f5536    0000001e     adc.obj (.cinit)
-                  003f5554    0000000e     rts2800_fpu32.lib : exit.c.obj (.cinit)
-                  003f5562    0000000d     Serial.obj (.cinit:_rx_data)
-                  003f556f    0000000a     Scheduler_timer0_ISR.obj (.cinit)
-                  003f5579    00000008     Serial.obj (.cinit)
-                  003f5581    00000005     rts2800_fpu32.lib : _lock.c.obj (.cinit:__lock)
-                  003f5586    00000005                       : _lock.c.obj (.cinit:__unlock)
-                  003f558b    00000005     commands.obj (.cinit)
-                  003f5590    00000004     pwm.obj (.cinit)
-                  003f5594    00000002     --HOLE-- [fill = 0]
+.cinit     0    003f54b8    0000011e     
+                  003f54b8    0000006a     main.obj (.cinit)
+                  003f5522    00000031     PID.obj (.cinit)
+                  003f5553    00000023     commands.obj (.cinit:_select_function)
+                  003f5576    0000001e     adc.obj (.cinit)
+                  003f5594    0000000e     rts2800_fpu32.lib : exit.c.obj (.cinit)
+                  003f55a2    0000000d     Serial.obj (.cinit:_rx_data)
+                  003f55af    0000000a     Scheduler_timer0_ISR.obj (.cinit)
+                  003f55b9    00000008     Serial.obj (.cinit)
+                  003f55c1    00000005     rts2800_fpu32.lib : _lock.c.obj (.cinit:__lock)
+                  003f55c6    00000005                       : _lock.c.obj (.cinit:__unlock)
+                  003f55cb    00000005     commands.obj (.cinit)
+                  003f55d0    00000004     pwm.obj (.cinit)
+                  003f55d4    00000002     --HOLE-- [fill = 0]
 
 .pinit     0    003f4000    00000000     UNINITIALIZED
 
@@ -127,39 +127,39 @@ ramfuncs   0    003e8000    0000001f     RUN ADDR = 00008000
                   003e8000    0000001b     F2806x_SysCtrl.obj (ramfuncs)
                   003e801b    00000004     F2806x_usDelay.obj (ramfuncs)
 
-.text      0    003f4000    0000132a     
+.text      0    003f4000    00001369     
                   003f4000    0000039b     F2806x_DefaultIsr.obj (.text:retain)
                   003f439b    0000023a     F2806x_Adc.obj (.text)
-                  003f45d5    0000019e     commands.obj (.text)
-                  003f4773    00000192     F2806x_SysCtrl.obj (.text)
-                  003f4905    00000176     Scheduler_timer0_ISR.obj (.text:retain)
-                  003f4a7b    0000016d     adc.obj (.text)
-                  003f4be8    000000f4     PID.obj (.text)
-                  003f4cdc    000000e4     pwm.obj (.text)
-                  003f4dc0    000000b0     Scheduler_timer1_ISR.obj (.text:retain)
-                  003f4e70    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
-                  003f4ef8    0000007e     Serial.obj (.text:retain)
-                  003f4f76    00000076     F2806x_CpuTimers.obj (.text)
-                  003f4fec    00000060     Serial.obj (.text)
-                  003f504c    0000005f     main.obj (.text)
-                  003f50ab    0000005e     gpio.obj (.text)
-                  003f5109    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
-                  003f515f    0000003b     Scheduler_timer0_ISR.obj (.text)
-                  003f519a    00000030     F2806x_Sci.obj (.text)
-                  003f51ca    0000002a     rts2800_fpu32.lib : l_div28.asm.obj (.text)
-                  003f51f4    00000029                       : exit.c.obj (.text)
-                  003f521d    00000028     F2806x_PieCtrl.obj (.text)
-                  003f5245    00000026     F2806x_PieVect.obj (.text)
-                  003f526b    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
-                  003f528f    00000022     Scheduler_timer1_ISR.obj (.text)
-                  003f52b1    00000022     rts2800_fpu32.lib : i_div28.asm.obj (.text)
-                  003f52d3    0000001d                       : memcpy.c.obj (.text)
-                  003f52f0    00000019                       : args_main.c.obj (.text)
-                  003f5309    0000000d     FLASH.obj (.text)
-                  003f5316    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
-                  003f531f    00000008     F2806x_CodeStartBranch.obj (.text)
-                  003f5327    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
-                  003f5329    00000001                       : startup.c.obj (.text)
+                  003f45d5    000001e1     commands.obj (.text)
+                  003f47b6    00000192     F2806x_SysCtrl.obj (.text)
+                  003f4948    00000170     Scheduler_timer0_ISR.obj (.text:retain)
+                  003f4ab8    0000016d     adc.obj (.text)
+                  003f4c25    000000f4     PID.obj (.text)
+                  003f4d19    000000e4     pwm.obj (.text)
+                  003f4dfd    000000b0     Scheduler_timer1_ISR.obj (.text:retain)
+                  003f4ead    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
+                  003f4f35    0000007e     Serial.obj (.text:retain)
+                  003f4fb3    00000076     F2806x_CpuTimers.obj (.text)
+                  003f5029    00000061     main.obj (.text)
+                  003f508a    00000060     Serial.obj (.text)
+                  003f50ea    0000005e     gpio.obj (.text)
+                  003f5148    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
+                  003f519e    0000003b     Scheduler_timer0_ISR.obj (.text)
+                  003f51d9    00000030     F2806x_Sci.obj (.text)
+                  003f5209    0000002a     rts2800_fpu32.lib : l_div28.asm.obj (.text)
+                  003f5233    00000029                       : exit.c.obj (.text)
+                  003f525c    00000028     F2806x_PieCtrl.obj (.text)
+                  003f5284    00000026     F2806x_PieVect.obj (.text)
+                  003f52aa    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
+                  003f52ce    00000022     Scheduler_timer1_ISR.obj (.text)
+                  003f52f0    00000022     rts2800_fpu32.lib : i_div28.asm.obj (.text)
+                  003f5312    0000001d                       : memcpy.c.obj (.text)
+                  003f532f    00000019                       : args_main.c.obj (.text)
+                  003f5348    0000000d     FLASH.obj (.text)
+                  003f5355    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
+                  003f535e    00000008     F2806x_CodeStartBranch.obj (.text)
+                  003f5366    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
+                  003f5368    00000001                       : startup.c.obj (.text)
 
 csm_rsvd   0    003f7f80    00000076     
                   003f7f80    00000076     F2806x_CSMPasswords.obj (csm_rsvd)
@@ -190,17 +190,17 @@ csmpasswds
                   0000a092    00000002     commands.obj (.ebss)
                   0000a094    00000001     pwm.obj (.ebss)
 
-.econst    0    003f532a    0000014e     
-                  003f532a    00000100     F2806x_PieVect.obj (.econst:_PieVectTableInit)
-                  003f542a    0000000c     Scheduler_timer0_ISR.obj (.econst:.string)
-                  003f5436    0000000a     commands.obj (.econst:.string:_$P$T0$1)
-                  003f5440    0000000a     commands.obj (.econst:.string:_$P$T1$2)
-                  003f544a    0000000a     commands.obj (.econst:.string:_$P$T2$3)
-                  003f5454    0000000a     commands.obj (.econst:.string:_$P$T3$4)
-                  003f545e    0000000a     commands.obj (.econst:.string:_$P$T4$5)
-                  003f5468    00000008     commands.obj (.econst:.string)
-                  003f5470    00000007     main.obj (.econst)
-                  003f5477    00000001     Serial.obj (.econst)
+.econst    0    003f536a    0000014e     
+                  003f536a    00000100     F2806x_PieVect.obj (.econst:_PieVectTableInit)
+                  003f546a    0000000c     Scheduler_timer0_ISR.obj (.econst:.string)
+                  003f5476    0000000a     commands.obj (.econst:.string:_$P$T0$1)
+                  003f5480    0000000a     commands.obj (.econst:.string:_$P$T1$2)
+                  003f548a    0000000a     commands.obj (.econst:.string:_$P$T2$3)
+                  003f5494    0000000a     commands.obj (.econst:.string:_$P$T3$4)
+                  003f549e    0000000a     commands.obj (.econst:.string:_$P$T4$5)
+                  003f54a8    00000008     commands.obj (.econst:.string)
+                  003f54b0    00000007     main.obj (.econst)
+                  003f54b7    00000001     Serial.obj (.econst)
 
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot28.asm.obj (.reset)
@@ -442,15 +442,15 @@ MODULE SUMMARY
     .\
        F2806x_GlobalVariableDefs.obj   0      0                  3550              
        F2806x_DefaultIsr.obj           923    0                  0                 
+       commands.obj                    481    98                 34                
        F2806x_Adc.obj                  570    0                  0                 
-       commands.obj                    414    98                 34                
-       Scheduler_timer0_ISR.obj        433    22                 4                 
        F2806x_SysCtrl.obj              456    0                  0                 
+       Scheduler_timer0_ISR.obj        427    22                 4                 
        adc.obj                         365    30                 14                
        PID.obj                         244    49                 16                
        F2806x_PieVect.obj              38     256                0                 
        Serial.obj                      222    22                 12                
-       main.obj                        95     113                34                
+       main.obj                        97     113                34                
        pwm.obj                         228    4                  1                 
        Scheduler_timer1_ISR.obj        210    0                  0                 
        F2806x_CpuTimers.obj            118    0                  24                
@@ -462,7 +462,7 @@ MODULE SUMMARY
        F2806x_CodeStartBranch.obj      10     0                  0                 
        F2806x_usDelay.obj              8      0                  0                 
     +--+-------------------------------+------+------------------+--------------------+
-       Total:                          4529   720                3689              
+       Total:                          4592   720                3689              
                                                                                    
     C:\TI\ccs930\ccs\tools\compiler\ti-cgt-c2000_18.12.4.LTS\lib\rts2800_fpu32.lib
        fs_div28.asm.obj                136    0                  0                 
@@ -481,7 +481,7 @@ MODULE SUMMARY
                                                                                    
        Stack:                          0      0                  768               
     +--+-------------------------------+------+------------------+--------------------+
-       Grand Total:                    4970   744                4467              
+       Grand Total:                    5033   744                4467              
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -635,16 +635,16 @@ address     data page           name
 
 003d7e80    f5fa (003d7e80)     _PartIdRegs
 
-003f532a    fd4c (003f5300)     _PieVectTableInit
+003f536a    fd4d (003f5340)     _PieVectTableInit
 
-003f5470    fd51 (003f5440)     _VOLTAGE_SENS_OFFSET_ERR
-003f5471    fd51 (003f5440)     _OP_V_DC_MAX_SETPOINT
-003f5472    fd51 (003f5440)     _OP_V_DC_MIN_SETPOINT
-003f5473    fd51 (003f5440)     _IP_V_DC_MAX_SETPOINT
-003f5474    fd51 (003f5440)     _IP_V_DC_MIN_SETPOINT
-003f5475    fd51 (003f5440)     _OP_I_DC_MAX_SETPOINT
-003f5476    fd51 (003f5440)     _BAT_I_DC_MAX_SETPOINT
-003f5477    fd51 (003f5440)     _MAX_TX_LENGTH
+003f54b0    fd52 (003f5480)     _VOLTAGE_SENS_OFFSET_ERR
+003f54b1    fd52 (003f5480)     _OP_V_DC_MAX_SETPOINT
+003f54b2    fd52 (003f5480)     _OP_V_DC_MIN_SETPOINT
+003f54b3    fd52 (003f5480)     _IP_V_DC_MAX_SETPOINT
+003f54b4    fd52 (003f5480)     _IP_V_DC_MIN_SETPOINT
+003f54b5    fd52 (003f5480)     _OP_I_DC_MAX_SETPOINT
+003f54b6    fd52 (003f5480)     _BAT_I_DC_MAX_SETPOINT
+003f54b7    fd52 (003f5480)     _MAX_TX_LENGTH
 
 003f7ff8    fdff (003f7fc0)     _CsmPwl
 
@@ -654,14 +654,14 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                            
 ----  -------   ----                            
 0     003f4000  .text                           
-0     003f51f4  C$$EXIT                         
-0     003f4e70  FS$$DIV                         
-0     003f52b1  I$$DIV                          
-0     003f52c2  I$$MOD                          
-0     003f51ca  L$$DIV                          
-0     003f51d9  L$$MOD                          
-0     003f51e7  UL$$DIV                         
-0     003f51ee  UL$$MOD                         
+0     003f5233  C$$EXIT                         
+0     003f4ead  FS$$DIV                         
+0     003f52f0  I$$DIV                          
+0     003f5301  I$$MOD                          
+0     003f5209  L$$DIV                          
+0     003f5218  L$$MOD                          
+0     003f5226  UL$$DIV                         
+0     003f522d  UL$$MOD                         
 0     003f40be  _ADCINT1_ISR                    
 0     003f40c8  _ADCINT2_ISR                    
 0     003f42d0  _ADCINT3_ISR                    
@@ -671,23 +671,23 @@ page  address   name
 0     003f42f8  _ADCINT7_ISR                    
 0     003f4302  _ADCINT8_ISR                    
 0     003f40e6  _ADCINT9_ISR                    
-0     003f4b4b  _ADC_filter                     
-0     003f4ac6  _ADC_intToString                
-0     003f4ac7  _ADC_processVal                 
-0     003f4a7b  _ADC_setup                      
+0     003f4b88  _ADC_filter                     
+0     003f4b03  _ADC_intToString                
+0     003f4b04  _ADC_processVal                 
+0     003f4ab8  _ADC_setup                      
 0     003f440f  _AdcChanSelect                  
 0     003f4484  _AdcConversion                  
 0     003f43e8  _AdcOffsetSelfCal               
 1     00007100  _AdcRegs                        
 1     00000b00  _AdcResult                      
 1     0000a018  _BAT_I_DC                       
-0     003f5476  _BAT_I_DC_MAX_SETPOINT          
+0     003f54b6  _BAT_I_DC_MAX_SETPOINT          
 1     0000a07c  _BAT_I_DC_old                   
 1     0000a004  _BAT_I_DC_raw                   
 1     0000a006  _CC_Ki_discrete                 
 1     0000a005  _CC_Kp_discrete                 
-0     003f4c49  _CC_PI_discrete1                
-0     003f4c7a  _CC_PI_discrete2                
+0     003f4c86  _CC_PI_discrete1                
+0     003f4cb7  _CC_PI_discrete2                
 0     003f430c  _CLA1_INT1_ISR                  
 0     003f4316  _CLA1_INT2_ISR                  
 0     003f4320  _CLA1_INT3_ISR                  
@@ -698,12 +698,12 @@ page  address   name
 0     003f4352  _CLA1_INT8_ISR                  
 1     0000a008  _CV_Ki_discrete                 
 1     0000a007  _CV_Kp_discrete                 
-0     003f4cab  _CV_PI_discrete                 
+0     003f4ce8  _CV_PI_discrete                 
 1     00001400  _Cla1Regs                       
 1     00006400  _Comp1Regs                      
 1     00006420  _Comp2Regs                      
 1     00006440  _Comp3Regs                      
-0     003f4fb1  _ConfigCpuTimer                 
+0     003f4fee  _ConfigCpuTimer                 
 1     0000a022  _CpuTimer0                      
 1     00000c00  _CpuTimer0Regs                  
 1     0000a02a  _CpuTimer1                      
@@ -712,7 +712,7 @@ page  address   name
 1     00000c10  _CpuTimer2Regs                  
 1     003f7ff8  _CsmPwl                         
 1     00000ae0  _CsmRegs                        
-0     003f4878  _CsmUnlock                      
+0     003f48bb  _CsmUnlock                      
 0     003f4014  _DATALOG_ISR                    
 0     003f4244  _DINTCH1_ISR                    
 0     003f424e  _DINTCH2_ISR                    
@@ -722,7 +722,7 @@ page  address   name
 0     003f4276  _DINTCH6_ISR                    
 0     0000801b  _DSP28x_usDelay                 
 1     00000880  _DevEmuRegs                     
-0     003f4797  _DisableDog                     
+0     003f47da  _DisableDog                     
 1     00001000  _DmaRegs                        
 0     003f42bc  _ECAN0INTA_ISR                  
 0     003f42c6  _ECAN1INTA_ISR                  
@@ -769,17 +769,17 @@ page  address   name
 1     00006b40  _EQep2Regs                      
 1     00000d01  _EmuBMode                       
 1     00000d00  _EmuKey                         
-0     003f523c  _EnableInterrupts               
-0     003f48ef  _ExtOscSel                      
-0     003f5309  _FLASH_CONFIG                   
+0     003f527b  _EnableInterrupts               
+0     003f4932  _ExtOscSel                      
+0     003f5348  _FLASH_CONFIG                   
 1     00000a80  _FlashRegs                      
 1     00000d04  _Flash_CPUScaleFactor           
 1     00000d02  _Flash_CallbackPtr              
-0     003f50d9  _GPIO_disable_PWM               
-0     003f50c9  _GPIO_enable_PWM                
-0     003f50ee  _GPIO_setupLCDPins              
-0     003f50bd  _GPIO_setupLedPins              
-0     003f50ab  _GPIO_setup_init                
+0     003f5118  _GPIO_disable_PWM               
+0     003f5108  _GPIO_enable_PWM                
+0     003f512d  _GPIO_setupLCDPins              
+0     003f50fc  _GPIO_setupLedPins              
+0     003f50ea  _GPIO_setup_init                
 1     00006f80  _GpioCtrlRegs                   
 1     00006fc0  _GpioDataRegs                   
 1     00006fe0  _GpioIntRegs                    
@@ -798,59 +798,59 @@ page  address   name
 0     003f4000  _INT13_ISR                      
 0     003f400a  _INT14_ISR                      
 1     0000a012  _IP_V_DC                        
-0     003f5473  _IP_V_DC_MAX_SETPOINT           
-0     003f5474  _IP_V_DC_MIN_SETPOINT           
+0     003f54b3  _IP_V_DC_MAX_SETPOINT           
+0     003f54b4  _IP_V_DC_MIN_SETPOINT           
 1     0000a076  _IP_V_DC_old                    
 1     0000a001  _IP_V_DC_raw                    
 0     003f439b  _InitAdc                        
 0     003f43c6  _InitAdcAio                     
-0     003f4f76  _InitCpuTimers                  
+0     003f4fb3  _InitCpuTimers                  
 0     00008000  _InitFlash                      
-0     003f4822  _InitPeripheralClocks           
-0     003f521d  _InitPieCtrl                    
-0     003f5245  _InitPieVectTable               
-0     003f479f  _InitPll                        
-0     003f47f4  _InitPll2                       
-0     003f519a  _InitSci                        
-0     003f519b  _InitSciGpio                    
-0     003f51a0  _InitSciaGpio                   
-0     003f51b6  _InitScibGpio                   
-0     003f4773  _InitSysCtrl                    
-0     003f48a9  _IntOsc1Sel                     
-0     003f48b9  _IntOsc2Sel                     
+0     003f4865  _InitPeripheralClocks           
+0     003f525c  _InitPieCtrl                    
+0     003f5284  _InitPieVectTable               
+0     003f47e2  _InitPll                        
+0     003f4837  _InitPll2                       
+0     003f51d9  _InitSci                        
+0     003f51da  _InitSciGpio                    
+0     003f51df  _InitSciaGpio                   
+0     003f51f5  _InitScibGpio                   
+0     003f47b6  _InitSysCtrl                    
+0     003f48ec  _IntOsc1Sel                     
+0     003f48fc  _IntOsc2Sel                     
 0     003f4370  _LUF_ISR                        
 0     003f4366  _LVF_ISR                        
-0     003f5477  _MAX_TX_LENGTH                  
+0     003f54b7  _MAX_TX_LENGTH                  
 0     003f4230  _MRINTA_ISR                     
 0     003f423a  _MXINTA_ISR                     
 1     00005000  _McbspaRegs                     
 0     003f4032  _NMI_ISR                        
 1     00007060  _NmiIntruptRegs                 
 1     0000a016  _OP_I_DC                        
-0     003f5475  _OP_I_DC_MAX_SETPOINT           
+0     003f54b5  _OP_I_DC_MAX_SETPOINT           
 1     0000a07a  _OP_I_DC_old                    
 1     0000a003  _OP_I_DC_raw                    
 1     0000a014  _OP_V_DC                        
-0     003f5471  _OP_V_DC_MAX_SETPOINT           
-0     003f5472  _OP_V_DC_MIN_SETPOINT           
+0     003f54b1  _OP_V_DC_MAX_SETPOINT           
+0     003f54b2  _OP_V_DC_MIN_SETPOINT           
 1     0000a078  _OP_V_DC_old                    
 1     0000a002  _OP_V_DC_raw                    
-0     003f4be8  _PID                            
+0     003f4c25  _PID                            
 0     003f4387  _PIE_RESERVED                   
-0     003f4d84  _PWM_disable_force_EPWM1        
-0     003f4db2  _PWM_disable_force_EPWM2        
-0     003f4d74  _PWM_force_high_EPWM1           
-0     003f4da2  _PWM_force_high_EPWM2           
-0     003f4d64  _PWM_force_low_EPWM1            
-0     003f4d92  _PWM_force_low_EPWM2            
-0     003f4ce1  _PWM_setup_EPWM_1               
-0     003f4d1d  _PWM_setup_EPWM_2               
-0     003f4cdc  _PWM_setup_init                 
-0     003f4d5a  _PWM_updatePhase                
+0     003f4dc1  _PWM_disable_force_EPWM1        
+0     003f4def  _PWM_disable_force_EPWM2        
+0     003f4db1  _PWM_force_high_EPWM1           
+0     003f4ddf  _PWM_force_high_EPWM2           
+0     003f4da1  _PWM_force_low_EPWM1            
+0     003f4dcf  _PWM_force_low_EPWM2            
+0     003f4d1e  _PWM_setup_EPWM_1               
+0     003f4d5a  _PWM_setup_EPWM_2               
+0     003f4d19  _PWM_setup_init                 
+0     003f4d97  _PWM_updatePhase                
 1     003d7e80  _PartIdRegs                     
 1     00000ce0  _PieCtrlRegs                    
 1     00000d00  _PieVectTable                   
-0     003f532a  _PieVectTableInit               
+0     003f536a  _PieVectTableInit               
 0     003f401e  _RTOSINT_ISR                    
 0     003e801f  _RamfuncsLoadEnd                
 abs   0000001f  _RamfuncsLoadSize               
@@ -861,19 +861,19 @@ abs   0000001f  _RamfuncsLoadSize
 0     003f42a8  _SCIRXINTB_ISR                  
 0     003f429e  _SCITXINTA_ISR                  
 0     003f42b2  _SCITXINTB_ISR                  
-0     003f501f  _SCI_UpdateMonitor              
+0     003f50bd  _SCI_UpdateMonitor              
 0     003f4208  _SPIRXINTA_ISR                  
 0     003f421c  _SPIRXINTB_ISR                  
 0     003f4212  _SPITXINTA_ISR                  
 0     003f4226  _SPITXINTB_ISR                  
-0     003f4905  _Scheduler_timer0_ISR           
-0     003f5173  _Scheduler_timer0_ISR_Init      
-0     003f4dc0  _Scheduler_timer1_ISR           
-0     003f528f  _Scheduler_timer1_ISR_Init      
+0     003f4948  _Scheduler_timer0_ISR           
+0     003f51b2  _Scheduler_timer0_ISR_Init      
+0     003f4dfd  _Scheduler_timer1_ISR           
+0     003f52ce  _Scheduler_timer1_ISR_Init      
 1     00007050  _SciaRegs                       
 1     00007750  _ScibRegs                       
-0     003f4fec  _SerialInit                     
-0     003f478d  _ServiceDog                     
+0     003f508a  _SerialInit                     
+0     003f47d0  _ServiceDog                     
 1     00007040  _SpiaRegs                       
 1     00007740  _SpibRegs                       
 1     00007010  _SysCtrlRegs                    
@@ -893,13 +893,13 @@ abs   0000001f  _RamfuncsLoadSize
 0     003f408c  _USER8_ISR                      
 0     003f4096  _USER9_ISR                      
 1     00004000  _Usb0Regs                       
-0     003f5470  _VOLTAGE_SENS_OFFSET_ERR        
+0     003f54b0  _VOLTAGE_SENS_OFFSET_ERR        
 0     003f40fa  _WAKEINT_ISR                    
 0     003f40d2  _XINT1_ISR                      
 0     003f40dc  _XINT2_ISR                      
 0     003f435c  _XINT3_ISR                      
 1     00007070  _XIntruptRegs                   
-0     003f48d3  _XtalOscSel                     
+0     003f4916  _XtalOscSel                     
 1     00000350  __STACK_END                     
 abs   00000300  __STACK_SIZE                    
 1     0000a03c  ___TI_cleanup_ptr               
@@ -910,36 +910,36 @@ abs   ffffffff  ___TI_prof_data_size
 abs   ffffffff  ___TI_prof_data_start           
 abs   ffffffff  ___binit__                      
 abs   ffffffff  ___c_args__                     
-0     003f5478  ___cinit__                      
-0     003f532a  ___etext__                      
+0     003f54b8  ___cinit__                      
+0     003f5369  ___etext__                      
 abs   ffffffff  ___pinit__                      
 0     003f4000  ___text__                       
-0     003f52f0  __args_main                     
+0     003f532f  __args_main                     
 1     0000a08e  __lock                          
-0     003f531e  __nop                           
-0     003f531a  __register_lock                 
-0     003f5316  __register_unlock               
+0     003f535d  __nop                           
+0     003f5359  __register_lock                 
+0     003f5355  __register_unlock               
 1     00000050  __stack                         
-0     003f5329  __system_post_cinit             
-0     003f5327  __system_pre_init               
+0     003f5368  __system_post_cinit             
+0     003f5366  __system_pre_init               
 1     0000a090  __unlock                        
-0     003f51f4  _abort                          
+0     003f5233  _abort                          
 1     0000a009  _batt_curr_setpoint             
-0     003f5109  _c_int00                        
-0     003f526b  _copy_in                        
+0     003f5148  _c_int00                        
+0     003f52aa  _copy_in                        
 1     0000a01e  _delay_count_timer0             
 1     0000a01c  _delay_count_timer1             
-0     003f52a4  _delay_n_10us                   
-0     003f5004  _error                          
-0     003f51f6  _exit                           
+0     003f52e3  _delay_n_10us                   
+0     003f50a2  _error                          
+0     003f5235  _exit                           
 1     0000a00c  _fault_condition                
 1     0000a010  _freq_pot_adc                   
 1     0000a074  _freq_pot_adc_old               
-0     003f504c  _main                           
+0     003f5029  _main                           
 0     003f45dd  _mainOff                        
 0     003f45d6  _mainOn                         
-0     003f515f  _map                            
-0     003f52d3  _memcpy                         
+0     003f519e  _map                            
+0     003f5312  _memcpy                         
 1     0000a092  _msg                            
 0     003f45d5  _noOp                           
 1     0000a000  _operation_mode                 
@@ -950,29 +950,29 @@ abs   ffffffff  ___pinit__
 1     0000a068  _pidOutput2                     
 1     0000a06c  _pidOutput2_old                 
 1     0000a01a  _power_out_factor               
-0     003f4741  _process_rx_command             
+0     003f4784  _process_rx_command             
 1     0000a00e  _pwm_pot_adc                    
 1     0000a072  _pwm_pot_adc_old                
 0     003f45e5  _resetFault                     
 0     003f4391  _rsvd_ISR                       
-0     003f4731  _rxSetBatteryCurrent            
-0     003f471e  _rxSetOutputVoltage             
+0     003f4774  _rxSetBatteryCurrent            
+0     003f475b  _rxSetOutputVoltage             
 1     0000a080  _rx_data                        
-0     003f4ef8  _sciaRxFifoIsr                  
-0     003f5006  _scia_fifo_init                 
-0     003f5040  _scia_xmit                      
+0     003f4f35  _sciaRxFifoIsr                  
+0     003f50a4  _scia_fifo_init                 
+0     003f50de  _scia_xmit                      
 1     0000a00d  _serial_data_received           
-0     003f518c  _sleep_mode                     
+0     003f51cb  _sleep_mode                     
 1     0000a00b  _system_state                   
-0     003f46d3  _txBatteryCurrent               
+0     003f4710  _txBatteryCurrent               
 0     003f45f0  _txFaultState                   
 0     003f462e  _txInputVoltage                 
-0     003f4688  _txOutputCurrent                
-0     003f463d  _txOutputVoltage                
+0     003f46c5  _txOutputCurrent                
+0     003f467a  _txOutputVoltage                
 abs   ffffffff  binit                           
-0     003f5478  cinit                           
+0     003f54b8  cinit                           
 0     003f7ff6  code_start                      
-0     003f532a  etext                           
+0     003f5369  etext                           
 abs   ffffffff  pinit                           
 
 
@@ -1090,102 +1090,102 @@ page  address   name
 0     003f45e5  _resetFault                     
 0     003f45f0  _txFaultState                   
 0     003f462e  _txInputVoltage                 
-0     003f463d  _txOutputVoltage                
-0     003f4688  _txOutputCurrent                
-0     003f46d3  _txBatteryCurrent               
-0     003f471e  _rxSetOutputVoltage             
-0     003f4731  _rxSetBatteryCurrent            
-0     003f4741  _process_rx_command             
-0     003f4773  _InitSysCtrl                    
-0     003f478d  _ServiceDog                     
-0     003f4797  _DisableDog                     
-0     003f479f  _InitPll                        
-0     003f47f4  _InitPll2                       
-0     003f4822  _InitPeripheralClocks           
-0     003f4878  _CsmUnlock                      
-0     003f48a9  _IntOsc1Sel                     
-0     003f48b9  _IntOsc2Sel                     
-0     003f48d3  _XtalOscSel                     
-0     003f48ef  _ExtOscSel                      
-0     003f4905  _Scheduler_timer0_ISR           
-0     003f4a7b  _ADC_setup                      
-0     003f4ac6  _ADC_intToString                
-0     003f4ac7  _ADC_processVal                 
-0     003f4b4b  _ADC_filter                     
-0     003f4be8  _PID                            
-0     003f4c49  _CC_PI_discrete1                
-0     003f4c7a  _CC_PI_discrete2                
-0     003f4cab  _CV_PI_discrete                 
-0     003f4cdc  _PWM_setup_init                 
-0     003f4ce1  _PWM_setup_EPWM_1               
-0     003f4d1d  _PWM_setup_EPWM_2               
-0     003f4d5a  _PWM_updatePhase                
-0     003f4d64  _PWM_force_low_EPWM1            
-0     003f4d74  _PWM_force_high_EPWM1           
-0     003f4d84  _PWM_disable_force_EPWM1        
-0     003f4d92  _PWM_force_low_EPWM2            
-0     003f4da2  _PWM_force_high_EPWM2           
-0     003f4db2  _PWM_disable_force_EPWM2        
-0     003f4dc0  _Scheduler_timer1_ISR           
-0     003f4e70  FS$$DIV                         
-0     003f4ef8  _sciaRxFifoIsr                  
-0     003f4f76  _InitCpuTimers                  
-0     003f4fb1  _ConfigCpuTimer                 
-0     003f4fec  _SerialInit                     
-0     003f5004  _error                          
-0     003f5006  _scia_fifo_init                 
-0     003f501f  _SCI_UpdateMonitor              
-0     003f5040  _scia_xmit                      
-0     003f504c  _main                           
-0     003f50ab  _GPIO_setup_init                
-0     003f50bd  _GPIO_setupLedPins              
-0     003f50c9  _GPIO_enable_PWM                
-0     003f50d9  _GPIO_disable_PWM               
-0     003f50ee  _GPIO_setupLCDPins              
-0     003f5109  _c_int00                        
-0     003f515f  _map                            
-0     003f5173  _Scheduler_timer0_ISR_Init      
-0     003f518c  _sleep_mode                     
-0     003f519a  _InitSci                        
-0     003f519b  _InitSciGpio                    
-0     003f51a0  _InitSciaGpio                   
-0     003f51b6  _InitScibGpio                   
-0     003f51ca  L$$DIV                          
-0     003f51d9  L$$MOD                          
-0     003f51e7  UL$$DIV                         
-0     003f51ee  UL$$MOD                         
-0     003f51f4  C$$EXIT                         
-0     003f51f4  _abort                          
-0     003f51f6  _exit                           
-0     003f521d  _InitPieCtrl                    
-0     003f523c  _EnableInterrupts               
-0     003f5245  _InitPieVectTable               
-0     003f526b  _copy_in                        
-0     003f528f  _Scheduler_timer1_ISR_Init      
-0     003f52a4  _delay_n_10us                   
-0     003f52b1  I$$DIV                          
-0     003f52c2  I$$MOD                          
-0     003f52d3  _memcpy                         
-0     003f52f0  __args_main                     
-0     003f5309  _FLASH_CONFIG                   
-0     003f5316  __register_unlock               
-0     003f531a  __register_lock                 
-0     003f531e  __nop                           
-0     003f5327  __system_pre_init               
-0     003f5329  __system_post_cinit             
-0     003f532a  _PieVectTableInit               
-0     003f532a  ___etext__                      
-0     003f532a  etext                           
-0     003f5470  _VOLTAGE_SENS_OFFSET_ERR        
-0     003f5471  _OP_V_DC_MAX_SETPOINT           
-0     003f5472  _OP_V_DC_MIN_SETPOINT           
-0     003f5473  _IP_V_DC_MAX_SETPOINT           
-0     003f5474  _IP_V_DC_MIN_SETPOINT           
-0     003f5475  _OP_I_DC_MAX_SETPOINT           
-0     003f5476  _BAT_I_DC_MAX_SETPOINT          
-0     003f5477  _MAX_TX_LENGTH                  
-0     003f5478  ___cinit__                      
-0     003f5478  cinit                           
+0     003f467a  _txOutputVoltage                
+0     003f46c5  _txOutputCurrent                
+0     003f4710  _txBatteryCurrent               
+0     003f475b  _rxSetOutputVoltage             
+0     003f4774  _rxSetBatteryCurrent            
+0     003f4784  _process_rx_command             
+0     003f47b6  _InitSysCtrl                    
+0     003f47d0  _ServiceDog                     
+0     003f47da  _DisableDog                     
+0     003f47e2  _InitPll                        
+0     003f4837  _InitPll2                       
+0     003f4865  _InitPeripheralClocks           
+0     003f48bb  _CsmUnlock                      
+0     003f48ec  _IntOsc1Sel                     
+0     003f48fc  _IntOsc2Sel                     
+0     003f4916  _XtalOscSel                     
+0     003f4932  _ExtOscSel                      
+0     003f4948  _Scheduler_timer0_ISR           
+0     003f4ab8  _ADC_setup                      
+0     003f4b03  _ADC_intToString                
+0     003f4b04  _ADC_processVal                 
+0     003f4b88  _ADC_filter                     
+0     003f4c25  _PID                            
+0     003f4c86  _CC_PI_discrete1                
+0     003f4cb7  _CC_PI_discrete2                
+0     003f4ce8  _CV_PI_discrete                 
+0     003f4d19  _PWM_setup_init                 
+0     003f4d1e  _PWM_setup_EPWM_1               
+0     003f4d5a  _PWM_setup_EPWM_2               
+0     003f4d97  _PWM_updatePhase                
+0     003f4da1  _PWM_force_low_EPWM1            
+0     003f4db1  _PWM_force_high_EPWM1           
+0     003f4dc1  _PWM_disable_force_EPWM1        
+0     003f4dcf  _PWM_force_low_EPWM2            
+0     003f4ddf  _PWM_force_high_EPWM2           
+0     003f4def  _PWM_disable_force_EPWM2        
+0     003f4dfd  _Scheduler_timer1_ISR           
+0     003f4ead  FS$$DIV                         
+0     003f4f35  _sciaRxFifoIsr                  
+0     003f4fb3  _InitCpuTimers                  
+0     003f4fee  _ConfigCpuTimer                 
+0     003f5029  _main                           
+0     003f508a  _SerialInit                     
+0     003f50a2  _error                          
+0     003f50a4  _scia_fifo_init                 
+0     003f50bd  _SCI_UpdateMonitor              
+0     003f50de  _scia_xmit                      
+0     003f50ea  _GPIO_setup_init                
+0     003f50fc  _GPIO_setupLedPins              
+0     003f5108  _GPIO_enable_PWM                
+0     003f5118  _GPIO_disable_PWM               
+0     003f512d  _GPIO_setupLCDPins              
+0     003f5148  _c_int00                        
+0     003f519e  _map                            
+0     003f51b2  _Scheduler_timer0_ISR_Init      
+0     003f51cb  _sleep_mode                     
+0     003f51d9  _InitSci                        
+0     003f51da  _InitSciGpio                    
+0     003f51df  _InitSciaGpio                   
+0     003f51f5  _InitScibGpio                   
+0     003f5209  L$$DIV                          
+0     003f5218  L$$MOD                          
+0     003f5226  UL$$DIV                         
+0     003f522d  UL$$MOD                         
+0     003f5233  C$$EXIT                         
+0     003f5233  _abort                          
+0     003f5235  _exit                           
+0     003f525c  _InitPieCtrl                    
+0     003f527b  _EnableInterrupts               
+0     003f5284  _InitPieVectTable               
+0     003f52aa  _copy_in                        
+0     003f52ce  _Scheduler_timer1_ISR_Init      
+0     003f52e3  _delay_n_10us                   
+0     003f52f0  I$$DIV                          
+0     003f5301  I$$MOD                          
+0     003f5312  _memcpy                         
+0     003f532f  __args_main                     
+0     003f5348  _FLASH_CONFIG                   
+0     003f5355  __register_unlock               
+0     003f5359  __register_lock                 
+0     003f535d  __nop                           
+0     003f5366  __system_pre_init               
+0     003f5368  __system_post_cinit             
+0     003f5369  ___etext__                      
+0     003f5369  etext                           
+0     003f536a  _PieVectTableInit               
+0     003f54b0  _VOLTAGE_SENS_OFFSET_ERR        
+0     003f54b1  _OP_V_DC_MAX_SETPOINT           
+0     003f54b2  _OP_V_DC_MIN_SETPOINT           
+0     003f54b3  _IP_V_DC_MAX_SETPOINT           
+0     003f54b4  _IP_V_DC_MIN_SETPOINT           
+0     003f54b5  _OP_I_DC_MAX_SETPOINT           
+0     003f54b6  _BAT_I_DC_MAX_SETPOINT          
+0     003f54b7  _MAX_TX_LENGTH                  
+0     003f54b8  ___cinit__                      
+0     003f54b8  cinit                           
 0     003f7ff6  code_start                      
 1     00000050  __stack                         
 1     00000350  __STACK_END                     
