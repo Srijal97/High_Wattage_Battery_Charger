@@ -1,5 +1,0 @@
-VERSION:3 SOURCE_TIMESTAMP:50368B10
-NODE:F LEVEL:0 LINE:3 "pointer_display_horiz(void)"
-NODE:F LEVEL:0 LINE:17 "pointer_display_vert(void)"
-NODE:F LEVEL:0 LINE:33 "show_volt(void)"
-NODE:F LEVEL:0 LINE:39 "show_current(void)"

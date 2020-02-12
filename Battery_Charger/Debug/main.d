@@ -1,9 +1,9 @@
 # FIXED
 
 main.obj: ../main.c
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/adc.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/FLASH.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/adc.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/FLASH.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
@@ -37,24 +37,24 @@ main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h
 main.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/globals.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/macros.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/gpio.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/LCD.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/pwm.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer0_ISR.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer1_ISR.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/globals.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/macros.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/gpio.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/LCD.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/pwm.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Serial.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Scheduler_timer0_ISR.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Scheduler_timer1_ISR.h
 main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/string.h
 main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/_ti_config.h
 main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/linkage.h
 main.obj: C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/sys/cdefs.h
-main.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h
+main.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/commands.h
 
 ../main.c: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/adc.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/FLASH.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/adc.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/FLASH.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 
@@ -88,16 +88,16 @@ C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_I2c
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Dma_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_defines.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/globals.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/macros.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/gpio.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/LCD.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/pwm.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Serial.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer0_ISR.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/Scheduler_timer1_ISR.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/globals.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/macros.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/gpio.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/LCD.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/pwm.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Serial.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Scheduler_timer0_ISR.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/Scheduler_timer1_ISR.h: 
 C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/string.h: 
 C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/_ti_config.h: 
 C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/linkage.h: 
 C:/TI/ccs930/ccs/tools/compiler/ti-cgt-c2000_18.12.4.LTS/include/sys/cdefs.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/commands.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/commands.h: 

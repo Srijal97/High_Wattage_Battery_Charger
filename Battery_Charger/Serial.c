@@ -164,7 +164,7 @@ void SCI_UpdateMonitor(char *msg)
 {
     int char_index = 0;
 
-    while(msg[char_index] != '\0' && char_index < 100)
+    while(msg[char_index - 1] != '>' && char_index < 100)
     {
         scia_xmit(msg[char_index]);
         char_index++;
@@ -173,7 +173,7 @@ void SCI_UpdateMonitor(char *msg)
     PieCtrlRegs.PIEACK.all |= 0x100;      // Issue PIE ACK
 }
 
-void scia_xmit(int a)
+void scia_xmit(char a)
 {
     while (SciaRegs.SCIFFTX.bit.TXFFST != 0) // It is in the loop till the transmit buffer gets emptied
     {

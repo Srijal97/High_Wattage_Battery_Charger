@@ -1,0 +1,62 @@
+RAM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+set_voltage                                                       0x052F       4
+set_current                                                       0x0533       4
+actual_voltage                                                    0x0537       2
+actual_btcurrent                                                  0x0539       2
+actual_ipvoltage                                                  0x053B       2
+actual_opcurrent                                                  0x053D       2
+set_flag                                                          0x053F       2
+flag                                                              0x0541       2
+n                                                                 0x0543       2
+main_screen_trigger                                               0x0545       2
+ms_update_flag                                                    0x0547       2
+current_mainscreen_flag                                           0x0549       2
+status                                                            0x054B       2
+fault_flag                                                        0x054D       2
+disp_volt                                                         0x054F       3
+disp_current                                                      0x0552       3
+disp_set_voltage                                                  0x0555       3
+disp_set_btcurrent                                                0x0558       4
+disp_actual_voltage                                               0x055C       3
+disp_actual_btcurrent                                             0x055F       4
+disp_actual_ipvoltage                                             0x0563       3
+disp_actual_opcurrent                                             0x0566       4
+xmitMsg                                                           0x056A       2
+rdataA                                                            0x056C      20
+comStart                                                          0x0580       2
+i                                                                 0x0582       2
+rx_buffer0                                                        0x0584      32
+rx_wr_index0                                                      0x05A4       1
+rx_rd_index0                                                      0x05A5       1
+rx_counter0                                                       0x05A6       1
+tx_buffer0                                                        0x05A7      64
+tx_wr_index0                                                      0x05E7       1
+tx_rd_index0                                                      0x05E8       1
+tx_counter0                                                       0x05E9       1
+on_pressed                                                        0x05EA       2
+off_pressed                                                       0x05EC       2
+reset_pressed                                                     0x05EE       2
+on_button_state                                                   0x05F0       2
+off_button_state                                                  0x05F2       2
+reset_button_state                                                0x05F4       2
+_seed                                                             0x05F6       4
+_base_y                                                           0x05FA       4
+_lcd_x                                                            0x05FE       1
+_lcd_y                                                            0x05FF       1
+_lcd_maxx                                                         0x0600       1
+
+EEPROM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                          Register  Size
+--------------------------------------------------------------------------------
+Screen                                                            R4,R5        2
+Current_Screen                                                    R6,R7        2
+Pointer_horiz                                                     R8,R9        2
+Pointer_vert                                                      R10,R11      2
+Pt                                                                R12,R13      2
+rx_buffer_overflow0                                               R2.0      1bit

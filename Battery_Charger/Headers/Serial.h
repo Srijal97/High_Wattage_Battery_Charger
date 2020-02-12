@@ -15,7 +15,7 @@
 //
 extern void SerialInit(void);
 extern void scia_fifo_init(void);
-extern void scia_xmit(int a);
+extern void scia_xmit(char a);
 void SCI_UpdateMonitor(char *msg);
 //char scia_rec(void);
 __interrupt void sciaRxFifoIsr(void);

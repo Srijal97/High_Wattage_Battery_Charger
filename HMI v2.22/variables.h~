@@ -1,0 +1,48 @@
+//---------------ADC---------------------
+//int i=0;
+//unsigned char s;
+//float adc_data,adc_data1,peak=0,array[50];         //as stack size of atmega 8535 is limited we can employ
+//char data[6];                                      // only a buffer if small size.
+
+
+
+//----------- EEPROM  ---------------------
+ 
+//char disp_str[12];
+//eeprom int password = 1307;
+//int pass_ram;
+
+
+//--------------RTC------------------------
+
+
+
+int Screen = 1;
+int Current_Screen = 0;
+int Pointer_horiz = 0, Pointer_vert = 0, Pt;
+
+
+long voltage = 000;
+long current = 00;
+long actual_voltage = 000;
+long actual_current = 000;
+long actual_ipvoltage = 000;
+long actual_opcurrent = 000;
+
+int set_flag=0;
+int flag = 0;
+int n=0;                    //Input function parameter in screen functions
+int main_screen_trigger;  //to return to main screen
+int status = 0;
+
+
+char disp_volt[3];
+char disp_current[3];
+char disp_set_voltage[3];
+char disp_set_btcurrent[4];
+char disp_actual_voltage[3];
+char disp_actual_btcurrent[4];
+char disp_actual_ipvoltage[3];
+char disp_actual_opcurrent[4];
+
+

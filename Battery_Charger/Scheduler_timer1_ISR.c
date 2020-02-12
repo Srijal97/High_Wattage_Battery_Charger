@@ -45,50 +45,52 @@ __interrupt void Scheduler_timer1_ISR(void)
                                 // bit 4: output over current
                                 // bit 5: battery over current
 
-//    if (OP_I_DC_raw > OP_I_DC_MAX_SETPOINT) {  // output over current trip
-//        PWM_force_low_EPWM1();
-//        PWM_force_low_EPWM2();
-//
-//        power_out_factor = 0;
-//        system_state = 0;
-//
-//        fault_condition |= 0x10;
-//    }
+    if (OP_I_DC_raw > OP_I_DC_MAX_SETPOINT) {  // output over current trip
+        PWM_force_low_EPWM1();
+        PWM_force_low_EPWM2();
 
-//    if (BAT_I_DC_raw > BAT_I_DC_MAX_SETPOINT) {  // battery over current trip
-//        PWM_force_low_EPWM1();
-//        PWM_force_low_EPWM2();
-//
-//        power_out_factor = 0;
-//
-//        system_state = 0;
-//        fault_condition |= 0x20;
-//    }
-//    if (OP_V_DC_raw > OP_V_DC_MAX_SETPOINT) {  // output over voltage trip if voltage high
-//        PWM_force_low_EPWM1();
-//        PWM_force_low_EPWM2();
-//
-//        power_out_factor = 0;
-//        system_state = 0;
-//
-//        fault_condition |= 0x02;
-//    }
-//
-//    if ( system_state == 2 && OP_V_DC_raw < OP_V_DC_MIN_SETPOINT) {  // output under voltage trip if voltage low and MACHINE on
-//        PWM_force_low_EPWM1();
-//        PWM_force_low_EPWM2();
-//
-//        power_out_factor = 0;
-//        system_state = 0;
-//
-//        fault_condition |= 0x01;
-//    }
+        power_out_factor = 0;
+        system_state = 0;
+
+        fault_condition |= 0x10;
+    }
+
+    if (BAT_I_DC_raw > BAT_I_DC_MAX_SETPOINT) {  // battery over current trip
+        PWM_force_low_EPWM1();
+        PWM_force_low_EPWM2();
+
+        power_out_factor = 0;
+
+        system_state = 0;
+        fault_condition |= 0x20;
+    }
+    if (OP_V_DC > OP_V_DC_MAX_SETPOINT) {  // output over voltage trip if voltage high
+        PWM_force_low_EPWM1();
+        PWM_force_low_EPWM2();
+
+        power_out_factor = 0;
+        system_state = 0;
+
+        fault_condition |= 0x02;
+    }
+
+    if ( system_state == 2 && OP_V_DC < OP_V_DC_MIN_SETPOINT) {  // output under voltage trip if voltage low and MACHINE on
+        PWM_force_low_EPWM1();
+        PWM_force_low_EPWM2();
+
+        power_out_factor = 0;
+        system_state = 0;
+
+        fault_condition |= 0x01;
+    }
 
 
 
     if(delay_count_timer1 % (long int)(HEART_BEAT_LED_PRD/SCH_T1_TICK_VAL) == 0) {
         GpioDataRegs.GPATOGGLE.bit.GPIO13 = 1;
     }
+
+    ServiceDog();
 
 }
 

@@ -20,6 +20,8 @@ extern Uint16 OP_V_DC_raw;
 extern Uint16 OP_I_DC_raw;
 extern Uint16 BAT_I_DC_raw;
 
+extern float OP_V_DC;
+
 extern const Uint16 IP_V_DC_MAX_SETPOINT;
 extern const Uint16 IP_V_DC_MIN_SETPOINT;
 

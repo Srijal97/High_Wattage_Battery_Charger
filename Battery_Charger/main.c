@@ -86,8 +86,8 @@ void main(void)
 
 
     EALLOW;  // This is needed to write to EALLOW protected registers
-                PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
-                EDIS;   // This is needed to disable write to EALLOW protected registers
+    PieVectTable.SCIRXINTA = &sciaRxFifoIsr;
+    EDIS;   // This is needed to disable write to EALLOW protected registers
 
     GPIO_setup_init();
 
@@ -102,6 +102,7 @@ void main(void)
 
     PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
     PieCtrlRegs.PIEIER9.bit.INTx1=1;     // PIE Group 9, INT1
+
     //.PieCtrlRegs.PIEIER9.bit.INTx2=1;     // PIE Group 9, INT2
     IER |= 0x100;                         // Enable CPU INT
     EINT;
@@ -125,6 +126,18 @@ void main(void)
     ERTM;                              // Enable Global realtime interrupt DBGM
 
 
+    //
+    // Reset the watchdog counter
+    //
+    ServiceDog();
+
+    //
+    // Enable the watchdog
+    //
+    EALLOW;
+    SysCtrlRegs.WDCR = 0x0028;
+    EDIS;
+
 
     while(1)
     {
@@ -135,14 +148,15 @@ void main(void)
         static Uint32 txValuesTime = 0;
 
         if(delay_count_timer0 - txValuesTime > 5000) {
-            txFaultState();
-            //txInputVoltage();
+
+           // txInputVoltage();
             txOutputVoltage();
             txOutputCurrent();
             txBatteryCurrent();
 
-            txValuesTime = delay_count_timer0;
+            txFaultState();
 
+            txValuesTime = delay_count_timer0;
         }
 
     }

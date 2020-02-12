@@ -1,0 +1,91 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+recFunc                                                                           0x054F     200
+tx_buffer0                                                                        0x0617      64
+tx_counter0                                                                       0x0657       1
+on_button_state                                                                   0x0658       2
+off_button_state                                                                  0x065A       2
+Screen                                                                            0x065C       2
+Pointer_horiz                                                                     0x065E       2
+Pointer_vert                                                                      0x0660       2
+Pt                                                                                0x0662       2
+voltage                                                                           0x0664       4
+current                                                                           0x0668       4
+flag                                                                              0x066C       2
+disp_volt                                                                         0x066E       3
+disp_current                                                                      0x0671       3
+_seed                                                                             0x0674       4
+_base_y                                                                           0x0678       4
+_lcd_x                                                                            0x067C       1
+_lcd_y                                                                            0x067D       1
+_lcd_maxx                                                                         0x067E       1
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+msg                                                                               R4,R5        2
+xmitMsg                                                                           R6,R7        2
+rec                                                                               R8,R9        2
+rdata                                                                             R10,R11      2
+tx_wr_index0                                                                      R13          1
+tx_rd_index0                                                                      R12          1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+xmitString                                                                        0x001C0     25
+noOp                                                                              0x001D9      1
+mainOff                                                                           0x001E3     18
+readAmp                                                                           0x001FF      6
+rnoOp                                                                             0x00205      1
+rmainOn                                                                           0x00206     10
+rreadAmp                                                                          0x0022B     24
+ext_int4_isr                                                                      0x00243      1
+ext_int5_isr                                                                      0x00244      1
+ext_int6_isr                                                                      0x00245      1
+ext_int7_isr                                                                      0x00246      1
+usart0_tx_isr                                                                     0x00247     27
+putchar                                                                           0x00262     33
+timer3_ovf_isr                                                                    0x00283     83
+read_adc                                                                          0x002D6     14
+pointer_display_horiz                                                             0x002E4     18
+pointer_display_vert                                                              0x002F6     26
+show_volt                                                                         0x00310     11
+show_current                                                                      0x0031B     13
+input                                                                             0x00328    107
+input_volt                                                                        0x00393    138
+input_current                                                                     0x0041D    138
+Screen1                                                                           0x004A7     20
+Screen2                                                                           0x004BB     32
+Screen30                                                                          0x004DB     36
+Screen300                                                                         0x004FF     30
+Screen301                                                                         0x0051D     30
+Screen31                                                                          0x0053B     37
+Screen310                                                                         0x00560     17
+Screen311                                                                         0x00571    138
+Screen_sel                                                                        0x005FB     71
+main                                                                              0x00642    120
+put_buff_G100                                                                     0x006BA     56
+_print_G100                                                                       0x006F2    308
+sprintf                                                                           0x00826     52
+ftrunc                                                                            0x0085A     49
+floor                                                                             0x0088B     19
+log                                                                               0x0089E    134
+exp                                                                               0x00924    154
+pow                                                                               0x009BE     82
+_lcd_write_nibble_G103                                                            0x00A10     20
+_lcd_write_data                                                                   0x00A24     12
+lcd_gotoxy                                                                        0x00A30     17
+lcd_clear                                                                         0x00A41     14
+lcd_putchar                                                                       0x00A4F     32
+lcd_puts                                                                          0x00A6F     16
+lcd_putsf                                                                         0x00A7F     18
+lcd_init                                                                          0x00A91     47
+rtc_init                                                                          0x00AC0     31
+strlen                                                                            0x00ADF     12
+strlenf                                                                           0x00AEB     13

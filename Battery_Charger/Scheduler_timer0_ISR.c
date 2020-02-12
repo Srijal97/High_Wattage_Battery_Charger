@@ -24,6 +24,9 @@ extern float BAT_I_DC;
 
 extern char operation_mode;
 
+extern Uint16 batt_curr_setpoint;
+extern Uint16 output_voltage_setpoint;
+
 extern Uint16 CC_Kp_discrete;
 extern Uint16 CC_Ki_discrete;
 
@@ -35,6 +38,8 @@ extern int system_state;
 extern int fault_condition;
 
 extern Uint32 delay_count_timer0;
+
+extern const Uint16 VOLTAGE_SENS_OFFSET_ERR;
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -88,11 +93,10 @@ __interrupt void Scheduler_timer0_ISR(void)
 
         power_out_factor = (float)power_out_factor/100;
 
-        if (soft_start_count == 5000) {
+        if (soft_start_count == 1000) {
             PWM_disable_force_EPWM1();
             PWM_disable_force_EPWM2();
         }
-
 
         if (soft_start_count == 30000) {
             power_out_factor = 1;
@@ -126,10 +130,6 @@ __interrupt void Scheduler_timer0_ISR(void)
         }
 
 
-
-
-
-
     }
 
     //PWM_updatePhase(pwm_pot_adc*2250/2800);
@@ -141,22 +141,25 @@ __interrupt void Scheduler_timer0_ISR(void)
     //OP_I_DC = pwm_pot_adc;
 
     // voltage sensing has a gain of 0.0157 V/V for R33 at 10k
-    // at R33 = 4.7k, 120V -> 1121, 135V -> 1367, 150V -> 1404
-    const Uint16 voltage_setpoint = 1121;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
+    // at R33 = 4.7k, 120V -> 1121, 135V -> 1261, 150V -> 1404
+    //const Uint16 voltage_setpoint = 1121;  //map(pwm_pot_adc, 0, 2700, 2000, 2500);
 
-    // current setpoint of 1117 corresponds to 10A
-    const Uint16 total_curr_setpoint = 3909;  //35A;
-    const Uint16 batt_curr_setpoint = 1117;
+    // current setpoint of 985 corresponds to 10A
+    const Uint16 total_curr_setpoint = 3449;  //35A;
+    //const Uint16 batt_curr_setpoint = 985;
 
 
-    //SATURATE(voltage_setpoint, 2000, 2500);
+    SATURATE(output_voltage_setpoint, 1027, 1261);
+    SATURATE(batt_curr_setpoint, 985, 1970);
+
+    output_voltage_setpoint -= VOLTAGE_SENS_OFFSET_ERR;
 
     // Cascaded PI controller with Inner Voltage and Outer Current Loop
 
     Uint16 I1_PID_output = CC_PI_discrete1(total_curr_setpoint, (Uint16)OP_I_DC, CC_Kp_discrete, CC_Ki_discrete);
     Uint16 I2_PID_output = CC_PI_discrete2(batt_curr_setpoint, (Uint16)BAT_I_DC, CC_Kp_discrete, CC_Ki_discrete);
 
-    Uint16 Vref = (Uint16)(((float)(I1_PID_output)/4095) * ((float)(I2_PID_output)/4095) * voltage_setpoint);
+    Uint16 Vref = (Uint16)(((float)(I1_PID_output)/4095) * ((float)(I2_PID_output)/4095) * output_voltage_setpoint);
 
     Uint16 V_PID_output = CV_PI_discrete(Vref, (Uint16)OP_V_DC, CV_Kp_discrete, CV_Kp_discrete) * power_out_factor;  //
 

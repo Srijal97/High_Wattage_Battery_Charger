@@ -1,0 +1,3245 @@
+;
+;#include <mega128.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x1C
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x18
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0x14
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0x1C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;#include <delay.h>
+;#include <stdio.h>
+;#include <stdlib.h>
+;#include <Math.h>
+;#include "commands.c"
+;/*
+; * commands.c
+; *
+; *  Created on: Jan 10, 2020
+; *      Author: Mr.Yash
+; */
+;
+;//#include <Serial.h>
+;#include <commands.h>
+;#include <alcd.h>
+;#include <ver1.h>
+;flash char *msg;
+;flash char *xmitMsg;
+;flash char *rec;
+;flash char *rdata;
+;
+;
+;    //commands will be given a 3 digit numeric code based on the button pressed;
+;    //Stored values for the particular option-
+;
+;    //    000-  noOp
+;    //    001-  mainOn
+;    //    002-  mainOff
+;    //    003-  resetFault
+;    //    004-  readVolt
+;    //    005-  readAmp
+;    //    006-
+;    //    007-
+;    //    008-
+;    //    009-
+;    //    010-
+;    //    011-
+;    //    012-
+;    //    013-
+;    //    014-
+;    //    015-
+;    //    016-
+;    //    017-
+;    //    018-
+;    //    019-
+;    //    020-
+;    //    021-
+;    //    022-
+;    //    023-
+;    //    024-
+;    //    025-
+;    //    026-
+;    //    027-
+;    //    028-
+;    //    029-
+;    //    030-
+;    //    031-
+;    //    032-
+;    //    033-
+;    //    034-
+;    //    035-
+;    //    036-
+;    //    037-
+;    //    038-
+;    //    039-
+;
+;void xmitString(flash char * xmitMsg)
+; 0000 0007 {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+;    int i =0;
+;    for(i = 0;*(xmitMsg+i)!= '\0';i++)
+;PCODE: $0000000F VOL: 0
+;PCODE: $00000010 VOL: 0
+;	*xmitMsg -> Y+2
+;	i -> R16,R17
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+;PCODE: $00000013 VOL: 0
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+;PCODE: $00000019 VOL: 0
+;PCODE: $0000001A VOL: 0
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+;PCODE: $0000001D VOL: 0
+;PCODE: $0000001E VOL: 0
+;    {
+;         putchar(xmitMsg[i]);
+;PCODE: $0000001F VOL: 0
+;PCODE: $00000020 VOL: 0
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+;PCODE: $00000023 VOL: 0
+;PCODE: $00000024 VOL: 0
+;
+;    }
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+;PCODE: $00000029 VOL: 0
+;
+;
+;
+;}
+;PCODE: $0000002A VOL: 0
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+;PCODE: $0000002F VOL: 0
+;PCODE: $00000030 VOL: 0
+;
+;void noOp()
+;{
+;PCODE: $00000031 VOL: 0
+;PCODE: $00000032 VOL: 0
+;
+;}
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+;
+;void mainOn()
+;{
+;PCODE: $00000035 VOL: 0
+;PCODE: $00000036 VOL: 0
+;    lcd_clear();
+;PCODE: $00000037 VOL: 0
+;    lcd_putsf("The System is turning on");
+;PCODE: $00000038 VOL: 0
+;PCODE: $00000039 VOL: 0
+;PCODE: $0000003A VOL: 0
+;PCODE: $0000003B VOL: 0
+;    xmitMsg ="<001>";
+;PCODE: $0000003C VOL: 0
+;PCODE: $0000003D VOL: 0
+;PCODE: $0000003E VOL: 0
+;    xmitString(xmitMsg);
+;PCODE: $0000003F VOL: 0
+;PCODE: $00000040 VOL: 0
+;    delay_ms(500);
+;PCODE: $00000041 VOL: 0
+;PCODE: $00000042 VOL: 0
+;PCODE: $00000043 VOL: 0
+;
+;     lcd_clear();
+;PCODE: $00000044 VOL: 0
+;
+;
+;}
+;PCODE: $00000045 VOL: 0
+;PCODE: $00000046 VOL: 0
+;
+;void mainOff()
+;{
+;PCODE: $00000047 VOL: 0
+;PCODE: $00000048 VOL: 0
+;    lcd_clear();
+;PCODE: $00000049 VOL: 0
+;    lcd_putsf("The System is turning off");
+;PCODE: $0000004A VOL: 0
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+;PCODE: $0000004D VOL: 0
+;    xmitMsg = "<002>";
+;PCODE: $0000004E VOL: 0
+;PCODE: $0000004F VOL: 0
+;PCODE: $00000050 VOL: 0
+;    xmitString(xmitMsg);
+;PCODE: $00000051 VOL: 0
+;PCODE: $00000052 VOL: 0
+;    delay_ms(500);
+;PCODE: $00000053 VOL: 0
+;PCODE: $00000054 VOL: 0
+;PCODE: $00000055 VOL: 0
+;    lcd_clear();
+;PCODE: $00000056 VOL: 0
+;}
+;PCODE: $00000057 VOL: 0
+;PCODE: $00000058 VOL: 0
+;
+;void resetFault()
+;{
+;PCODE: $00000059 VOL: 0
+;PCODE: $0000005A VOL: 0
+;    lcd_putsf("Resetting Faults");
+;PCODE: $0000005B VOL: 0
+;PCODE: $0000005C VOL: 0
+;PCODE: $0000005D VOL: 0
+;PCODE: $0000005E VOL: 0
+;    xmitMsg = "<003>";
+;PCODE: $0000005F VOL: 0
+;PCODE: $00000060 VOL: 0
+;PCODE: $00000061 VOL: 0
+;    xmitString(xmitMsg);
+;PCODE: $00000062 VOL: 0
+;PCODE: $00000063 VOL: 0
+;
+;}
+;PCODE: $00000064 VOL: 0
+;PCODE: $00000065 VOL: 0
+;
+;void readVolt()
+;{
+;PCODE: $00000066 VOL: 0
+;PCODE: $00000067 VOL: 0
+;    xmitMsg = "<004>";
+;PCODE: $00000068 VOL: 0
+;PCODE: $00000069 VOL: 0
+;PCODE: $0000006A VOL: 0
+;    xmitString(xmitMsg);
+;PCODE: $0000006B VOL: 0
+;PCODE: $0000006C VOL: 0
+;    //voltVal = recVolt();
+;    //msg = sprintf("\nVoltage is: %d",voltVal);
+;    //lcd_putsf(msg);
+;
+;}
+;PCODE: $0000006D VOL: 0
+;PCODE: $0000006E VOL: 0
+;
+;void readAmp()
+;{
+;PCODE: $0000006F VOL: 0
+;PCODE: $00000070 VOL: 0
+;    xmitMsg = "<005>";
+;PCODE: $00000071 VOL: 0
+;PCODE: $00000072 VOL: 0
+;PCODE: $00000073 VOL: 0
+;    xmitString(xmitMsg);
+;PCODE: $00000074 VOL: 0
+;PCODE: $00000075 VOL: 0
+;    //ampVal = recAmp();
+;    //msg = sprintf("\nCurrent is: %d",ampVal);
+;    //lcd_putsf(msg);
+;}
+;PCODE: $00000076 VOL: 0
+;PCODE: $00000077 VOL: 0
+;
+;static void (*xmitFunc[100])() = {
+;    noOp,mainOn,mainOff,resetFault,readVolt,readAmp
+;    };
+
+	.DSEG
+;
+;
+;
+;
+;//On receiving response from the TMS, further actions are taken by recFunc array
+;void rnoOp()
+;{
+
+	.CSEG
+;PCODE: $00000078 VOL: 0
+;PCODE: $00000079 VOL: 0
+;
+;}
+;PCODE: $0000007A VOL: 0
+;PCODE: $0000007B VOL: 0
+;
+;
+;void rmainOn()
+;{
+;PCODE: $0000007C VOL: 0
+;PCODE: $0000007D VOL: 0
+;    flash char*msg ="The System has turned on";
+;    lcd_putsf(msg);                            //function to display message on the lcd
+;PCODE: $0000007E VOL: 0
+;PCODE: $0000007F VOL: 0
+;	*msg -> R16,R17
+;PCODE: $00000080 VOL: 0
+;PCODE: $00000081 VOL: 0
+;
+;}
+;PCODE: $00000082 VOL: 0
+;PCODE: $00000083 VOL: 0
+;PCODE: $00000084 VOL: 0
+;
+;void rmainOff()
+;{
+;PCODE: $00000085 VOL: 0
+;PCODE: $00000086 VOL: 0
+;    msg = "The System has turned off";
+;PCODE: $00000087 VOL: 0
+;PCODE: $00000088 VOL: 0
+;PCODE: $00000089 VOL: 0
+;    lcd_putsf(msg);
+;PCODE: $0000008A VOL: 0
+;PCODE: $0000008B VOL: 0
+;
+;}
+;PCODE: $0000008C VOL: 0
+;PCODE: $0000008D VOL: 0
+;
+;void rresetFault()
+;{
+;PCODE: $0000008E VOL: 0
+;PCODE: $0000008F VOL: 0
+;    msg = "Faults have been reset";
+;PCODE: $00000090 VOL: 0
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+;    lcd_putsf(msg);
+;PCODE: $00000093 VOL: 0
+;PCODE: $00000094 VOL: 0
+;
+;}
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
+;
+;void rreadVolt()
+;{
+;PCODE: $00000097 VOL: 0
+;PCODE: $00000098 VOL: 0
+;    int i;flash char *tempRdata;
+;    for(i=5;*(rec+i-1)!='\0';i++)
+;PCODE: $00000099 VOL: 0
+;	i -> R16,R17
+;	*tempRdata -> R18,R19
+;PCODE: $0000009A VOL: 0
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+;PCODE: $0000009D VOL: 0
+;PCODE: $0000009E VOL: 0
+;PCODE: $0000009F VOL: 0
+;PCODE: $000000A0 VOL: 0
+;PCODE: $000000A1 VOL: 0
+;PCODE: $000000A2 VOL: 0
+;PCODE: $000000A3 VOL: 0
+;PCODE: $000000A4 VOL: 0
+;PCODE: $000000A5 VOL: 0
+;    {
+;        tempRdata= (rec+i);
+;PCODE: $000000A6 VOL: 0
+;PCODE: $000000A7 VOL: 0
+;PCODE: $000000A8 VOL: 0
+;        if(i==5)  rdata = tempRdata;
+;PCODE: $000000A9 VOL: 0
+;PCODE: $000000AA VOL: 0
+;PCODE: $000000AB VOL: 0
+;PCODE: $000000AC VOL: 0
+;PCODE: $000000AD VOL: 0
+;        tempRdata++;
+;PCODE: $000000AE VOL: 0
+;PCODE: $000000AF VOL: 0
+;PCODE: $000000B0 VOL: 0
+;    }
+;PCODE: $000000B1 VOL: 0
+;PCODE: $000000B2 VOL: 0
+;PCODE: $000000B3 VOL: 0
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+;
+;    msg = rdata;
+;PCODE: $000000B6 VOL: 0
+;PCODE: $000000B7 VOL: 0
+;    lcd_putsf(msg);
+;PCODE: $000000B8 VOL: 0
+;PCODE: $000000B9 VOL: 0
+;
+;}
+;PCODE: $000000BA VOL: 0
+;PCODE: $000000BB VOL: 0
+;PCODE: $000000BC VOL: 0
+;PCODE: $000000BD VOL: 0
+;
+;void rreadAmp()
+;{
+;PCODE: $000000BE VOL: 0
+;PCODE: $000000BF VOL: 0
+;    int i;flash char *tempRdata;
+;    for(i=5;*(rec+i-1)!='\0';i++)
+;PCODE: $000000C0 VOL: 0
+;	i -> R16,R17
+;	*tempRdata -> R18,R19
+;PCODE: $000000C1 VOL: 0
+;PCODE: $000000C2 VOL: 0
+;PCODE: $000000C3 VOL: 0
+;PCODE: $000000C4 VOL: 0
+;PCODE: $000000C5 VOL: 0
+;PCODE: $000000C6 VOL: 0
+;PCODE: $000000C7 VOL: 0
+;PCODE: $000000C8 VOL: 0
+;PCODE: $000000C9 VOL: 0
+;PCODE: $000000CA VOL: 0
+;PCODE: $000000CB VOL: 0
+;PCODE: $000000CC VOL: 0
+;    {
+;        tempRdata= (rec+i);
+;PCODE: $000000CD VOL: 0
+;PCODE: $000000CE VOL: 0
+;PCODE: $000000CF VOL: 0
+;        if(i==5)  rdata = tempRdata;
+;PCODE: $000000D0 VOL: 0
+;PCODE: $000000D1 VOL: 0
+;PCODE: $000000D2 VOL: 0
+;PCODE: $000000D3 VOL: 0
+;PCODE: $000000D4 VOL: 0
+;        tempRdata++;
+;PCODE: $000000D5 VOL: 0
+;PCODE: $000000D6 VOL: 0
+;PCODE: $000000D7 VOL: 0
+;    }
+;PCODE: $000000D8 VOL: 0
+;PCODE: $000000D9 VOL: 0
+;PCODE: $000000DA VOL: 0
+;PCODE: $000000DB VOL: 0
+;PCODE: $000000DC VOL: 0
+;    msg = rdata;
+;PCODE: $000000DD VOL: 0
+;PCODE: $000000DE VOL: 0
+;    lcd_putsf(msg);
+;PCODE: $000000DF VOL: 0
+;PCODE: $000000E0 VOL: 0
+;
+;}
+;PCODE: $000000E1 VOL: 0
+;PCODE: $000000E2 VOL: 0
+;PCODE: $000000E3 VOL: 0
+;PCODE: $000000E4 VOL: 0
+;
+;
+;static void (*recFunc[100])() = {rnoOp,rmainOn,rmainOff,rresetFault,rreadVolt,rreadAmp
+;    };
+
+	.DSEG
+;
+;
+;void recOp()
+;{
+
+	.CSEG
+;PCODE: $000000E5 VOL: 0
+;PCODE: $000000E6 VOL: 0
+;    char recArray[100];
+;    char cmd[3]={'','',''};
+;    int icmd = 0;
+;    int i = 0;
+;    //char tempRec[100];
+;    do
+;PCODE: $000000E7 VOL: 0
+;PCODE: $000000E8 VOL: 0
+;PCODE: $000000E9 VOL: 0
+;PCODE: $000000EA VOL: 0
+;PCODE: $000000EB VOL: 0
+;PCODE: $000000EC VOL: 0
+;PCODE: $000000ED VOL: 0
+;PCODE: $000000EE VOL: 0
+;	recArray -> Y+7
+;	cmd -> Y+4
+;	icmd -> R16,R17
+;	i -> R18,R19
+;PCODE: $000000EF VOL: 0
+;PCODE: $000000F0 VOL: 0
+;PCODE: $000000F1 VOL: 0
+;PCODE: $000000F2 VOL: 0
+;PCODE: $000000F3 VOL: 0
+;    {
+;        recArray[i++] = getchar();
+;PCODE: $000000F4 VOL: 0
+;PCODE: $000000F5 VOL: 0
+;PCODE: $000000F6 VOL: 0
+;PCODE: $000000F7 VOL: 0
+;PCODE: $000000F8 VOL: 0
+;PCODE: $000000F9 VOL: 0
+;PCODE: $000000FA VOL: 0
+;PCODE: $000000FB VOL: 0
+;PCODE: $000000FC VOL: 0
+;
+;    }while(recArray[i]!='\0');
+;PCODE: $000000FD VOL: 0
+;PCODE: $000000FE VOL: 0
+;PCODE: $000000FF VOL: 0
+;PCODE: $00000100 VOL: 0
+;PCODE: $00000101 VOL: 0
+;PCODE: $00000102 VOL: 0
+;PCODE: $00000103 VOL: 0
+;PCODE: $00000104 VOL: 0
+;//    char *rec = "<001-anyData>";
+;    for(i=1;i<4;i++)
+;PCODE: $00000105 VOL: 0
+;PCODE: $00000106 VOL: 0
+;PCODE: $00000107 VOL: 0
+;PCODE: $00000108 VOL: 0
+;PCODE: $00000109 VOL: 0
+;PCODE: $0000010A VOL: 0
+;PCODE: $0000010B VOL: 0
+;PCODE: $0000010C VOL: 0
+;PCODE: $0000010D VOL: 0
+;    {
+;       cmd[i-1] = *(recArray+i);
+;PCODE: $0000010E VOL: 0
+;PCODE: $0000010F VOL: 0
+;PCODE: $00000110 VOL: 0
+;PCODE: $00000111 VOL: 0
+;PCODE: $00000112 VOL: 0
+;PCODE: $00000113 VOL: 0
+;PCODE: $00000114 VOL: 0
+;PCODE: $00000115 VOL: 0
+;PCODE: $00000116 VOL: 0
+;PCODE: $00000117 VOL: 0
+;    }
+;PCODE: $00000118 VOL: 0
+;PCODE: $00000119 VOL: 0
+;PCODE: $0000011A VOL: 0
+;PCODE: $0000011B VOL: 0
+;PCODE: $0000011C VOL: 0
+;
+;    icmd = cmd[2]-'0'+((cmd[1]-'0')*10)+((cmd[0]-'0')*100);
+;PCODE: $0000011D VOL: 0
+;PCODE: $0000011E VOL: 0
+;PCODE: $0000011F VOL: 0
+;PCODE: $00000120 VOL: 0
+;PCODE: $00000121 VOL: 0
+;PCODE: $00000122 VOL: 0
+;PCODE: $00000123 VOL: 0
+;PCODE: $00000124 VOL: 0
+;PCODE: $00000125 VOL: 0
+;PCODE: $00000126 VOL: 0
+;PCODE: $00000127 VOL: 0
+;PCODE: $00000128 VOL: 0
+;PCODE: $00000129 VOL: 0
+;PCODE: $0000012A VOL: 0
+;PCODE: $0000012B VOL: 0
+;PCODE: $0000012C VOL: 0
+;PCODE: $0000012D VOL: 0
+;PCODE: $0000012E VOL: 0
+;    recFunc[icmd]();
+;PCODE: $0000012F VOL: 0
+;PCODE: $00000130 VOL: 0
+;PCODE: $00000131 VOL: 0
+;PCODE: $00000132 VOL: 0
+;PCODE: $00000133 VOL: 0
+;PCODE: $00000134 VOL: 0
+;}
+;PCODE: $00000135 VOL: 0
+;PCODE: $00000136 VOL: 0
+;PCODE: $00000137 VOL: 0
+;PCODE: $00000138 VOL: 0
+;
+;
+;
+;// I2C Bus functions
+;#asm
+;PCODE: $00000139 VOL: 0
+   .equ __i2c_port=0x12 ;PORTD
+;PCODE: $0000013A VOL: 0
+   .equ __sda_bit=1
+;PCODE: $0000013B VOL: 0
+   .equ __scl_bit=0
+;PCODE: $0000013C VOL: 0
+;PCODE: $0000013D VOL: 0
+; 0000 000D #endasm
+;
+;#include <i2c.h>
+;
+;// DS1307 Real Time Clock functions
+;#include <ds1307.h>
+;
+;// Alphanumeric LCD Module functions
+;#include <alcd.h>
+;
+;// External Interrupt 4 service routine
+;interrupt [EXT_INT4] void ext_int4_isr(void)
+; 0000 0019 {
+;PCODE: $0000013E VOL: 0
+;PCODE: $0000013F VOL: 0
+; 0000 001A 
+; 0000 001B 
+; 0000 001C }
+;PCODE: $00000140 VOL: 0
+;PCODE: $00000141 VOL: 0
+;PCODE: $00000142 VOL: 0
+;
+;// External Interrupt 5 service routine
+;interrupt [EXT_INT5] void ext_int5_isr(void)
+; 0000 0020 {
+;PCODE: $00000143 VOL: 0
+;PCODE: $00000144 VOL: 0
+; 0000 0021 // Place your code here
+; 0000 0022 
+; 0000 0023 }
+;PCODE: $00000145 VOL: 0
+;PCODE: $00000146 VOL: 0
+;PCODE: $00000147 VOL: 0
+;
+;// External Interrupt 6 service routine
+;interrupt [EXT_INT6] void ext_int6_isr(void)
+; 0000 0027 {
+;PCODE: $00000148 VOL: 0
+;PCODE: $00000149 VOL: 0
+; 0000 0028 // Place your code here
+; 0000 0029 
+; 0000 002A }
+;PCODE: $0000014A VOL: 0
+;PCODE: $0000014B VOL: 0
+;PCODE: $0000014C VOL: 0
+;
+;// External Interrupt 7 service routine
+;interrupt [EXT_INT7] void ext_int7_isr(void)
+; 0000 002E {
+;PCODE: $0000014D VOL: 0
+;PCODE: $0000014E VOL: 0
+; 0000 002F // Place your code here
+; 0000 0030 
+; 0000 0031 }
+;PCODE: $0000014F VOL: 0
+;PCODE: $00000150 VOL: 0
+;PCODE: $00000151 VOL: 0
+;
+;#ifndef RXB8
+;#define RXB8 1
+;#endif
+;
+;#ifndef TXB8
+;#define TXB8 0
+;#endif
+;
+;#ifndef UPE
+;#define UPE 2
+;#endif
+;
+;#ifndef DOR
+;#define DOR 3
+;#endif
+;
+;#ifndef FE
+;#define FE 4
+;#endif
+;
+;#ifndef UDRE
+;#define UDRE 5
+;#endif
+;
+;#ifndef RXC
+;#define RXC 7
+;#endif
+;
+;/*
+;#define FRAMING_ERROR (1<<FE)
+;#define PARITY_ERROR (1<<UPE)
+;#define DATA_OVERRUN (1<<DOR)
+;#define DATA_REGISTER_EMPTY (1<<UDRE)
+;#define RX_COMPLETE (1<<RXC)
+;
+;
+;// Get a character from the USART1 Receiver
+;#pragma used+
+;char getchar(void)
+;{
+;char status,data;
+;while (1)
+;      {
+;      while (((status=UCSR0A) & RX_COMPLETE)==0);
+;      data=UDR0;
+;      if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+;         return data;
+;      }
+;}
+;#pragma used-
+;
+;// Write a character to the USART1 Transmitter
+;#pragma used+
+;void putchar(char c)
+;{
+;while ((UCSR0A & DATA_REGISTER_EMPTY)==0);
+;UDR0=c;
+;}
+;#pragma used-
+;                 */
+;// Standard Input/Output functions
+;#include <stdio.h>
+;
+;#define DATA_REGISTER_EMPTY (1<<UDRE0)
+;#define RX_COMPLETE (1<<RXC0)
+;#define FRAMING_ERROR (1<<FE0)
+;#define PARITY_ERROR (1<<UPE0)
+;#define DATA_OVERRUN (1<<DOR0)
+;
+;// USART0 Transmitter buffer
+;#define TX_BUFFER_SIZE0 64
+;char tx_buffer0[TX_BUFFER_SIZE0];
+;
+;#if TX_BUFFER_SIZE0 <= 256
+;unsigned char tx_wr_index0=0,tx_rd_index0=0;
+;#else
+;unsigned int tx_wr_index0=0,tx_rd_index0=0;
+;#endif
+;
+;#if TX_BUFFER_SIZE0 < 256
+;unsigned char tx_counter0=0;
+;#else
+;unsigned int tx_counter0=0;
+;#endif
+;
+;// USART0 Transmitter interrupt service routine
+;interrupt [USART0_TXC] void usart0_tx_isr(void)
+; 0000 008A {
+;PCODE: $00000152 VOL: 0
+;PCODE: $00000153 VOL: 0
+; 0000 008B if (tx_counter0)
+;PCODE: $00000154 VOL: 0
+;PCODE: $00000155 VOL: 0
+;PCODE: $00000156 VOL: 0
+; 0000 008C    {
+; 0000 008D    --tx_counter0;
+;PCODE: $00000157 VOL: 0
+;PCODE: $00000158 VOL: 0
+;PCODE: $00000159 VOL: 0
+; 0000 008E    UDR0=tx_buffer0[tx_rd_index0++];
+;PCODE: $0000015A VOL: 0
+;PCODE: $0000015B VOL: 0
+;PCODE: $0000015C VOL: 0
+;PCODE: $0000015D VOL: 0
+;PCODE: $0000015E VOL: 0
+;PCODE: $0000015F VOL: 0
+; 0000 008F #if TX_BUFFER_SIZE0 != 256
+; 0000 0090    if (tx_rd_index0 == TX_BUFFER_SIZE0) tx_rd_index0=0;
+;PCODE: $00000160 VOL: 0
+;PCODE: $00000161 VOL: 0
+;PCODE: $00000162 VOL: 0
+;PCODE: $00000163 VOL: 0
+; 0000 0091 #endif
+; 0000 0092    }
+;PCODE: $00000164 VOL: 0
+; 0000 0093 }
+;PCODE: $00000165 VOL: 0
+;PCODE: $00000166 VOL: 0
+;PCODE: $00000167 VOL: 0
+;PCODE: $00000168 VOL: 0
+;
+;
+;
+;#ifndef _DEBUG_TERMINAL_IO_
+;// Write a character to the USART0 Transmitter buffer
+;#define _ALTERNATE_PUTCHAR_
+;#pragma used+
+;void putchar(char c)
+; 0000 009C {
+;PCODE: $00000169 VOL: 0
+;PCODE: $0000016A VOL: 0
+; 0000 009D while (tx_counter0 == TX_BUFFER_SIZE0);
+;	c -> Y+0
+;PCODE: $0000016B VOL: 0
+;PCODE: $0000016C VOL: 0
+;PCODE: $0000016D VOL: 0
+;PCODE: $0000016E VOL: 0
+;PCODE: $0000016F VOL: 0
+;PCODE: $00000170 VOL: 0
+; 0000 009E #asm("cli")
+;PCODE: $00000171 VOL: 0
+	cli
+;PCODE: $00000172 VOL: 0
+; 0000 009F if (tx_counter0 || ((UCSR0A & DATA_REGISTER_EMPTY)==0))
+;PCODE: $00000173 VOL: 0
+;PCODE: $00000174 VOL: 0
+;PCODE: $00000175 VOL: 0
+;PCODE: $00000176 VOL: 0
+;PCODE: $00000177 VOL: 0
+;PCODE: $00000178 VOL: 0
+;PCODE: $00000179 VOL: 0
+;PCODE: $0000017A VOL: 0
+; 0000 00A0    {
+; 0000 00A1    tx_buffer0[tx_wr_index0++]=c;
+;PCODE: $0000017B VOL: 0
+;PCODE: $0000017C VOL: 0
+;PCODE: $0000017D VOL: 0
+;PCODE: $0000017E VOL: 0
+;PCODE: $0000017F VOL: 0
+;PCODE: $00000180 VOL: 0
+; 0000 00A2 #if TX_BUFFER_SIZE0 != 256
+; 0000 00A3    if (tx_wr_index0 == TX_BUFFER_SIZE0) tx_wr_index0=0;
+;PCODE: $00000181 VOL: 0
+;PCODE: $00000182 VOL: 0
+;PCODE: $00000183 VOL: 0
+;PCODE: $00000184 VOL: 0
+; 0000 00A4 #endif
+; 0000 00A5    ++tx_counter0;
+;PCODE: $00000185 VOL: 0
+;PCODE: $00000186 VOL: 0
+;PCODE: $00000187 VOL: 0
+;PCODE: $00000188 VOL: 0
+; 0000 00A6    }
+; 0000 00A7 else
+;PCODE: $00000189 VOL: 0
+;PCODE: $0000018A VOL: 0
+; 0000 00A8    UDR0=c;
+;PCODE: $0000018B VOL: 0
+;PCODE: $0000018C VOL: 0
+; 0000 00A9 #asm("sei")
+;PCODE: $0000018D VOL: 0
+;PCODE: $0000018E VOL: 0
+	sei
+;PCODE: $0000018F VOL: 0
+; 0000 00AA }
+;PCODE: $00000190 VOL: 0
+;PCODE: $00000191 VOL: 0
+;PCODE: $00000192 VOL: 0
+;#pragma used-
+;#endif
+;
+;
+;/*#define DATA_REGISTER_EMPTY (1<<UDRE0) //buffer change
+;#define RX_COMPLETE (1<<RXC0)
+;#define FRAMING_ERROR (1<<FE0)
+;#define PARITY_ERROR (1<<UPE0)
+;#define DATA_OVERRUN (1<<DOR0)
+;
+;// USART0 Receiver buffer
+;#define RX_BUFFER_SIZE0 8
+;char rx_buffer0[RX_BUFFER_SIZE0];
+;
+;#if RX_BUFFER_SIZE0 <= 256
+;unsigned char rx_wr_index0=0,rx_rd_index0=0;
+;#else
+;unsigned int rx_wr_index0=0,rx_rd_index0=0;
+;#endif
+;
+;#if RX_BUFFER_SIZE0 < 256
+;unsigned char rx_counter0=0;
+;#else
+;unsigned int rx_counter0=0;
+;#endif
+;
+;// This flag is set on USART0 Receiver buffer overflow
+;bit rx_buffer_overflow0;
+;
+;// USART0 Receiver interrupt service routine
+;interrupt [USART0_RXC] void usart0_rx_isr(void)
+;{
+;char status,data;
+;status=UCSR0A;
+;data=UDR0;
+;if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+;   {
+;   rx_buffer0[rx_wr_index0++]=data;
+;#if RX_BUFFER_SIZE0 == 256
+;   // special case for receiver buffer size=256
+;   if (++rx_counter0 == 0) rx_buffer_overflow0=1;
+;#else
+;   if (rx_wr_index0 == RX_BUFFER_SIZE0) rx_wr_index0=0;
+;   if (++rx_counter0 == RX_BUFFER_SIZE0)
+;      {
+;      rx_counter0=0;
+;      rx_buffer_overflow0=1;
+;      }
+;#endif
+; recOp();}
+;}
+;
+;#ifndef _DEBUG_TERMINAL_IO_
+;// Get a character from the USART0 Receiver buffer
+;#define _ALTERNATE_GETCHAR_
+;#pragma used+
+;char getchar(void)
+;{
+;char data;
+;while (rx_counter0==0);
+;data=rx_buffer0[rx_rd_index0++];
+;#if RX_BUFFER_SIZE0 != 256
+;if (rx_rd_index0 == RX_BUFFER_SIZE0) rx_rd_index0=0;
+;#endif
+;#asm("cli")
+;--rx_counter0;
+;#asm("sei")
+;return data;
+;}
+;#pragma used-
+;#endif
+;
+;// USART0 Transmitter buffer
+;#define TX_BUFFER_SIZE0 8
+;char tx_buffer0[TX_BUFFER_SIZE0];
+;
+;#if TX_BUFFER_SIZE0 <= 256
+;unsigned char tx_wr_index0=0,tx_rd_index0=0;
+;#else
+;unsigned int tx_wr_index0=0,tx_rd_index0=0;
+;#endif
+;
+;#if TX_BUFFER_SIZE0 < 256
+;unsigned char tx_counter0=0;
+;#else
+;unsigned int tx_counter0=0;
+;#endif
+;
+;// USART0 Transmitter interrupt service routine
+;interrupt [USART0_TXC] void usart0_tx_isr(void)
+;{
+;if (tx_counter0)
+;   {
+;   --tx_counter0;
+;   UDR0=tx_buffer0[tx_rd_index0++];
+;#if TX_BUFFER_SIZE0 != 256
+;   if (tx_rd_index0 == TX_BUFFER_SIZE0) tx_rd_index0=0;
+;#endif
+;   }
+;}
+;
+;#ifndef _DEBUG_TERMINAL_IO_
+;// Write a character to the USART0 Transmitter buffer
+;#define _ALTERNATE_PUTCHAR_
+;#pragma used+
+;void putchar(char c)
+;{
+;while (tx_counter0 == TX_BUFFER_SIZE0);
+;#asm("cli")
+;if (tx_counter0 || ((UCSR0A & DATA_REGISTER_EMPTY)==0))
+;   {
+;   tx_buffer0[tx_wr_index0++]=c;
+;#if TX_BUFFER_SIZE0 != 256
+;   if (tx_wr_index0 == TX_BUFFER_SIZE0) tx_wr_index0=0;
+;#endif
+;   ++tx_counter0;
+;   }
+;else
+;   UDR0=c;
+;#asm("sei")
+;}
+;#pragma used-
+;#endif
+;
+;*/
+;short int on_button_state = 0x0000;
+;short int off_button_state = 0x0000;
+;
+;
+;// Timer3 overflow interrupt service routine
+;interrupt[TIM3_OVF] void timer3_ovf_isr(void) {
+; 0000 012D interrupt[30] void timer3_ovf_isr(void) {
+;PCODE: $00000193 VOL: 0
+;PCODE: $00000194 VOL: 0
+; 0000 012E 
+; 0000 012F     // ISR called every 8.595 msec when TCCRB = 0x09, and OCR3A = 0xFFFF
+; 0000 0130 
+; 0000 0131     // switch debounce logic. refer: https://www.embedded.com/electronics-blogs/break-points/4024981/My-favorite-software-debouncers
+; 0000 0132     // 16 bit shifts = approx 130msec debounce delay
+; 0000 0133 on_button_state = (0x8000 | !PIND.7) | (on_button_state << 1);
+;PCODE: $00000195 VOL: 0
+;PCODE: $00000196 VOL: 0
+;PCODE: $00000197 VOL: 0
+;PCODE: $00000198 VOL: 0
+;PCODE: $00000199 VOL: 0
+;PCODE: $0000019A VOL: 0
+;PCODE: $0000019B VOL: 0
+;PCODE: $0000019C VOL: 0
+;PCODE: $0000019D VOL: 0
+; 0000 0134     if(on_button_state == 0xC000) {
+;PCODE: $0000019E VOL: 0
+;PCODE: $0000019F VOL: 0
+;PCODE: $000001A0 VOL: 0
+; 0000 0135        PORTC.3 = 0;
+;PCODE: $000001A1 VOL: 0
+;PCODE: $000001A2 VOL: 0
+; 0000 0136        mainOn();
+;PCODE: $000001A3 VOL: 0
+; 0000 0137 
+; 0000 0138     }
+; 0000 0139 
+; 0000 013A     off_button_state = (0x8000 | !PIND.6) | (off_button_state << 1);
+;PCODE: $000001A4 VOL: 0
+;PCODE: $000001A5 VOL: 0
+;PCODE: $000001A6 VOL: 0
+;PCODE: $000001A7 VOL: 0
+;PCODE: $000001A8 VOL: 0
+;PCODE: $000001A9 VOL: 0
+;PCODE: $000001AA VOL: 0
+;PCODE: $000001AB VOL: 0
+;PCODE: $000001AC VOL: 0
+;PCODE: $000001AD VOL: 0
+; 0000 013B     if(off_button_state == 0xC000 ) {
+;PCODE: $000001AE VOL: 0
+;PCODE: $000001AF VOL: 0
+;PCODE: $000001B0 VOL: 0
+; 0000 013C         PORTC.3 = 1;
+;PCODE: $000001B1 VOL: 0
+;PCODE: $000001B2 VOL: 0
+; 0000 013D         mainOff();
+;PCODE: $000001B3 VOL: 0
+; 0000 013E     }
+; 0000 013F 
+; 0000 0140 
+; 0000 0141 }
+;PCODE: $000001B4 VOL: 0
+;PCODE: $000001B5 VOL: 0
+;PCODE: $000001B6 VOL: 0
+;PCODE: $000001B7 VOL: 0
+;
+;
+;#define ADC_VREF_TYPE 0x00
+;// Read the AD conversion result
+;unsigned int read_adc(unsigned char adc_input)
+; 0000 0147 {
+;PCODE: $000001B8 VOL: 0
+;PCODE: $000001B9 VOL: 0
+; 0000 0148 ADMUX=adc_input | (ADC_VREF_TYPE & 0xff);
+;	adc_input -> Y+0
+;PCODE: $000001BA VOL: 0
+;PCODE: $000001BB VOL: 0
+;PCODE: $000001BC VOL: 0
+; 0000 0149 // Delay needed for the stabilization of the ADC input voltage
+; 0000 014A delay_us(10);
+;PCODE: $000001BD VOL: 0
+; 0000 014B // Start the AD conversion
+; 0000 014C ADCSRA|=0x40;
+;PCODE: $000001BE VOL: 0
+;PCODE: $000001BF VOL: 0
+; 0000 014D // Wait for the AD conversion to complete
+; 0000 014E while ((ADCSRA & 0x10)==0);
+;PCODE: $000001C0 VOL: 0
+;PCODE: $000001C1 VOL: 0
+;PCODE: $000001C2 VOL: 0
+;PCODE: $000001C3 VOL: 0
+;PCODE: $000001C4 VOL: 0
+;PCODE: $000001C5 VOL: 0
+; 0000 014F ADCSRA|=0x10;
+;PCODE: $000001C6 VOL: 0
+;PCODE: $000001C7 VOL: 0
+; 0000 0150 return ADCW;
+;PCODE: $000001C8 VOL: 0
+;PCODE: $000001C9 VOL: 0
+;PCODE: $000001CA VOL: 0
+; 0000 0151 }
+;PCODE: $000001CB VOL: 0
+;
+;
+;
+;// SPI functions
+;#include <spi.h>
+;//---------------THERMOCOUPLE------------
+;#include "Thermocouple.c"
+;//ThermoInit(void);
+;/*
+;/*
+; *  Define literals for the SPI port accesses and the thermocouple chip
+; *  select line.
+; */
+;#define  PORT_THERMO_CS           PORTE
+;#define  DDR_THERMO_CS            DDRE
+;#define  BIT_THERMO_CS            3
+;#define  MASK_THERMO_CS           (1<<BIT_THERMO_CS)
+;
+;#define  PORT_SPI                 PORTB
+;#define  DDR_SPI                  DDRB
+;#define  BIT_SPI_SCK              1
+;#define  MASK_SPI_SCK             (1<<BIT_SPI_SCK)
+;#define  BIT_SPI_SS               0
+;#define  MASK_SPI_SS              (1<<BIT_SPI_SS)
+;#define  BIT_SPI_MISO             3
+;#define  MASK_SPI_MISO            (1<<BIT_SPI_MISO)
+;
+;/*
+; *  ThermoInit      set up hardware for using the MAX31855
+; *
+; *  This routine configures the SPI as a master for exchanging
+; *  data with the MAX31855 thermocouple converter.  All pins
+; *  and registers for accessing the various port lines are
+; *  defined at the top of this code as named literals.
+; */
+;/*
+;void  ThermoInit(void)
+;{
+;    PORT_THERMO_CS |= MASK_THERMO_CS;        // start with CS high
+;    DDR_THERMO_CS |= MASK_THERMO_CS;         // now make that line an output
+;
+;    PORT_SPI |= MASK_SPI_SS;                 // SS* is not used but must be driven high
+;    DDR_SPI |= MASK_SPI_SS;                  // SS* is not used but must be driven high
+;    PORT_SPI &= ~MASK_SPI_SCK;               // drive SCK low
+;    DDR_SPI |= MASK_SPI_SCK;                 // now make SCK an output
+;
+;    SPCR = (1<<SPE) | (1<<MSTR) | (1<<SPR0) | (1<<SPR1) | (1<<CPHA);
+;                                             // enable SPI as master, slowest clock,
+;                                             // data active on trailing edge of SCK
+;}
+;
+;
+;/*
+; *  ThermoReadRaw      return 32-bit raw value from MAX31855
+; *
+; *  This routine uses a four-byte SPI exchange to collect a
+; *  raw reading from the MAX31855 thermocouple converter.  That
+; *  value is returned unprocessed to the calling routine.
+; *
+; *  Note that this routine does NO processing.  It does not
+; *  check for error flags or reasonable data ranges.
+;
+;//  d = 0x01900000;            // thermocouple = +25C, reference = 0C, no faults
+;//  d = 0xfff00000;            // thermocouple = -1C, reference = 0C, no faults
+;//  d = 0xf0600000;            // thermocouple = -250C, reference = 0C, no faults
+;//  d = 0x00010001;            // thermocouple = N/A, reference = N/A, open fault
+;//  d = 0x00010002;            // thermocouple = N/A, reference = N/A, short to GND
+;//  d = 0x00010004;            // thermocouple = N/A, refernece = N/A, short to VCC
+;*/
+;
+;/*
+;signed int  ThermoReadRaw (void)
+;{
+;    signed int                   d;
+;    unsigned char                n;
+;
+;    PORT_THERMO_CS &= ~MASK_THERMO_CS;    // pull thermo CS low
+;    d = 0;                                // start with nothing
+;    for (n=3; n!=0xff; n--)
+;    {
+;        SPDR = 0;                         // send a null byte
+;        while ((SPSR & (1<<SPIF)) == 0)  ;    // wait until transfer ends
+;        d = (d<<8) + SPDR;                // add next byte, starting with MSB
+;    }
+;    PORT_THERMO_CS |= MASK_THERMO_CS;     // done, pull CS high
+;    return  d;
+;}
+;
+;/*
+; *  ThermoReadC      return thermocouple temperature in degrees C
+; *
+; *  This routine takes a raw reading from the thermocouple converter
+; *  and translates that value into a temperature in degrees C.  That
+; *  value is returned to the calling routine as an integer value,
+; *  rounded.
+; *
+; *  The thermocouple value is stored in bits 31-18 as a signed 14-bit
+; *  value, where the LSB represents 0.25 degC.  To convert to an
+; *  integer value with no intermediate float operations, this code
+; *  shifts the value 20 places right, rather than 18, effectively
+; *  dividing the raw value by 4 and scaling it to unit degrees.
+; *
+; *  Note that this routine does NOT check the error flags in the
+; *  raw value.  This would be a nice thing to add later, when I've
+; *  figured out how I want to propagate the error conditions...
+; */
+; /*
+;int  ThermoReadC(void)
+;{
+;    signed int d;
+;    int neg;
+;
+;
+;    neg = 0;                    // assume a positive raw value
+;    d = ThermoReadRaw();        // get a raw value
+;    d = ((d >> 10) & 0x3fff);   // leave only thermocouple value in d
+;    if (d & 0x2000)             // if thermocouple reading is negative...
+;    {
+;        d = -d & 0x3fff;        // always work with positive values
+;        neg = 1;                // but note original value was negative
+;    }
+;    d = d + 2;                  // round up by 0.5 degC (2 LSBs)
+;    d = d >> 2;                 // now convert from 0.25 degC units to degC
+;    if (neg)  d = -d;           // convert to negative if needed
+;    return  d;                  // return as integer
+;}
+;   */
+;
+;/*
+; *  ThermoReadF      return thermocouple temperature in degrees F
+; *
+; *  This routine takes a reading from the thermocouple converter in
+; *  degC and converts it to degF.
+; *
+; *  Note that this routine simply calls ThermoReadC and converts
+; *  from degC to degF using integer math.  This routine does not
+; *  see the raw converter value and cannot do any error checking.
+; */
+;/*int  ThermoReadF(void)
+;{
+;    int t;
+;
+;    t = ThermoReadC();           // get the value in degC
+;    t = ((t * 90) / 50) + 32;    // convert to degF
+;    return  t;                   // all done
+;}*/
+;
+;
+;//---------------Variables---------------
+;#include <variables.h>
+
+	.DSEG
+;//-------------Display Functions---------
+;#include "Display_functions.c"
+;//#include <variables.h>
+;
+;void pointer_display_horiz()                          //checks the cursor position.
+; 0000 015C {
+
+	.CSEG
+;PCODE: $000001CC VOL: 0
+;PCODE: $000001CD VOL: 0
+;    lcd_gotoxy(0,2);
+;PCODE: $000001CE VOL: 0
+;PCODE: $000001CF VOL: 0
+;PCODE: $000001D0 VOL: 0
+;PCODE: $000001D1 VOL: 0
+;PCODE: $000001D2 VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $000001D3 VOL: 0
+;PCODE: $000001D4 VOL: 0
+;PCODE: $000001D5 VOL: 0
+;PCODE: $000001D6 VOL: 0
+;    lcd_gotoxy(1,2);
+;PCODE: $000001D7 VOL: 0
+;PCODE: $000001D8 VOL: 0
+;PCODE: $000001D9 VOL: 0
+;PCODE: $000001DA VOL: 0
+;PCODE: $000001DB VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $000001DC VOL: 0
+;PCODE: $000001DD VOL: 0
+;PCODE: $000001DE VOL: 0
+;PCODE: $000001DF VOL: 0
+;    lcd_gotoxy(2,2);
+;PCODE: $000001E0 VOL: 0
+;PCODE: $000001E1 VOL: 0
+;PCODE: $000001E2 VOL: 0
+;PCODE: $000001E3 VOL: 0
+;PCODE: $000001E4 VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $000001E5 VOL: 0
+;PCODE: $000001E6 VOL: 0
+;PCODE: $000001E7 VOL: 0
+;PCODE: $000001E8 VOL: 0
+;    lcd_gotoxy(3,2);
+;PCODE: $000001E9 VOL: 0
+;PCODE: $000001EA VOL: 0
+;PCODE: $000001EB VOL: 0
+;PCODE: $000001EC VOL: 0
+;PCODE: $000001ED VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $000001EE VOL: 0
+;PCODE: $000001EF VOL: 0
+;PCODE: $000001F0 VOL: 0
+;PCODE: $000001F1 VOL: 0
+;    lcd_gotoxy(Pointer_horiz,2);                      //Pointer displays arrow at that position
+;PCODE: $000001F2 VOL: 0
+;PCODE: $000001F3 VOL: 0
+;PCODE: $000001F4 VOL: 0
+;PCODE: $000001F5 VOL: 0
+;PCODE: $000001F6 VOL: 0
+;    lcd_putsf("^");
+;PCODE: $000001F7 VOL: 0
+;PCODE: $000001F8 VOL: 0
+;PCODE: $000001F9 VOL: 0
+;PCODE: $000001FA VOL: 0
+;}
+;PCODE: $000001FB VOL: 0
+;PCODE: $000001FC VOL: 0
+;
+;void pointer_display_vert()                          //checks the cursor position.
+;{
+;PCODE: $000001FD VOL: 0
+;PCODE: $000001FE VOL: 0
+;    lcd_gotoxy(0,0);
+;PCODE: $000001FF VOL: 0
+;PCODE: $00000200 VOL: 0
+;PCODE: $00000201 VOL: 0
+;PCODE: $00000202 VOL: 0
+;PCODE: $00000203 VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $00000204 VOL: 0
+;PCODE: $00000205 VOL: 0
+;PCODE: $00000206 VOL: 0
+;PCODE: $00000207 VOL: 0
+;    lcd_gotoxy(0,1);
+;PCODE: $00000208 VOL: 0
+;PCODE: $00000209 VOL: 0
+;PCODE: $0000020A VOL: 0
+;PCODE: $0000020B VOL: 0
+;PCODE: $0000020C VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $0000020D VOL: 0
+;PCODE: $0000020E VOL: 0
+;PCODE: $0000020F VOL: 0
+;PCODE: $00000210 VOL: 0
+;    lcd_gotoxy(0,2);
+;PCODE: $00000211 VOL: 0
+;PCODE: $00000212 VOL: 0
+;PCODE: $00000213 VOL: 0
+;PCODE: $00000214 VOL: 0
+;PCODE: $00000215 VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $00000216 VOL: 0
+;PCODE: $00000217 VOL: 0
+;PCODE: $00000218 VOL: 0
+;PCODE: $00000219 VOL: 0
+;    lcd_gotoxy(0,3);
+;PCODE: $0000021A VOL: 0
+;PCODE: $0000021B VOL: 0
+;PCODE: $0000021C VOL: 0
+;PCODE: $0000021D VOL: 0
+;PCODE: $0000021E VOL: 0
+;    lcd_putsf(" ");
+;PCODE: $0000021F VOL: 0
+;PCODE: $00000220 VOL: 0
+;PCODE: $00000221 VOL: 0
+;PCODE: $00000222 VOL: 0
+;    lcd_gotoxy(0,Pointer_vert);                      //Pointer displays arrow at that position
+;PCODE: $00000223 VOL: 0
+;PCODE: $00000224 VOL: 0
+;PCODE: $00000225 VOL: 0
+;PCODE: $00000226 VOL: 0
+;PCODE: $00000227 VOL: 0
+;    lcd_putsf(">");
+;PCODE: $00000228 VOL: 0
+;PCODE: $00000229 VOL: 0
+;PCODE: $0000022A VOL: 0
+;PCODE: $0000022B VOL: 0
+;}
+;PCODE: $0000022C VOL: 0
+;PCODE: $0000022D VOL: 0
+;
+;
+;
+;void show_volt()
+;{
+;PCODE: $0000022E VOL: 0
+;PCODE: $0000022F VOL: 0
+;    sprintf(disp_volt,"%03d",voltage);
+;PCODE: $00000230 VOL: 0
+;PCODE: $00000231 VOL: 0
+;PCODE: $00000232 VOL: 0
+;PCODE: $00000233 VOL: 0
+;PCODE: $00000234 VOL: 0
+;PCODE: $00000235 VOL: 0
+;PCODE: $00000236 VOL: 0
+;PCODE: $00000237 VOL: 0
+;PCODE: $00000238 VOL: 0
+;PCODE: $00000239 VOL: 0
+;PCODE: $0000023A VOL: 0
+;    lcd_gotoxy(0,1);
+;PCODE: $0000023B VOL: 0
+;PCODE: $0000023C VOL: 0
+;PCODE: $0000023D VOL: 0
+;PCODE: $0000023E VOL: 0
+;PCODE: $0000023F VOL: 0
+;    lcd_puts(disp_volt);
+;PCODE: $00000240 VOL: 0
+;PCODE: $00000241 VOL: 0
+;PCODE: $00000242 VOL: 0
+;}
+;PCODE: $00000243 VOL: 0
+;PCODE: $00000244 VOL: 0
+;void show_current()
+;{
+;PCODE: $00000245 VOL: 0
+;PCODE: $00000246 VOL: 0
+;    sprintf(disp_current,"%02d",current);
+;PCODE: $00000247 VOL: 0
+;PCODE: $00000248 VOL: 0
+;PCODE: $00000249 VOL: 0
+;PCODE: $0000024A VOL: 0
+;PCODE: $0000024B VOL: 0
+;PCODE: $0000024C VOL: 0
+;PCODE: $0000024D VOL: 0
+;PCODE: $0000024E VOL: 0
+;PCODE: $0000024F VOL: 0
+;PCODE: $00000250 VOL: 0
+;PCODE: $00000251 VOL: 0
+;    lcd_gotoxy(0,1);
+;PCODE: $00000252 VOL: 0
+;PCODE: $00000253 VOL: 0
+;PCODE: $00000254 VOL: 0
+;PCODE: $00000255 VOL: 0
+;PCODE: $00000256 VOL: 0
+;    lcd_puts(disp_current);
+;PCODE: $00000257 VOL: 0
+;PCODE: $00000258 VOL: 0
+;PCODE: $00000259 VOL: 0
+;}
+;PCODE: $0000025A VOL: 0
+;PCODE: $0000025B VOL: 0
+;
+;//----Input and val change functions-----
+;#include "Change.c"
+;#include "Inputs.c"
+;//#include <variables.h>
+;
+;
+;
+;void input(int next)                         //next recieves value no of options we will have in the next menu
+; 0000 015F {
+;PCODE: $0000025C VOL: 0
+;PCODE: $0000025D VOL: 0
+;    Pt = Pointer_vert;
+;	next -> Y+0
+;PCODE: $0000025E VOL: 0
+;PCODE: $0000025F VOL: 0
+;    pointer_display_vert();
+;PCODE: $00000260 VOL: 0
+;    delay_ms(100);
+;PCODE: $00000261 VOL: 0
+;PCODE: $00000262 VOL: 0
+;PCODE: $00000263 VOL: 0
+;    if (PINE.2 == 0)                                            //UP
+;PCODE: $00000264 VOL: 0
+;PCODE: $00000265 VOL: 0
+;PCODE: $00000266 VOL: 0
+;       {
+;        while(PINE.2 == 0);
+;PCODE: $00000267 VOL: 0
+;PCODE: $00000268 VOL: 0
+;PCODE: $00000269 VOL: 0
+;PCODE: $0000026A VOL: 0
+;PCODE: $0000026B VOL: 0
+;PCODE: $0000026C VOL: 0
+;        Pt--;
+;PCODE: $0000026D VOL: 0
+;PCODE: $0000026E VOL: 0
+;PCODE: $0000026F VOL: 0
+;PCODE: $00000270 VOL: 0
+;        Pointer_vert = ((Pt < 0) ? (next+Pt): Pt) % next;
+;PCODE: $00000271 VOL: 0
+;PCODE: $00000272 VOL: 0
+;PCODE: $00000273 VOL: 0
+;PCODE: $00000274 VOL: 0
+;PCODE: $00000275 VOL: 0
+;PCODE: $00000276 VOL: 0
+;PCODE: $00000277 VOL: 0
+;PCODE: $00000278 VOL: 0
+;PCODE: $00000279 VOL: 0
+;PCODE: $0000027A VOL: 0
+;PCODE: $0000027B VOL: 0
+;PCODE: $0000027C VOL: 0
+;PCODE: $0000027D VOL: 0
+;PCODE: $0000027E VOL: 0
+;PCODE: $0000027F VOL: 0
+;        pointer_display_vert();
+;PCODE: $00000280 VOL: 0
+;       }
+;
+;    if (PINE.3 == 0)                                            //DOWN
+;PCODE: $00000281 VOL: 0
+;PCODE: $00000282 VOL: 0
+;PCODE: $00000283 VOL: 0
+;PCODE: $00000284 VOL: 0
+;       {
+;        while(PINE.3 == 0);
+;PCODE: $00000285 VOL: 0
+;PCODE: $00000286 VOL: 0
+;PCODE: $00000287 VOL: 0
+;PCODE: $00000288 VOL: 0
+;PCODE: $00000289 VOL: 0
+;PCODE: $0000028A VOL: 0
+;        Pointer_vert++;
+;PCODE: $0000028B VOL: 0
+;PCODE: $0000028C VOL: 0
+;PCODE: $0000028D VOL: 0
+;PCODE: $0000028E VOL: 0
+;        Pointer_vert = Pointer_vert % next;
+;PCODE: $0000028F VOL: 0
+;PCODE: $00000290 VOL: 0
+;PCODE: $00000291 VOL: 0
+;PCODE: $00000292 VOL: 0
+;        pointer_display_vert();
+;PCODE: $00000293 VOL: 0
+;       }
+;
+;    if (PINE.0 == 0)                                            //ENTER
+;PCODE: $00000294 VOL: 0
+;PCODE: $00000295 VOL: 0
+;PCODE: $00000296 VOL: 0
+;PCODE: $00000297 VOL: 0
+;       {
+;        while(PINE.0 == 0);
+;PCODE: $00000298 VOL: 0
+;PCODE: $00000299 VOL: 0
+;PCODE: $0000029A VOL: 0
+;PCODE: $0000029B VOL: 0
+;PCODE: $0000029C VOL: 0
+;PCODE: $0000029D VOL: 0
+;        if(Screen < 10)
+;PCODE: $0000029E VOL: 0
+;PCODE: $0000029F VOL: 0
+;PCODE: $000002A0 VOL: 0
+;        {
+;            Screen = ((Screen+1)*10) + Pointer_vert;
+;PCODE: $000002A1 VOL: 0
+;PCODE: $000002A2 VOL: 0
+;PCODE: $000002A3 VOL: 0
+;PCODE: $000002A4 VOL: 0
+;PCODE: $000002A5 VOL: 0
+;PCODE: $000002A6 VOL: 0
+;PCODE: $000002A7 VOL: 0
+;        }
+;        else
+;PCODE: $000002A8 VOL: 0
+;PCODE: $000002A9 VOL: 0
+;        {
+;            Screen = ((Screen)*10) + Pointer_vert;
+;PCODE: $000002AA VOL: 0
+;PCODE: $000002AB VOL: 0
+;PCODE: $000002AC VOL: 0
+;PCODE: $000002AD VOL: 0
+;PCODE: $000002AE VOL: 0
+;PCODE: $000002AF VOL: 0
+;        }
+;PCODE: $000002B0 VOL: 0
+;
+;
+;       }
+;
+;    if (PINE.1 == 0)                                            //ESCAPE
+;PCODE: $000002B1 VOL: 0
+;PCODE: $000002B2 VOL: 0
+;PCODE: $000002B3 VOL: 0
+;PCODE: $000002B4 VOL: 0
+;       {
+;        while(PINE.1 == 0);
+;PCODE: $000002B5 VOL: 0
+;PCODE: $000002B6 VOL: 0
+;PCODE: $000002B7 VOL: 0
+;PCODE: $000002B8 VOL: 0
+;PCODE: $000002B9 VOL: 0
+;PCODE: $000002BA VOL: 0
+;
+;            if (Screen == 2)
+;PCODE: $000002BB VOL: 0
+;PCODE: $000002BC VOL: 0
+;PCODE: $000002BD VOL: 0
+;            {
+;              lcd_clear();
+;PCODE: $000002BE VOL: 0
+;              lcd_gotoxy(0,0);
+;PCODE: $000002BF VOL: 0
+;PCODE: $000002C0 VOL: 0
+;PCODE: $000002C1 VOL: 0
+;PCODE: $000002C2 VOL: 0
+;PCODE: $000002C3 VOL: 0
+;              lcd_putsf("Main Screen");
+;PCODE: $000002C4 VOL: 0
+;PCODE: $000002C5 VOL: 0
+;PCODE: $000002C6 VOL: 0
+;PCODE: $000002C7 VOL: 0
+;              delay_ms(1000);
+;PCODE: $000002C8 VOL: 0
+;PCODE: $000002C9 VOL: 0
+;PCODE: $000002CA VOL: 0
+;              main_screen_trigger = 1;
+;PCODE: $000002CB VOL: 0
+;PCODE: $000002CC VOL: 0
+;              Current_Screen = 0;
+;PCODE: $000002CD VOL: 0
+;PCODE: $000002CE VOL: 0
+;              set_flag = 1;
+;PCODE: $000002CF VOL: 0
+;PCODE: $000002D0 VOL: 0
+;              //Screen = 2;
+;            }
+;            else if(Screen > 100)
+;PCODE: $000002D1 VOL: 0
+;PCODE: $000002D2 VOL: 0
+;PCODE: $000002D3 VOL: 0
+;PCODE: $000002D4 VOL: 0
+;PCODE: $000002D5 VOL: 0
+;            {
+;                Screen = Screen/10;
+;PCODE: $000002D6 VOL: 0
+;PCODE: $000002D7 VOL: 0
+;PCODE: $000002D8 VOL: 0
+;PCODE: $000002D9 VOL: 0
+;            }
+;            else
+;PCODE: $000002DA VOL: 0
+;PCODE: $000002DB VOL: 0
+;            {
+;                Screen = (Screen/10)-1;
+;PCODE: $000002DC VOL: 0
+;PCODE: $000002DD VOL: 0
+;PCODE: $000002DE VOL: 0
+;PCODE: $000002DF VOL: 0
+;PCODE: $000002E0 VOL: 0
+;            }
+;PCODE: $000002E1 VOL: 0
+;PCODE: $000002E2 VOL: 0
+;
+;
+;       }
+;
+;}
+;PCODE: $000002E3 VOL: 0
+;PCODE: $000002E4 VOL: 0
+;PCODE: $000002E5 VOL: 0
+;PCODE: $000002E6 VOL: 0
+;
+;
+;void input_volt(int next)
+;{
+;PCODE: $000002E7 VOL: 0
+;PCODE: $000002E8 VOL: 0
+;    int change = pow(10,(next-Pointer_horiz-1));
+;    pointer_display_horiz();
+;PCODE: $000002E9 VOL: 0
+;PCODE: $000002EA VOL: 0
+;	next -> Y+2
+;	change -> R16,R17
+;PCODE: $000002EB VOL: 0
+;PCODE: $000002EC VOL: 0
+;PCODE: $000002ED VOL: 0
+;PCODE: $000002EE VOL: 0
+;PCODE: $000002EF VOL: 0
+;PCODE: $000002F0 VOL: 0
+;PCODE: $000002F1 VOL: 0
+;PCODE: $000002F2 VOL: 0
+;PCODE: $000002F3 VOL: 0
+;PCODE: $000002F4 VOL: 0
+;PCODE: $000002F5 VOL: 0
+;PCODE: $000002F6 VOL: 0
+;    delay_ms(100);
+;PCODE: $000002F7 VOL: 0
+;PCODE: $000002F8 VOL: 0
+;PCODE: $000002F9 VOL: 0
+;    if (PINE.2 == 0)                                            //UP     1
+;PCODE: $000002FA VOL: 0
+;PCODE: $000002FB VOL: 0
+;PCODE: $000002FC VOL: 0
+;       {
+;        while(PINE.2 == 0);
+;PCODE: $000002FD VOL: 0
+;PCODE: $000002FE VOL: 0
+;PCODE: $000002FF VOL: 0
+;PCODE: $00000300 VOL: 0
+;PCODE: $00000301 VOL: 0
+;PCODE: $00000302 VOL: 0
+;        if(change == 1)
+;PCODE: $00000303 VOL: 0
+;PCODE: $00000304 VOL: 0
+;PCODE: $00000305 VOL: 0
+;        {voltage = voltage + (change);}
+;PCODE: $00000306 VOL: 0
+;PCODE: $00000307 VOL: 0
+;PCODE: $00000308 VOL: 0
+;PCODE: $00000309 VOL: 0
+;PCODE: $0000030A VOL: 0
+;        else
+;PCODE: $0000030B VOL: 0
+;PCODE: $0000030C VOL: 0
+;        {voltage = voltage + 1 + (change);}
+;PCODE: $0000030D VOL: 0
+;PCODE: $0000030E VOL: 0
+;PCODE: $0000030F VOL: 0
+;PCODE: $00000310 VOL: 0
+;PCODE: $00000311 VOL: 0
+;PCODE: $00000312 VOL: 0
+;PCODE: $00000313 VOL: 0
+;PCODE: $00000314 VOL: 0
+;        voltage = voltage % 1000;
+;PCODE: $00000315 VOL: 0
+;PCODE: $00000316 VOL: 0
+;PCODE: $00000317 VOL: 0
+;PCODE: $00000318 VOL: 0
+;        show_volt();
+;PCODE: $00000319 VOL: 0
+;        pointer_display_horiz();
+;PCODE: $0000031A VOL: 0
+;       }
+;
+;    if (PINE.3 == 0)                                            //Next   2
+;PCODE: $0000031B VOL: 0
+;PCODE: $0000031C VOL: 0
+;PCODE: $0000031D VOL: 0
+;PCODE: $0000031E VOL: 0
+;       {
+;        while(PINE.3 == 0);
+;PCODE: $0000031F VOL: 0
+;PCODE: $00000320 VOL: 0
+;PCODE: $00000321 VOL: 0
+;PCODE: $00000322 VOL: 0
+;PCODE: $00000323 VOL: 0
+;PCODE: $00000324 VOL: 0
+;        Pointer_horiz++;
+;PCODE: $00000325 VOL: 0
+;PCODE: $00000326 VOL: 0
+;PCODE: $00000327 VOL: 0
+;PCODE: $00000328 VOL: 0
+;
+;        Pointer_horiz = Pointer_horiz % next;
+;PCODE: $00000329 VOL: 0
+;PCODE: $0000032A VOL: 0
+;PCODE: $0000032B VOL: 0
+;PCODE: $0000032C VOL: 0
+;        pointer_display_horiz();
+;PCODE: $0000032D VOL: 0
+;       }
+;
+;    if (PINE.0 == 0)                                             //ENTER 3
+;PCODE: $0000032E VOL: 0
+;PCODE: $0000032F VOL: 0
+;PCODE: $00000330 VOL: 0
+;PCODE: $00000331 VOL: 0
+;        {
+;         while(PINE.0 == 0);
+;PCODE: $00000332 VOL: 0
+;PCODE: $00000333 VOL: 0
+;PCODE: $00000334 VOL: 0
+;PCODE: $00000335 VOL: 0
+;PCODE: $00000336 VOL: 0
+;PCODE: $00000337 VOL: 0
+;         if(110 <= voltage && voltage <= 135)
+;PCODE: $00000338 VOL: 0
+;PCODE: $00000339 VOL: 0
+;PCODE: $0000033A VOL: 0
+;PCODE: $0000033B VOL: 0
+;PCODE: $0000033C VOL: 0
+;PCODE: $0000033D VOL: 0
+;PCODE: $0000033E VOL: 0
+;PCODE: $0000033F VOL: 0
+;PCODE: $00000340 VOL: 0
+;PCODE: $00000341 VOL: 0
+;         {
+;            lcd_clear();
+;PCODE: $00000342 VOL: 0
+;            lcd_gotoxy(0,0);
+;PCODE: $00000343 VOL: 0
+;PCODE: $00000344 VOL: 0
+;PCODE: $00000345 VOL: 0
+;PCODE: $00000346 VOL: 0
+;PCODE: $00000347 VOL: 0
+;            lcd_puts("Voltage set to:");
+;PCODE: $00000348 VOL: 0
+;PCODE: $00000349 VOL: 0
+;PCODE: $0000034A VOL: 0
+;PCODE: $0000034B VOL: 0
+;            lcd_gotoxy(4,1);
+;PCODE: $0000034C VOL: 0
+;PCODE: $0000034D VOL: 0
+;PCODE: $0000034E VOL: 0
+;PCODE: $0000034F VOL: 0
+;PCODE: $00000350 VOL: 0
+;            lcd_putsf("V");
+;PCODE: $00000351 VOL: 0
+;PCODE: $00000352 VOL: 0
+;PCODE: $00000353 VOL: 0
+;PCODE: $00000354 VOL: 0
+;            show_volt();
+;PCODE: $00000355 VOL: 0
+;            //Voltage = temp_volt;
+;            flag = 11;
+;PCODE: $00000356 VOL: 0
+;PCODE: $00000357 VOL: 0
+;            Screen = 30;
+;PCODE: $00000358 VOL: 0
+;PCODE: $00000359 VOL: 0
+;            delay_ms(2000);
+;PCODE: $0000035A VOL: 0
+;PCODE: $0000035B VOL: 0
+;PCODE: $0000035C VOL: 0
+;         }
+;         else
+;PCODE: $0000035D VOL: 0
+;PCODE: $0000035E VOL: 0
+;         {
+;            lcd_clear();
+;PCODE: $0000035F VOL: 0
+;            lcd_gotoxy(0,0);
+;PCODE: $00000360 VOL: 0
+;PCODE: $00000361 VOL: 0
+;PCODE: $00000362 VOL: 0
+;PCODE: $00000363 VOL: 0
+;PCODE: $00000364 VOL: 0
+;            lcd_putsf("Set value should");
+;PCODE: $00000365 VOL: 0
+;PCODE: $00000366 VOL: 0
+;PCODE: $00000367 VOL: 0
+;PCODE: $00000368 VOL: 0
+;            lcd_gotoxy(0,1);
+;PCODE: $00000369 VOL: 0
+;PCODE: $0000036A VOL: 0
+;PCODE: $0000036B VOL: 0
+;PCODE: $0000036C VOL: 0
+;PCODE: $0000036D VOL: 0
+;            lcd_putsf("be between 110-");
+;PCODE: $0000036E VOL: 0
+;PCODE: $0000036F VOL: 0
+;PCODE: $00000370 VOL: 0
+;PCODE: $00000371 VOL: 0
+;            lcd_gotoxy(0,2);
+;PCODE: $00000372 VOL: 0
+;PCODE: $00000373 VOL: 0
+;PCODE: $00000374 VOL: 0
+;PCODE: $00000375 VOL: 0
+;PCODE: $00000376 VOL: 0
+;            lcd_putsf("135 volts");
+;PCODE: $00000377 VOL: 0
+;PCODE: $00000378 VOL: 0
+;PCODE: $00000379 VOL: 0
+;PCODE: $0000037A VOL: 0
+;            voltage = 000;
+;PCODE: $0000037B VOL: 0
+;PCODE: $0000037C VOL: 0
+;            Screen = 30;
+;PCODE: $0000037D VOL: 0
+;PCODE: $0000037E VOL: 0
+;            flag = 11;
+;PCODE: $0000037F VOL: 0
+;PCODE: $00000380 VOL: 0
+;            delay_ms(2000);
+;PCODE: $00000381 VOL: 0
+;PCODE: $00000382 VOL: 0
+;PCODE: $00000383 VOL: 0
+;         }
+;PCODE: $00000384 VOL: 0
+;        }
+;
+;    if (PINE.1 == 0)                                            //ESCAPE 4
+;PCODE: $00000385 VOL: 0
+;PCODE: $00000386 VOL: 0
+;PCODE: $00000387 VOL: 0
+;PCODE: $00000388 VOL: 0
+;       {
+;        while(PINE.1 == 0);
+;PCODE: $00000389 VOL: 0
+;PCODE: $0000038A VOL: 0
+;PCODE: $0000038B VOL: 0
+;PCODE: $0000038C VOL: 0
+;PCODE: $0000038D VOL: 0
+;PCODE: $0000038E VOL: 0
+;        flag = 11;
+;PCODE: $0000038F VOL: 0
+;PCODE: $00000390 VOL: 0
+;        if(Screen > 100)
+;PCODE: $00000391 VOL: 0
+;PCODE: $00000392 VOL: 0
+;PCODE: $00000393 VOL: 0
+;        {Screen = Screen/10;}
+;PCODE: $00000394 VOL: 0
+;PCODE: $00000395 VOL: 0
+;PCODE: $00000396 VOL: 0
+;PCODE: $00000397 VOL: 0
+;        else
+;PCODE: $00000398 VOL: 0
+;PCODE: $00000399 VOL: 0
+;        {Screen = (Screen/10)-1;}
+;PCODE: $0000039A VOL: 0
+;PCODE: $0000039B VOL: 0
+;PCODE: $0000039C VOL: 0
+;PCODE: $0000039D VOL: 0
+;PCODE: $0000039E VOL: 0
+;PCODE: $0000039F VOL: 0
+;        //flag = 1;
+;       }
+;}
+;PCODE: $000003A0 VOL: 0
+;PCODE: $000003A1 VOL: 0
+;PCODE: $000003A2 VOL: 0
+;PCODE: $000003A3 VOL: 0
+;PCODE: $000003A4 VOL: 0
+;PCODE: $000003A5 VOL: 0
+;PCODE: $000003A6 VOL: 0
+;PCODE: $000003A7 VOL: 0
+
+	.DSEG
+_0x55:
+	.BYTE 0x10
+;
+;void input_current(int next)
+;{
+
+	.CSEG
+;PCODE: $000003A8 VOL: 0
+;PCODE: $000003A9 VOL: 0
+;    int change = pow(10,(next-Pointer_horiz-1));
+;    pointer_display_horiz();
+;PCODE: $000003AA VOL: 0
+;PCODE: $000003AB VOL: 0
+;	next -> Y+2
+;	change -> R16,R17
+;PCODE: $000003AC VOL: 0
+;PCODE: $000003AD VOL: 0
+;PCODE: $000003AE VOL: 0
+;PCODE: $000003AF VOL: 0
+;PCODE: $000003B0 VOL: 0
+;PCODE: $000003B1 VOL: 0
+;PCODE: $000003B2 VOL: 0
+;PCODE: $000003B3 VOL: 0
+;PCODE: $000003B4 VOL: 0
+;PCODE: $000003B5 VOL: 0
+;PCODE: $000003B6 VOL: 0
+;PCODE: $000003B7 VOL: 0
+;    delay_ms(100);
+;PCODE: $000003B8 VOL: 0
+;PCODE: $000003B9 VOL: 0
+;PCODE: $000003BA VOL: 0
+;    if (PINE.2 == 0)                                            //UP     1
+;PCODE: $000003BB VOL: 0
+;PCODE: $000003BC VOL: 0
+;PCODE: $000003BD VOL: 0
+;       {
+;        while(PINE.2 == 0);
+;PCODE: $000003BE VOL: 0
+;PCODE: $000003BF VOL: 0
+;PCODE: $000003C0 VOL: 0
+;PCODE: $000003C1 VOL: 0
+;PCODE: $000003C2 VOL: 0
+;PCODE: $000003C3 VOL: 0
+;        if(change == 1)
+;PCODE: $000003C4 VOL: 0
+;PCODE: $000003C5 VOL: 0
+;PCODE: $000003C6 VOL: 0
+;        {current = current + (change);}
+;PCODE: $000003C7 VOL: 0
+;PCODE: $000003C8 VOL: 0
+;PCODE: $000003C9 VOL: 0
+;PCODE: $000003CA VOL: 0
+;PCODE: $000003CB VOL: 0
+;        else
+;PCODE: $000003CC VOL: 0
+;PCODE: $000003CD VOL: 0
+;        {current = current + 1 + (change);}
+;PCODE: $000003CE VOL: 0
+;PCODE: $000003CF VOL: 0
+;PCODE: $000003D0 VOL: 0
+;PCODE: $000003D1 VOL: 0
+;PCODE: $000003D2 VOL: 0
+;PCODE: $000003D3 VOL: 0
+;PCODE: $000003D4 VOL: 0
+;PCODE: $000003D5 VOL: 0
+;        current = current % 1000;
+;PCODE: $000003D6 VOL: 0
+;PCODE: $000003D7 VOL: 0
+;PCODE: $000003D8 VOL: 0
+;PCODE: $000003D9 VOL: 0
+;        show_current();
+;PCODE: $000003DA VOL: 0
+;        pointer_display_horiz();
+;PCODE: $000003DB VOL: 0
+;       }
+;
+;    if (PINE.3 == 0)                                            //Next   2
+;PCODE: $000003DC VOL: 0
+;PCODE: $000003DD VOL: 0
+;PCODE: $000003DE VOL: 0
+;PCODE: $000003DF VOL: 0
+;       {
+;        while(PINE.3 == 0);
+;PCODE: $000003E0 VOL: 0
+;PCODE: $000003E1 VOL: 0
+;PCODE: $000003E2 VOL: 0
+;PCODE: $000003E3 VOL: 0
+;PCODE: $000003E4 VOL: 0
+;PCODE: $000003E5 VOL: 0
+;        Pointer_horiz++;
+;PCODE: $000003E6 VOL: 0
+;PCODE: $000003E7 VOL: 0
+;PCODE: $000003E8 VOL: 0
+;PCODE: $000003E9 VOL: 0
+;
+;        Pointer_horiz = Pointer_horiz % next;
+;PCODE: $000003EA VOL: 0
+;PCODE: $000003EB VOL: 0
+;PCODE: $000003EC VOL: 0
+;PCODE: $000003ED VOL: 0
+;        pointer_display_horiz();
+;PCODE: $000003EE VOL: 0
+;       }
+;
+;    if (PINE.0 == 0)                                             //ENTER 3
+;PCODE: $000003EF VOL: 0
+;PCODE: $000003F0 VOL: 0
+;PCODE: $000003F1 VOL: 0
+;PCODE: $000003F2 VOL: 0
+;        {
+;         while(PINE.0 == 0);
+;PCODE: $000003F3 VOL: 0
+;PCODE: $000003F4 VOL: 0
+;PCODE: $000003F5 VOL: 0
+;PCODE: $000003F6 VOL: 0
+;PCODE: $000003F7 VOL: 0
+;PCODE: $000003F8 VOL: 0
+;         if(10 <= current && current <= 20)
+;PCODE: $000003F9 VOL: 0
+;PCODE: $000003FA VOL: 0
+;PCODE: $000003FB VOL: 0
+;PCODE: $000003FC VOL: 0
+;PCODE: $000003FD VOL: 0
+;PCODE: $000003FE VOL: 0
+;PCODE: $000003FF VOL: 0
+;PCODE: $00000400 VOL: 0
+;PCODE: $00000401 VOL: 0
+;PCODE: $00000402 VOL: 0
+;         {
+;            lcd_clear();
+;PCODE: $00000403 VOL: 0
+;            lcd_gotoxy(0,0);
+;PCODE: $00000404 VOL: 0
+;PCODE: $00000405 VOL: 0
+;PCODE: $00000406 VOL: 0
+;PCODE: $00000407 VOL: 0
+;PCODE: $00000408 VOL: 0
+;            lcd_puts("Current set to:");
+;PCODE: $00000409 VOL: 0
+;PCODE: $0000040A VOL: 0
+;PCODE: $0000040B VOL: 0
+;PCODE: $0000040C VOL: 0
+;            lcd_gotoxy(3,1);
+;PCODE: $0000040D VOL: 0
+;PCODE: $0000040E VOL: 0
+;PCODE: $0000040F VOL: 0
+;PCODE: $00000410 VOL: 0
+;PCODE: $00000411 VOL: 0
+;            lcd_putsf("A");
+;PCODE: $00000412 VOL: 0
+;PCODE: $00000413 VOL: 0
+;PCODE: $00000414 VOL: 0
+;PCODE: $00000415 VOL: 0
+;            show_current();
+;PCODE: $00000416 VOL: 0
+;            flag = 11;
+;PCODE: $00000417 VOL: 0
+;PCODE: $00000418 VOL: 0
+;            Screen = 30;
+;PCODE: $00000419 VOL: 0
+;PCODE: $0000041A VOL: 0
+;            delay_ms(2000);
+;PCODE: $0000041B VOL: 0
+;PCODE: $0000041C VOL: 0
+;PCODE: $0000041D VOL: 0
+;         }
+;         else
+;PCODE: $0000041E VOL: 0
+;PCODE: $0000041F VOL: 0
+;         {
+;            lcd_clear();
+;PCODE: $00000420 VOL: 0
+;            lcd_gotoxy(0,0);
+;PCODE: $00000421 VOL: 0
+;PCODE: $00000422 VOL: 0
+;PCODE: $00000423 VOL: 0
+;PCODE: $00000424 VOL: 0
+;PCODE: $00000425 VOL: 0
+;            lcd_putsf("Set value should");
+;PCODE: $00000426 VOL: 0
+;PCODE: $00000427 VOL: 0
+;PCODE: $00000428 VOL: 0
+;PCODE: $00000429 VOL: 0
+;            lcd_gotoxy(0,1);
+;PCODE: $0000042A VOL: 0
+;PCODE: $0000042B VOL: 0
+;PCODE: $0000042C VOL: 0
+;PCODE: $0000042D VOL: 0
+;PCODE: $0000042E VOL: 0
+;            lcd_putsf("be between 10-");
+;PCODE: $0000042F VOL: 0
+;PCODE: $00000430 VOL: 0
+;PCODE: $00000431 VOL: 0
+;PCODE: $00000432 VOL: 0
+;            lcd_gotoxy(0,2);
+;PCODE: $00000433 VOL: 0
+;PCODE: $00000434 VOL: 0
+;PCODE: $00000435 VOL: 0
+;PCODE: $00000436 VOL: 0
+;PCODE: $00000437 VOL: 0
+;            lcd_putsf("20 amps");
+;PCODE: $00000438 VOL: 0
+;PCODE: $00000439 VOL: 0
+;PCODE: $0000043A VOL: 0
+;PCODE: $0000043B VOL: 0
+;            current = 000;
+;PCODE: $0000043C VOL: 0
+;PCODE: $0000043D VOL: 0
+;            Screen = 30;
+;PCODE: $0000043E VOL: 0
+;PCODE: $0000043F VOL: 0
+;            flag = 11;
+;PCODE: $00000440 VOL: 0
+;PCODE: $00000441 VOL: 0
+;            delay_ms(2000);
+;PCODE: $00000442 VOL: 0
+;PCODE: $00000443 VOL: 0
+;PCODE: $00000444 VOL: 0
+;         }
+;PCODE: $00000445 VOL: 0
+;        }
+;
+;    if (PINE.1 == 0)                                            //ESCAPE 4
+;PCODE: $00000446 VOL: 0
+;PCODE: $00000447 VOL: 0
+;PCODE: $00000448 VOL: 0
+;PCODE: $00000449 VOL: 0
+;       {
+;        while(PINE.1 == 0);
+;PCODE: $0000044A VOL: 0
+;PCODE: $0000044B VOL: 0
+;PCODE: $0000044C VOL: 0
+;PCODE: $0000044D VOL: 0
+;PCODE: $0000044E VOL: 0
+;PCODE: $0000044F VOL: 0
+;        flag = 11;
+;PCODE: $00000450 VOL: 0
+;PCODE: $00000451 VOL: 0
+;        if(Screen > 100)
+;PCODE: $00000452 VOL: 0
+;PCODE: $00000453 VOL: 0
+;PCODE: $00000454 VOL: 0
+;        {Screen = Screen/10;}
+;PCODE: $00000455 VOL: 0
+;PCODE: $00000456 VOL: 0
+;PCODE: $00000457 VOL: 0
+;PCODE: $00000458 VOL: 0
+;        else
+;PCODE: $00000459 VOL: 0
+;PCODE: $0000045A VOL: 0
+;        {Screen = (Screen/10)-1;}
+;PCODE: $0000045B VOL: 0
+;PCODE: $0000045C VOL: 0
+;PCODE: $0000045D VOL: 0
+;PCODE: $0000045E VOL: 0
+;PCODE: $0000045F VOL: 0
+;PCODE: $00000460 VOL: 0
+;        //flag = 1;
+;       }
+;
+;
+;}
+;PCODE: $00000461 VOL: 0
+;PCODE: $00000462 VOL: 0
+;PCODE: $00000463 VOL: 0
+;PCODE: $00000464 VOL: 0
+;PCODE: $00000465 VOL: 0
+;PCODE: $00000466 VOL: 0
+;PCODE: $00000467 VOL: 0
+;PCODE: $00000468 VOL: 0
+
+	.DSEG
+_0x6E:
+	.BYTE 0x10
+;
+;
+;
+;
+;void Screen1()
+; 0000 0165 {
+
+	.CSEG
+;PCODE: $00000469 VOL: 0
+;PCODE: $0000046A VOL: 0
+; 0000 0166     Screen = 1;
+;PCODE: $0000046B VOL: 0
+;PCODE: $0000046C VOL: 0
+; 0000 0167     Pointer_horiz = 0;
+;PCODE: $0000046D VOL: 0
+;PCODE: $0000046E VOL: 0
+; 0000 0168     Pointer_vert = 0;
+;PCODE: $0000046F VOL: 0
+;PCODE: $00000470 VOL: 0
+; 0000 0169     lcd_clear();
+;PCODE: $00000471 VOL: 0
+; 0000 016A     lcd_gotoxy(0,0);
+;PCODE: $00000472 VOL: 0
+;PCODE: $00000473 VOL: 0
+;PCODE: $00000474 VOL: 0
+;PCODE: $00000475 VOL: 0
+;PCODE: $00000476 VOL: 0
+; 0000 016B     lcd_puts("Welcome to HMI");
+;PCODE: $00000477 VOL: 0
+;PCODE: $00000478 VOL: 0
+;PCODE: $00000479 VOL: 0
+;PCODE: $0000047A VOL: 0
+; 0000 016C 
+; 0000 016D     delay_ms(1000);
+;PCODE: $0000047B VOL: 0
+;PCODE: $0000047C VOL: 0
+;PCODE: $0000047D VOL: 0
+; 0000 016E 
+; 0000 016F     Screen = 2;
+;PCODE: $0000047E VOL: 0
+;PCODE: $0000047F VOL: 0
+; 0000 0170 }
+;PCODE: $00000480 VOL: 0
+;PCODE: $00000481 VOL: 0
+
+	.DSEG
+_0x76:
+	.BYTE 0xF
+;
+;void Screen2()
+; 0000 0173 {
+
+	.CSEG
+;PCODE: $00000482 VOL: 0
+;PCODE: $00000483 VOL: 0
+; 0000 0174     lcd_clear();
+;PCODE: $00000484 VOL: 0
+; 0000 0175 
+; 0000 0176     Screen = 2;
+;PCODE: $00000485 VOL: 0
+;PCODE: $00000486 VOL: 0
+; 0000 0177     Pointer_vert = 0;
+;PCODE: $00000487 VOL: 0
+;PCODE: $00000488 VOL: 0
+; 0000 0178     Pointer_horiz= 0;
+;PCODE: $00000489 VOL: 0
+;PCODE: $0000048A VOL: 0
+; 0000 0179     while(Screen == 2)
+;PCODE: $0000048B VOL: 0
+;PCODE: $0000048C VOL: 0
+;PCODE: $0000048D VOL: 0
+;PCODE: $0000048E VOL: 0
+; 0000 017A     {
+; 0000 017B 
+; 0000 017C 
+; 0000 017D         lcd_gotoxy(1,0);
+;PCODE: $0000048F VOL: 0
+;PCODE: $00000490 VOL: 0
+;PCODE: $00000491 VOL: 0
+;PCODE: $00000492 VOL: 0
+;PCODE: $00000493 VOL: 0
+; 0000 017E         lcd_putsf("Set Parameters");
+;PCODE: $00000494 VOL: 0
+;PCODE: $00000495 VOL: 0
+;PCODE: $00000496 VOL: 0
+;PCODE: $00000497 VOL: 0
+; 0000 017F         lcd_gotoxy(1,1) ;
+;PCODE: $00000498 VOL: 0
+;PCODE: $00000499 VOL: 0
+;PCODE: $0000049A VOL: 0
+;PCODE: $0000049B VOL: 0
+;PCODE: $0000049C VOL: 0
+; 0000 0180         lcd_putsf("Sensor Values");
+;PCODE: $0000049D VOL: 0
+;PCODE: $0000049E VOL: 0
+;PCODE: $0000049F VOL: 0
+;PCODE: $000004A0 VOL: 0
+; 0000 0181 
+; 0000 0182         input(2);
+;PCODE: $000004A1 VOL: 0
+;PCODE: $000004A2 VOL: 0
+;PCODE: $000004A3 VOL: 0
+; 0000 0183     }
+;PCODE: $000004A4 VOL: 0
+;PCODE: $000004A5 VOL: 0
+; 0000 0184 
+; 0000 0185 }
+;PCODE: $000004A6 VOL: 0
+;PCODE: $000004A7 VOL: 0
+;
+;
+;
+;void Screen30()
+; 0000 018A {
+;PCODE: $000004A8 VOL: 0
+;PCODE: $000004A9 VOL: 0
+; 0000 018B     lcd_clear();
+;PCODE: $000004AA VOL: 0
+; 0000 018C     while(Screen == 30)
+;PCODE: $000004AB VOL: 0
+;PCODE: $000004AC VOL: 0
+;PCODE: $000004AD VOL: 0
+;PCODE: $000004AE VOL: 0
+; 0000 018D     {
+; 0000 018E     lcd_gotoxy(3,3);
+;PCODE: $000004AF VOL: 0
+;PCODE: $000004B0 VOL: 0
+;PCODE: $000004B1 VOL: 0
+;PCODE: $000004B2 VOL: 0
+;PCODE: $000004B3 VOL: 0
+; 0000 018F     lcd_putsf("PARAMETERS");
+;PCODE: $000004B4 VOL: 0
+;PCODE: $000004B5 VOL: 0
+;PCODE: $000004B6 VOL: 0
+;PCODE: $000004B7 VOL: 0
+; 0000 0190     lcd_gotoxy(1,0);
+;PCODE: $000004B8 VOL: 0
+;PCODE: $000004B9 VOL: 0
+;PCODE: $000004BA VOL: 0
+;PCODE: $000004BB VOL: 0
+;PCODE: $000004BC VOL: 0
+; 0000 0191     lcd_putsf("Voltage (VOLTS)");
+;PCODE: $000004BD VOL: 0
+;PCODE: $000004BE VOL: 0
+;PCODE: $000004BF VOL: 0
+;PCODE: $000004C0 VOL: 0
+; 0000 0192     lcd_gotoxy(1,1);
+;PCODE: $000004C1 VOL: 0
+;PCODE: $000004C2 VOL: 0
+;PCODE: $000004C3 VOL: 0
+;PCODE: $000004C4 VOL: 0
+;PCODE: $000004C5 VOL: 0
+; 0000 0193     lcd_putsf("Current (AMPS)");
+;PCODE: $000004C6 VOL: 0
+;PCODE: $000004C7 VOL: 0
+;PCODE: $000004C8 VOL: 0
+;PCODE: $000004C9 VOL: 0
+; 0000 0194 
+; 0000 0195         input(2);
+;PCODE: $000004CA VOL: 0
+;PCODE: $000004CB VOL: 0
+;PCODE: $000004CC VOL: 0
+; 0000 0196 
+; 0000 0197     /*if (PINE.1 == 0)                                            //ESCAPE Pressed 4
+; 0000 0198        {
+; 0000 0199         while(PINE.1 == 0);
+; 0000 019A         Screen = 2;
+; 0000 019B        }*/
+; 0000 019C     }
+;PCODE: $000004CD VOL: 0
+;PCODE: $000004CE VOL: 0
+; 0000 019D 
+; 0000 019E 
+; 0000 019F }
+;PCODE: $000004CF VOL: 0
+;PCODE: $000004D0 VOL: 0
+;
+;void Screen300()      //SET VOLTAGE
+; 0000 01A2 {
+;PCODE: $000004D1 VOL: 0
+;PCODE: $000004D2 VOL: 0
+; 0000 01A3     while(Screen == 300)
+;PCODE: $000004D3 VOL: 0
+;PCODE: $000004D4 VOL: 0
+;PCODE: $000004D5 VOL: 0
+;PCODE: $000004D6 VOL: 0
+; 0000 01A4     {
+; 0000 01A5     lcd_clear();
+;PCODE: $000004D7 VOL: 0
+; 0000 01A6     lcd_gotoxy(0,0);
+;PCODE: $000004D8 VOL: 0
+;PCODE: $000004D9 VOL: 0
+;PCODE: $000004DA VOL: 0
+;PCODE: $000004DB VOL: 0
+;PCODE: $000004DC VOL: 0
+; 0000 01A7     lcd_putsf("Set voltage:");
+;PCODE: $000004DD VOL: 0
+;PCODE: $000004DE VOL: 0
+;PCODE: $000004DF VOL: 0
+;PCODE: $000004E0 VOL: 0
+; 0000 01A8     show_volt();
+;PCODE: $000004E1 VOL: 0
+; 0000 01A9     while(flag != 11)
+;PCODE: $000004E2 VOL: 0
+;PCODE: $000004E3 VOL: 0
+;PCODE: $000004E4 VOL: 0
+;PCODE: $000004E5 VOL: 0
+; 0000 01AA     {
+; 0000 01AB         input_volt(3);
+;PCODE: $000004E6 VOL: 0
+;PCODE: $000004E7 VOL: 0
+;PCODE: $000004E8 VOL: 0
+; 0000 01AC     }
+;PCODE: $000004E9 VOL: 0
+;PCODE: $000004EA VOL: 0
+; 0000 01AD     flag = 0;
+;PCODE: $000004EB VOL: 0
+;PCODE: $000004EC VOL: 0
+; 0000 01AE     }
+;PCODE: $000004ED VOL: 0
+;PCODE: $000004EE VOL: 0
+; 0000 01AF }
+;PCODE: $000004EF VOL: 0
+;PCODE: $000004F0 VOL: 0
+;void Screen301()     //SET CURRENT
+; 0000 01B1 {
+;PCODE: $000004F1 VOL: 0
+;PCODE: $000004F2 VOL: 0
+; 0000 01B2     while (Screen == 301)
+;PCODE: $000004F3 VOL: 0
+;PCODE: $000004F4 VOL: 0
+;PCODE: $000004F5 VOL: 0
+;PCODE: $000004F6 VOL: 0
+; 0000 01B3     {
+; 0000 01B4     lcd_clear();
+;PCODE: $000004F7 VOL: 0
+; 0000 01B5     lcd_gotoxy(0,0);
+;PCODE: $000004F8 VOL: 0
+;PCODE: $000004F9 VOL: 0
+;PCODE: $000004FA VOL: 0
+;PCODE: $000004FB VOL: 0
+;PCODE: $000004FC VOL: 0
+; 0000 01B6     lcd_putsf("Set current:");
+;PCODE: $000004FD VOL: 0
+;PCODE: $000004FE VOL: 0
+;PCODE: $000004FF VOL: 0
+;PCODE: $00000500 VOL: 0
+; 0000 01B7     show_current();
+;PCODE: $00000501 VOL: 0
+; 0000 01B8     while(flag != 11)
+;PCODE: $00000502 VOL: 0
+;PCODE: $00000503 VOL: 0
+;PCODE: $00000504 VOL: 0
+;PCODE: $00000505 VOL: 0
+; 0000 01B9     {
+; 0000 01BA         input_current(3);
+;PCODE: $00000506 VOL: 0
+;PCODE: $00000507 VOL: 0
+;PCODE: $00000508 VOL: 0
+; 0000 01BB     }
+;PCODE: $00000509 VOL: 0
+;PCODE: $0000050A VOL: 0
+; 0000 01BC     flag = 0;
+;PCODE: $0000050B VOL: 0
+;PCODE: $0000050C VOL: 0
+; 0000 01BD     }
+;PCODE: $0000050D VOL: 0
+;PCODE: $0000050E VOL: 0
+; 0000 01BE }
+;PCODE: $0000050F VOL: 0
+;PCODE: $00000510 VOL: 0
+;
+;
+;void Screen31()
+; 0000 01C2 {
+;PCODE: $00000511 VOL: 0
+;PCODE: $00000512 VOL: 0
+; 0000 01C3     lcd_clear();
+;PCODE: $00000513 VOL: 0
+; 0000 01C4     Pointer_vert = 0;
+;PCODE: $00000514 VOL: 0
+;PCODE: $00000515 VOL: 0
+; 0000 01C5     while(Screen == 31)
+;PCODE: $00000516 VOL: 0
+;PCODE: $00000517 VOL: 0
+;PCODE: $00000518 VOL: 0
+;PCODE: $00000519 VOL: 0
+; 0000 01C6     {
+; 0000 01C7     lcd_gotoxy(4,3);
+;PCODE: $0000051A VOL: 0
+;PCODE: $0000051B VOL: 0
+;PCODE: $0000051C VOL: 0
+;PCODE: $0000051D VOL: 0
+;PCODE: $0000051E VOL: 0
+; 0000 01C8     lcd_putsf("SENSORS");
+;PCODE: $0000051F VOL: 0
+;PCODE: $00000520 VOL: 0
+;PCODE: $00000521 VOL: 0
+;PCODE: $00000522 VOL: 0
+; 0000 01C9     lcd_gotoxy(1,0);
+;PCODE: $00000523 VOL: 0
+;PCODE: $00000524 VOL: 0
+;PCODE: $00000525 VOL: 0
+;PCODE: $00000526 VOL: 0
+;PCODE: $00000527 VOL: 0
+; 0000 01CA     lcd_putsf("Analog");
+;PCODE: $00000528 VOL: 0
+;PCODE: $00000529 VOL: 0
+;PCODE: $0000052A VOL: 0
+;PCODE: $0000052B VOL: 0
+; 0000 01CB     lcd_gotoxy(1,1);
+;PCODE: $0000052C VOL: 0
+;PCODE: $0000052D VOL: 0
+;PCODE: $0000052E VOL: 0
+;PCODE: $0000052F VOL: 0
+;PCODE: $00000530 VOL: 0
+; 0000 01CC     lcd_putsf("Digital");
+;PCODE: $00000531 VOL: 0
+;PCODE: $00000532 VOL: 0
+;PCODE: $00000533 VOL: 0
+;PCODE: $00000534 VOL: 0
+; 0000 01CD     lcd_gotoxy(1,2);
+;PCODE: $00000535 VOL: 0
+;PCODE: $00000536 VOL: 0
+;PCODE: $00000537 VOL: 0
+;PCODE: $00000538 VOL: 0
+;PCODE: $00000539 VOL: 0
+; 0000 01CE     lcd_putsf("Thermocouple");
+;PCODE: $0000053A VOL: 0
+;PCODE: $0000053B VOL: 0
+;PCODE: $0000053C VOL: 0
+;PCODE: $0000053D VOL: 0
+; 0000 01CF 
+; 0000 01D0         input(3);
+;PCODE: $0000053E VOL: 0
+;PCODE: $0000053F VOL: 0
+;PCODE: $00000540 VOL: 0
+; 0000 01D1     }
+;PCODE: $00000541 VOL: 0
+;PCODE: $00000542 VOL: 0
+; 0000 01D2 }
+;PCODE: $00000543 VOL: 0
+;PCODE: $00000544 VOL: 0
+;
+;void Screen310()  // Analog Values
+; 0000 01D5 {
+;PCODE: $00000545 VOL: 0
+;PCODE: $00000546 VOL: 0
+; 0000 01D6     lcd_gotoxy(0,0);
+;PCODE: $00000547 VOL: 0
+;PCODE: $00000548 VOL: 0
+;PCODE: $00000549 VOL: 0
+;PCODE: $0000054A VOL: 0
+;PCODE: $0000054B VOL: 0
+; 0000 01D7     lcd_putsf("No functions          added yet");
+;PCODE: $0000054C VOL: 0
+;PCODE: $0000054D VOL: 0
+;PCODE: $0000054E VOL: 0
+;PCODE: $0000054F VOL: 0
+; 0000 01D8     delay_ms(1000);
+;PCODE: $00000550 VOL: 0
+;PCODE: $00000551 VOL: 0
+;PCODE: $00000552 VOL: 0
+; 0000 01D9     Screen = 31;
+;PCODE: $00000553 VOL: 0
+;PCODE: $00000554 VOL: 0
+; 0000 01DA }
+;PCODE: $00000555 VOL: 0
+;PCODE: $00000556 VOL: 0
+;
+;void Screen311()        // Digital Values
+; 0000 01DD {
+;PCODE: $00000557 VOL: 0
+;PCODE: $00000558 VOL: 0
+; 0000 01DE     int x = 0;
+; 0000 01DF     char disp_ch[3];
+; 0000 01E0     lcd_clear();
+;PCODE: $00000559 VOL: 0
+;PCODE: $0000055A VOL: 0
+;PCODE: $0000055B VOL: 0
+;	x -> R16,R17
+;	disp_ch -> Y+2
+;PCODE: $0000055C VOL: 0
+;PCODE: $0000055D VOL: 0
+;PCODE: $0000055E VOL: 0
+; 0000 01E1     lcd_gotoxy(0,0);
+;PCODE: $0000055F VOL: 0
+;PCODE: $00000560 VOL: 0
+;PCODE: $00000561 VOL: 0
+;PCODE: $00000562 VOL: 0
+;PCODE: $00000563 VOL: 0
+; 0000 01E2     lcd_putsf("Ch0:");
+;PCODE: $00000564 VOL: 0
+;PCODE: $00000565 VOL: 0
+;PCODE: $00000566 VOL: 0
+;PCODE: $00000567 VOL: 0
+; 0000 01E3     lcd_gotoxy(0,1);
+;PCODE: $00000568 VOL: 0
+;PCODE: $00000569 VOL: 0
+;PCODE: $0000056A VOL: 0
+;PCODE: $0000056B VOL: 0
+;PCODE: $0000056C VOL: 0
+; 0000 01E4     lcd_putsf("Ch1:");
+;PCODE: $0000056D VOL: 0
+;PCODE: $0000056E VOL: 0
+;PCODE: $0000056F VOL: 0
+;PCODE: $00000570 VOL: 0
+; 0000 01E5     lcd_gotoxy(0,2);
+;PCODE: $00000571 VOL: 0
+;PCODE: $00000572 VOL: 0
+;PCODE: $00000573 VOL: 0
+;PCODE: $00000574 VOL: 0
+;PCODE: $00000575 VOL: 0
+; 0000 01E6     lcd_putsf("Ch2:");
+;PCODE: $00000576 VOL: 0
+;PCODE: $00000577 VOL: 0
+;PCODE: $00000578 VOL: 0
+;PCODE: $00000579 VOL: 0
+; 0000 01E7     lcd_gotoxy(0,3);
+;PCODE: $0000057A VOL: 0
+;PCODE: $0000057B VOL: 0
+;PCODE: $0000057C VOL: 0
+;PCODE: $0000057D VOL: 0
+;PCODE: $0000057E VOL: 0
+; 0000 01E8     lcd_putsf("Ch3:");
+;PCODE: $0000057F VOL: 0
+;PCODE: $00000580 VOL: 0
+;PCODE: $00000581 VOL: 0
+;PCODE: $00000582 VOL: 0
+; 0000 01E9     lcd_gotoxy(9,0);
+;PCODE: $00000583 VOL: 0
+;PCODE: $00000584 VOL: 0
+;PCODE: $00000585 VOL: 0
+;PCODE: $00000586 VOL: 0
+;PCODE: $00000587 VOL: 0
+; 0000 01EA     lcd_putsf("Ch4:");
+;PCODE: $00000588 VOL: 0
+;PCODE: $00000589 VOL: 0
+;PCODE: $0000058A VOL: 0
+;PCODE: $0000058B VOL: 0
+; 0000 01EB     lcd_gotoxy(9,1);
+;PCODE: $0000058C VOL: 0
+;PCODE: $0000058D VOL: 0
+;PCODE: $0000058E VOL: 0
+;PCODE: $0000058F VOL: 0
+;PCODE: $00000590 VOL: 0
+; 0000 01EC     lcd_putsf("Ch5:");
+;PCODE: $00000591 VOL: 0
+;PCODE: $00000592 VOL: 0
+;PCODE: $00000593 VOL: 0
+;PCODE: $00000594 VOL: 0
+; 0000 01ED     lcd_gotoxy(9,2);
+;PCODE: $00000595 VOL: 0
+;PCODE: $00000596 VOL: 0
+;PCODE: $00000597 VOL: 0
+;PCODE: $00000598 VOL: 0
+;PCODE: $00000599 VOL: 0
+; 0000 01EE     lcd_putsf("Ch6:");
+;PCODE: $0000059A VOL: 0
+;PCODE: $0000059B VOL: 0
+;PCODE: $0000059C VOL: 0
+;PCODE: $0000059D VOL: 0
+; 0000 01EF     lcd_gotoxy(9,3);
+;PCODE: $0000059E VOL: 0
+;PCODE: $0000059F VOL: 0
+;PCODE: $000005A0 VOL: 0
+;PCODE: $000005A1 VOL: 0
+;PCODE: $000005A2 VOL: 0
+; 0000 01F0     lcd_putsf("Ch7:");
+;PCODE: $000005A3 VOL: 0
+;PCODE: $000005A4 VOL: 0
+;PCODE: $000005A5 VOL: 0
+;PCODE: $000005A6 VOL: 0
+; 0000 01F1 
+; 0000 01F2     while (PINE.1 != 0)
+;PCODE: $000005A7 VOL: 0
+;PCODE: $000005A8 VOL: 0
+;PCODE: $000005A9 VOL: 0
+;PCODE: $000005AA VOL: 0
+; 0000 01F3     {
+; 0000 01F4         x = read_adc(0x00)/4;
+;PCODE: $000005AB VOL: 0
+;PCODE: $000005AC VOL: 0
+;PCODE: $000005AD VOL: 0
+;PCODE: $000005AE VOL: 0
+;PCODE: $000005AF VOL: 0
+; 0000 01F5         sprintf(disp_ch,"%03d",x);
+;PCODE: $000005B0 VOL: 0
+;PCODE: $000005B1 VOL: 0
+;PCODE: $000005B2 VOL: 0
+;PCODE: $000005B3 VOL: 0
+;PCODE: $000005B4 VOL: 0
+;PCODE: $000005B5 VOL: 0
+;PCODE: $000005B6 VOL: 0
+;PCODE: $000005B7 VOL: 0
+;PCODE: $000005B8 VOL: 0
+;PCODE: $000005B9 VOL: 0
+;PCODE: $000005BA VOL: 0
+;PCODE: $000005BB VOL: 0
+; 0000 01F6         lcd_gotoxy(4,0);
+;PCODE: $000005BC VOL: 0
+;PCODE: $000005BD VOL: 0
+;PCODE: $000005BE VOL: 0
+;PCODE: $000005BF VOL: 0
+;PCODE: $000005C0 VOL: 0
+; 0000 01F7         lcd_puts(disp_ch);
+;PCODE: $000005C1 VOL: 0
+;PCODE: $000005C2 VOL: 0
+;PCODE: $000005C3 VOL: 0
+; 0000 01F8         x = read_adc(0x01)/4;
+;PCODE: $000005C4 VOL: 0
+;PCODE: $000005C5 VOL: 0
+;PCODE: $000005C6 VOL: 0
+;PCODE: $000005C7 VOL: 0
+;PCODE: $000005C8 VOL: 0
+; 0000 01F9         sprintf(disp_ch,"%03d",x);
+;PCODE: $000005C9 VOL: 0
+;PCODE: $000005CA VOL: 0
+;PCODE: $000005CB VOL: 0
+;PCODE: $000005CC VOL: 0
+;PCODE: $000005CD VOL: 0
+;PCODE: $000005CE VOL: 0
+;PCODE: $000005CF VOL: 0
+;PCODE: $000005D0 VOL: 0
+;PCODE: $000005D1 VOL: 0
+;PCODE: $000005D2 VOL: 0
+;PCODE: $000005D3 VOL: 0
+;PCODE: $000005D4 VOL: 0
+; 0000 01FA         lcd_gotoxy(4,1);
+;PCODE: $000005D5 VOL: 0
+;PCODE: $000005D6 VOL: 0
+;PCODE: $000005D7 VOL: 0
+;PCODE: $000005D8 VOL: 0
+;PCODE: $000005D9 VOL: 0
+; 0000 01FB         lcd_puts(disp_ch);
+;PCODE: $000005DA VOL: 0
+;PCODE: $000005DB VOL: 0
+;PCODE: $000005DC VOL: 0
+; 0000 01FC         x = read_adc(0x02)/4;
+;PCODE: $000005DD VOL: 0
+;PCODE: $000005DE VOL: 0
+;PCODE: $000005DF VOL: 0
+;PCODE: $000005E0 VOL: 0
+;PCODE: $000005E1 VOL: 0
+; 0000 01FD         sprintf(disp_ch,"%03d",x);
+;PCODE: $000005E2 VOL: 0
+;PCODE: $000005E3 VOL: 0
+;PCODE: $000005E4 VOL: 0
+;PCODE: $000005E5 VOL: 0
+;PCODE: $000005E6 VOL: 0
+;PCODE: $000005E7 VOL: 0
+;PCODE: $000005E8 VOL: 0
+;PCODE: $000005E9 VOL: 0
+;PCODE: $000005EA VOL: 0
+;PCODE: $000005EB VOL: 0
+;PCODE: $000005EC VOL: 0
+;PCODE: $000005ED VOL: 0
+; 0000 01FE         lcd_gotoxy(4,2);
+;PCODE: $000005EE VOL: 0
+;PCODE: $000005EF VOL: 0
+;PCODE: $000005F0 VOL: 0
+;PCODE: $000005F1 VOL: 0
+;PCODE: $000005F2 VOL: 0
+; 0000 01FF         lcd_puts(disp_ch);
+;PCODE: $000005F3 VOL: 0
+;PCODE: $000005F4 VOL: 0
+;PCODE: $000005F5 VOL: 0
+; 0000 0200         x = read_adc(0x03)/4;
+;PCODE: $000005F6 VOL: 0
+;PCODE: $000005F7 VOL: 0
+;PCODE: $000005F8 VOL: 0
+;PCODE: $000005F9 VOL: 0
+;PCODE: $000005FA VOL: 0
+; 0000 0201         sprintf(disp_ch,"%03d",x);
+;PCODE: $000005FB VOL: 0
+;PCODE: $000005FC VOL: 0
+;PCODE: $000005FD VOL: 0
+;PCODE: $000005FE VOL: 0
+;PCODE: $000005FF VOL: 0
+;PCODE: $00000600 VOL: 0
+;PCODE: $00000601 VOL: 0
+;PCODE: $00000602 VOL: 0
+;PCODE: $00000603 VOL: 0
+;PCODE: $00000604 VOL: 0
+;PCODE: $00000605 VOL: 0
+;PCODE: $00000606 VOL: 0
+; 0000 0202         lcd_gotoxy(4,3);
+;PCODE: $00000607 VOL: 0
+;PCODE: $00000608 VOL: 0
+;PCODE: $00000609 VOL: 0
+;PCODE: $0000060A VOL: 0
+;PCODE: $0000060B VOL: 0
+; 0000 0203         lcd_puts(disp_ch);
+;PCODE: $0000060C VOL: 0
+;PCODE: $0000060D VOL: 0
+;PCODE: $0000060E VOL: 0
+; 0000 0204         x = read_adc(0x04)/4;
+;PCODE: $0000060F VOL: 0
+;PCODE: $00000610 VOL: 0
+;PCODE: $00000611 VOL: 0
+;PCODE: $00000612 VOL: 0
+;PCODE: $00000613 VOL: 0
+; 0000 0205         sprintf(disp_ch,"%03d",x);
+;PCODE: $00000614 VOL: 0
+;PCODE: $00000615 VOL: 0
+;PCODE: $00000616 VOL: 0
+;PCODE: $00000617 VOL: 0
+;PCODE: $00000618 VOL: 0
+;PCODE: $00000619 VOL: 0
+;PCODE: $0000061A VOL: 0
+;PCODE: $0000061B VOL: 0
+;PCODE: $0000061C VOL: 0
+;PCODE: $0000061D VOL: 0
+;PCODE: $0000061E VOL: 0
+;PCODE: $0000061F VOL: 0
+; 0000 0206         lcd_gotoxy(13,0);
+;PCODE: $00000620 VOL: 0
+;PCODE: $00000621 VOL: 0
+;PCODE: $00000622 VOL: 0
+;PCODE: $00000623 VOL: 0
+;PCODE: $00000624 VOL: 0
+; 0000 0207         lcd_puts(disp_ch);
+;PCODE: $00000625 VOL: 0
+;PCODE: $00000626 VOL: 0
+;PCODE: $00000627 VOL: 0
+; 0000 0208         x = read_adc(0x05)/4;
+;PCODE: $00000628 VOL: 0
+;PCODE: $00000629 VOL: 0
+;PCODE: $0000062A VOL: 0
+;PCODE: $0000062B VOL: 0
+;PCODE: $0000062C VOL: 0
+; 0000 0209         sprintf(disp_ch,"%03d",x);
+;PCODE: $0000062D VOL: 0
+;PCODE: $0000062E VOL: 0
+;PCODE: $0000062F VOL: 0
+;PCODE: $00000630 VOL: 0
+;PCODE: $00000631 VOL: 0
+;PCODE: $00000632 VOL: 0
+;PCODE: $00000633 VOL: 0
+;PCODE: $00000634 VOL: 0
+;PCODE: $00000635 VOL: 0
+;PCODE: $00000636 VOL: 0
+;PCODE: $00000637 VOL: 0
+;PCODE: $00000638 VOL: 0
+; 0000 020A         lcd_gotoxy(13,1);
+;PCODE: $00000639 VOL: 0
+;PCODE: $0000063A VOL: 0
+;PCODE: $0000063B VOL: 0
+;PCODE: $0000063C VOL: 0
+;PCODE: $0000063D VOL: 0
+; 0000 020B         lcd_puts(disp_ch);
+;PCODE: $0000063E VOL: 0
+;PCODE: $0000063F VOL: 0
+;PCODE: $00000640 VOL: 0
+; 0000 020C         x = read_adc(0x06)/4;
+;PCODE: $00000641 VOL: 0
+;PCODE: $00000642 VOL: 0
+;PCODE: $00000643 VOL: 0
+;PCODE: $00000644 VOL: 0
+;PCODE: $00000645 VOL: 0
+; 0000 020D         sprintf(disp_ch,"%03d",x);
+;PCODE: $00000646 VOL: 0
+;PCODE: $00000647 VOL: 0
+;PCODE: $00000648 VOL: 0
+;PCODE: $00000649 VOL: 0
+;PCODE: $0000064A VOL: 0
+;PCODE: $0000064B VOL: 0
+;PCODE: $0000064C VOL: 0
+;PCODE: $0000064D VOL: 0
+;PCODE: $0000064E VOL: 0
+;PCODE: $0000064F VOL: 0
+;PCODE: $00000650 VOL: 0
+;PCODE: $00000651 VOL: 0
+; 0000 020E         lcd_gotoxy(13,2);
+;PCODE: $00000652 VOL: 0
+;PCODE: $00000653 VOL: 0
+;PCODE: $00000654 VOL: 0
+;PCODE: $00000655 VOL: 0
+;PCODE: $00000656 VOL: 0
+; 0000 020F         lcd_puts(disp_ch);
+;PCODE: $00000657 VOL: 0
+;PCODE: $00000658 VOL: 0
+;PCODE: $00000659 VOL: 0
+; 0000 0210         x = read_adc(0x07)/4;
+;PCODE: $0000065A VOL: 0
+;PCODE: $0000065B VOL: 0
+;PCODE: $0000065C VOL: 0
+;PCODE: $0000065D VOL: 0
+;PCODE: $0000065E VOL: 0
+; 0000 0211         sprintf(disp_ch,"%03d",x);
+;PCODE: $0000065F VOL: 0
+;PCODE: $00000660 VOL: 0
+;PCODE: $00000661 VOL: 0
+;PCODE: $00000662 VOL: 0
+;PCODE: $00000663 VOL: 0
+;PCODE: $00000664 VOL: 0
+;PCODE: $00000665 VOL: 0
+;PCODE: $00000666 VOL: 0
+;PCODE: $00000667 VOL: 0
+;PCODE: $00000668 VOL: 0
+;PCODE: $00000669 VOL: 0
+;PCODE: $0000066A VOL: 0
+; 0000 0212         lcd_gotoxy(13,3);
+;PCODE: $0000066B VOL: 0
+;PCODE: $0000066C VOL: 0
+;PCODE: $0000066D VOL: 0
+;PCODE: $0000066E VOL: 0
+;PCODE: $0000066F VOL: 0
+; 0000 0213         lcd_puts(disp_ch);
+;PCODE: $00000670 VOL: 0
+;PCODE: $00000671 VOL: 0
+;PCODE: $00000672 VOL: 0
+; 0000 0214         delay_ms(1000);
+;PCODE: $00000673 VOL: 0
+;PCODE: $00000674 VOL: 0
+;PCODE: $00000675 VOL: 0
+; 0000 0215     }
+;PCODE: $00000676 VOL: 0
+;PCODE: $00000677 VOL: 0
+; 0000 0216     Screen = 31;
+;PCODE: $00000678 VOL: 0
+;PCODE: $00000679 VOL: 0
+; 0000 0217 }
+;PCODE: $0000067A VOL: 0
+;PCODE: $0000067B VOL: 0
+;PCODE: $0000067C VOL: 0
+;PCODE: $0000067D VOL: 0
+;PCODE: $0000067E VOL: 0
+;PCODE: $0000067F VOL: 0
+;PCODE: $00000680 VOL: 0
+;
+;
+;void Screen_sel()
+; 0000 021B {
+;PCODE: $00000681 VOL: 0
+;PCODE: $00000682 VOL: 0
+; 0000 021C     switch(Screen)
+;PCODE: $00000683 VOL: 0
+; 0000 021D     {
+; 0000 021E         case 1:
+;PCODE: $00000684 VOL: 0
+;PCODE: $00000685 VOL: 0
+; 0000 021F             Screen1();
+;PCODE: $00000686 VOL: 0
+; 0000 0220         break;
+;PCODE: $00000687 VOL: 0
+; 0000 0221         case 2:
+;PCODE: $00000688 VOL: 0
+;PCODE: $00000689 VOL: 0
+;PCODE: $0000068A VOL: 0
+; 0000 0222             Screen2();
+;PCODE: $0000068B VOL: 0
+; 0000 0223         break;
+;PCODE: $0000068C VOL: 0
+; 0000 0224 
+; 0000 0225         case 30:                           //Ports
+;PCODE: $0000068D VOL: 0
+;PCODE: $0000068E VOL: 0
+;PCODE: $0000068F VOL: 0
+; 0000 0226             Screen30();
+;PCODE: $00000690 VOL: 0
+; 0000 0227         break;
+;PCODE: $00000691 VOL: 0
+; 0000 0228 
+; 0000 0229         case 300:
+;PCODE: $00000692 VOL: 0
+;PCODE: $00000693 VOL: 0
+;PCODE: $00000694 VOL: 0
+; 0000 022A             Screen300();                   //Set Voltage
+;PCODE: $00000695 VOL: 0
+; 0000 022B         break;
+;PCODE: $00000696 VOL: 0
+; 0000 022C         case 301:
+;PCODE: $00000697 VOL: 0
+;PCODE: $00000698 VOL: 0
+;PCODE: $00000699 VOL: 0
+; 0000 022D             Screen301();
+;PCODE: $0000069A VOL: 0
+; 0000 022E         break;
+;PCODE: $0000069B VOL: 0
+; 0000 022F 
+; 0000 0230         case 31:
+;PCODE: $0000069C VOL: 0
+;PCODE: $0000069D VOL: 0
+;PCODE: $0000069E VOL: 0
+; 0000 0231             Screen31();
+;PCODE: $0000069F VOL: 0
+; 0000 0232         break;
+;PCODE: $000006A0 VOL: 0
+; 0000 0233         case 310:                           //Analog
+;PCODE: $000006A1 VOL: 0
+;PCODE: $000006A2 VOL: 0
+;PCODE: $000006A3 VOL: 0
+; 0000 0234             Screen310();
+;PCODE: $000006A4 VOL: 0
+; 0000 0235         break;
+;PCODE: $000006A5 VOL: 0
+; 0000 0236         case 311:                           //Digital
+;PCODE: $000006A6 VOL: 0
+;PCODE: $000006A7 VOL: 0
+;PCODE: $000006A8 VOL: 0
+; 0000 0237             Screen311();
+;PCODE: $000006A9 VOL: 0
+; 0000 0238         break;
+;PCODE: $000006AA VOL: 0
+; 0000 0239 
+; 0000 023A         default:
+;PCODE: $000006AB VOL: 0
+; 0000 023B             lcd_clear();
+;PCODE: $000006AC VOL: 0
+; 0000 023C             lcd_gotoxy(0,0);
+;PCODE: $000006AD VOL: 0
+;PCODE: $000006AE VOL: 0
+;PCODE: $000006AF VOL: 0
+;PCODE: $000006B0 VOL: 0
+;PCODE: $000006B1 VOL: 0
+; 0000 023D             lcd_puts("Error.");
+;PCODE: $000006B2 VOL: 0
+;PCODE: $000006B3 VOL: 0
+;PCODE: $000006B4 VOL: 0
+;PCODE: $000006B5 VOL: 0
+; 0000 023E             lcd_gotoxy(0,1);
+;PCODE: $000006B6 VOL: 0
+;PCODE: $000006B7 VOL: 0
+;PCODE: $000006B8 VOL: 0
+;PCODE: $000006B9 VOL: 0
+;PCODE: $000006BA VOL: 0
+; 0000 023F             lcd_puts("Restarting in 5 seconds.");
+;PCODE: $000006BB VOL: 0
+;PCODE: $000006BC VOL: 0
+;PCODE: $000006BD VOL: 0
+;PCODE: $000006BE VOL: 0
+; 0000 0240             delay_ms(2000);
+;PCODE: $000006BF VOL: 0
+;PCODE: $000006C0 VOL: 0
+;PCODE: $000006C1 VOL: 0
+; 0000 0241             Screen = 1;
+;PCODE: $000006C2 VOL: 0
+;PCODE: $000006C3 VOL: 0
+; 0000 0242         break;
+;PCODE: $000006C4 VOL: 0
+; 0000 0243     }
+;PCODE: $000006C5 VOL: 0
+; 0000 0244 }
+;PCODE: $000006C6 VOL: 0
+;PCODE: $000006C7 VOL: 0
+
+	.DSEG
+_0x9B:
+	.BYTE 0x20
+;
+;void main(void)
+; 0000 0247 {
+
+	.CSEG
+;PCODE: $000006C8 VOL: 0
+; 0000 0248 
+; 0000 0249 
+; 0000 024A PORTA=0x00;
+;PCODE: $000006C9 VOL: 0
+;PCODE: $000006CA VOL: 0
+; 0000 024B DDRA=0x00;
+;PCODE: $000006CB VOL: 0
+;PCODE: $000006CC VOL: 0
+; 0000 024C 
+; 0000 024D 
+; 0000 024E PORTB=0x00;
+;PCODE: $000006CD VOL: 0
+;PCODE: $000006CE VOL: 0
+; 0000 024F DDRB=0x07;
+;PCODE: $000006CF VOL: 0
+;PCODE: $000006D0 VOL: 0
+; 0000 0250 
+; 0000 0251 
+; 0000 0252 PORTC=0xFF;
+;PCODE: $000006D1 VOL: 0
+;PCODE: $000006D2 VOL: 0
+; 0000 0253 DDRC=0xFF;
+;PCODE: $000006D3 VOL: 0
+;PCODE: $000006D4 VOL: 0
+; 0000 0254 
+; 0000 0255 
+; 0000 0256 PORTD=0xC0;
+;PCODE: $000006D5 VOL: 0
+;PCODE: $000006D6 VOL: 0
+; 0000 0257 DDRD=0x00;
+;PCODE: $000006D7 VOL: 0
+;PCODE: $000006D8 VOL: 0
+; 0000 0258 
+; 0000 0259 
+; 0000 025A 
+; 0000 025B PORTE=0x0F;
+;PCODE: $000006D9 VOL: 0
+;PCODE: $000006DA VOL: 0
+; 0000 025C DDRE=0x00;
+;PCODE: $000006DB VOL: 0
+;PCODE: $000006DC VOL: 0
+; 0000 025D 
+; 0000 025E 
+; 0000 025F 
+; 0000 0260 PORTF=0x00;
+;PCODE: $000006DD VOL: 0
+;PCODE: $000006DE VOL: 0
+; 0000 0261 DDRF=0x00;
+;PCODE: $000006DF VOL: 0
+;PCODE: $000006E0 VOL: 0
+; 0000 0262 
+; 0000 0263 
+; 0000 0264 PORTG=0x00;
+;PCODE: $000006E1 VOL: 0
+;PCODE: $000006E2 VOL: 0
+; 0000 0265 DDRG=0x00;
+;PCODE: $000006E3 VOL: 0
+;PCODE: $000006E4 VOL: 0
+; 0000 0266 
+; 0000 0267 TCCR3A=0x00;
+;PCODE: $000006E5 VOL: 0
+;PCODE: $000006E6 VOL: 0
+; 0000 0268 TCCR3B=0x09;
+;PCODE: $000006E7 VOL: 0
+;PCODE: $000006E8 VOL: 0
+; 0000 0269 TCNT3H=0x00;
+;PCODE: $000006E9 VOL: 0
+;PCODE: $000006EA VOL: 0
+; 0000 026A TCNT3L=0x00;
+;PCODE: $000006EB VOL: 0
+;PCODE: $000006EC VOL: 0
+; 0000 026B ICR3H=0x00;
+;PCODE: $000006ED VOL: 0
+;PCODE: $000006EE VOL: 0
+; 0000 026C ICR3L=0x00;
+;PCODE: $000006EF VOL: 0
+;PCODE: $000006F0 VOL: 0
+; 0000 026D OCR3AH=0xFF;
+;PCODE: $000006F1 VOL: 0
+;PCODE: $000006F2 VOL: 0
+; 0000 026E OCR3AL=0xFF;
+;PCODE: $000006F3 VOL: 0
+;PCODE: $000006F4 VOL: 0
+; 0000 026F OCR3BH=0x00;
+;PCODE: $000006F5 VOL: 0
+;PCODE: $000006F6 VOL: 0
+; 0000 0270 OCR3BL=0x00;
+;PCODE: $000006F7 VOL: 0
+;PCODE: $000006F8 VOL: 0
+; 0000 0271 OCR3CH=0x00;
+;PCODE: $000006F9 VOL: 0
+;PCODE: $000006FA VOL: 0
+; 0000 0272 OCR3CL=0x00;
+;PCODE: $000006FB VOL: 0
+;PCODE: $000006FC VOL: 0
+; 0000 0273 
+; 0000 0274 // External Interrupt(s) initialization
+; 0000 0275 EICRA=0x00;
+;PCODE: $000006FD VOL: 0
+;PCODE: $000006FE VOL: 0
+; 0000 0276 EICRB=0xAA;
+;PCODE: $000006FF VOL: 0
+;PCODE: $00000700 VOL: 0
+; 0000 0277 EIMSK=0xF0;
+;PCODE: $00000701 VOL: 0
+;PCODE: $00000702 VOL: 0
+; 0000 0278 EIFR=0xF0;
+;PCODE: $00000703 VOL: 0
+;PCODE: $00000704 VOL: 0
+; 0000 0279 
+; 0000 027A // Timer(s)/Counter(s) Interrupt(s) initialization
+; 0000 027B TIMSK=0x00;
+;PCODE: $00000705 VOL: 0
+;PCODE: $00000706 VOL: 0
+; 0000 027C ETIMSK=0x04;
+;PCODE: $00000707 VOL: 0
+;PCODE: $00000708 VOL: 0
+; 0000 027D 
+; 0000 027E // USART0 initialization
+; 0000 027F /*
+; 0000 0280 UCSR0A=0x00;
+; 0000 0281 UCSR0B=0x18;
+; 0000 0282 UCSR0C=0x06;
+; 0000 0283 UBRR0H=0x00;
+; 0000 0284 UBRR0L=0x67;
+; 0000 0285 */
+; 0000 0286 // USART0 initialization
+; 0000 0287 // Communication Parameters: 8 Data, 1 Stop, No Parity
+; 0000 0288 // USART0 Receiver: Off
+; 0000 0289 // USART0 Transmitter: On
+; 0000 028A // USART0 Mode: Asynchronous
+; 0000 028B // USART0 Baud Rate: 9600
+; 0000 028C UCSR0A=(0<<RXC0) | (0<<TXC0) | (0<<UDRE0) | (0<<FE0) | (0<<DOR0) | (0<<UPE0) | (0<<U2X0) | (0<<MPCM0);
+;PCODE: $00000709 VOL: 0
+;PCODE: $0000070A VOL: 0
+; 0000 028D UCSR0B=(0<<RXCIE0) | (1<<TXCIE0) | (0<<UDRIE0) | (0<<RXEN0) | (1<<TXEN0) | (0<<UCSZ02) | (0<<RXB80) | (0<<TXB80);
+;PCODE: $0000070B VOL: 0
+;PCODE: $0000070C VOL: 0
+; 0000 028E UCSR0C=(0<<UMSEL0) | (0<<UPM01) | (0<<UPM00) | (0<<USBS0) | (1<<UCSZ01) | (1<<UCSZ00) | (0<<UCPOL0);
+;PCODE: $0000070D VOL: 0
+;PCODE: $0000070E VOL: 0
+; 0000 028F UBRR0H=0x00;
+;PCODE: $0000070F VOL: 0
+;PCODE: $00000710 VOL: 0
+; 0000 0290 UBRR0L=0x33;
+;PCODE: $00000711 VOL: 0
+;PCODE: $00000712 VOL: 0
+; 0000 0291 
+; 0000 0292 // USART1 initialization
+; 0000 0293 UCSR1A=0x00;
+;PCODE: $00000713 VOL: 0
+;PCODE: $00000714 VOL: 0
+; 0000 0294 UCSR1B=0x18;
+;PCODE: $00000715 VOL: 0
+;PCODE: $00000716 VOL: 0
+; 0000 0295 UCSR1C=0x06;
+;PCODE: $00000717 VOL: 0
+;PCODE: $00000718 VOL: 0
+; 0000 0296 UBRR1H=0x00;
+;PCODE: $00000719 VOL: 0
+;PCODE: $0000071A VOL: 0
+; 0000 0297 UBRR1L=0x67;
+;PCODE: $0000071B VOL: 0
+;PCODE: $0000071C VOL: 0
+; 0000 0298 
+; 0000 0299 // Analog Comparator initialization
+; 0000 029A ACSR=0x80;
+;PCODE: $0000071D VOL: 0
+;PCODE: $0000071E VOL: 0
+; 0000 029B SFIOR=0x00;
+;PCODE: $0000071F VOL: 0
+;PCODE: $00000720 VOL: 0
+; 0000 029C 
+; 0000 029D // ADC initialization
+; 0000 029E ADMUX=ADC_VREF_TYPE & 0xff;
+;PCODE: $00000721 VOL: 0
+;PCODE: $00000722 VOL: 0
+; 0000 029F ADCSRA=0x84;
+;PCODE: $00000723 VOL: 0
+;PCODE: $00000724 VOL: 0
+; 0000 02A0 
+; 0000 02A1 // SPI initialization
+; 0000 02A2 SPCR=0x50;
+;PCODE: $00000725 VOL: 0
+;PCODE: $00000726 VOL: 0
+; 0000 02A3 SPSR=0x00;
+;PCODE: $00000727 VOL: 0
+;PCODE: $00000728 VOL: 0
+; 0000 02A4 
+; 0000 02A5 // TWI initializatioN
+; 0000 02A6 TWCR=0x00;
+;PCODE: $00000729 VOL: 0
+;PCODE: $0000072A VOL: 0
+; 0000 02A7 
+; 0000 02A8 // I2C Bus initialization
+; 0000 02A9 i2c_init();
+;PCODE: $0000072B VOL: 0
+; 0000 02AA 
+; 0000 02AB // DS1307 Real Time Clock initialization
+; 0000 02AC rtc_init(0,0,0);
+;PCODE: $0000072C VOL: 0
+;PCODE: $0000072D VOL: 0
+;PCODE: $0000072E VOL: 0
+;PCODE: $0000072F VOL: 0
+;PCODE: $00000730 VOL: 0
+;PCODE: $00000731 VOL: 0
+;PCODE: $00000732 VOL: 0
+; 0000 02AD 
+; 0000 02AE 
+; 0000 02AF lcd_init(16);
+;PCODE: $00000733 VOL: 0
+;PCODE: $00000734 VOL: 0
+;PCODE: $00000735 VOL: 0
+; 0000 02B0 
+; 0000 02B1 // Global enable interrupts
+; 0000 02B2 #asm("sei")
+;PCODE: $00000736 VOL: 0
+	sei
+;PCODE: $00000737 VOL: 0
+; 0000 02B3 
+; 0000 02B4 
+; 0000 02B5 while(1)
+;PCODE: $00000738 VOL: 0
+; 0000 02B6 {
+; 0000 02B7 
+; 0000 02B8    Screen_sel();
+;PCODE: $00000739 VOL: 0
+; 0000 02B9 }
+;PCODE: $0000073A VOL: 0
+;PCODE: $0000073B VOL: 0
+; 0000 02BA 
+; 0000 02BB }
+;PCODE: $0000073C VOL: 0
+;PCODE: $0000073D VOL: 0
+;PCODE: $0000073E VOL: 0

@@ -1,0 +1,39 @@
+RAM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+recFunc                                                           0x054F     200
+tx_buffer0                                                        0x0617      64
+tx_counter0                                                       0x0657       1
+on_button_state                                                   0x0658       2
+off_button_state                                                  0x065A       2
+Screen                                                            0x065C       2
+Current_Screen                                                    0x065E       2
+Pointer_horiz                                                     0x0660       2
+Pointer_vert                                                      0x0662       2
+Pt                                                                0x0664       2
+voltage                                                           0x0666       4
+current                                                           0x066A       4
+set_flag                                                          0x066E       2
+flag                                                              0x0670       2
+main_screen_trigger                                               0x0672       2
+disp_volt                                                         0x0674       3
+disp_current                                                      0x0677       3
+_seed                                                             0x067A       4
+_base_y                                                           0x067E       4
+_lcd_x                                                            0x0682       1
+_lcd_y                                                            0x0683       1
+_lcd_maxx                                                         0x0684       1
+
+EEPROM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                          Register  Size
+--------------------------------------------------------------------------------
+msg                                                               R4,R5        2
+xmitMsg                                                           R6,R7        2
+rec                                                               R8,R9        2
+rdata                                                             R10,R11      2
+tx_wr_index0                                                      R13          1
+tx_rd_index0                                                      R12          1
