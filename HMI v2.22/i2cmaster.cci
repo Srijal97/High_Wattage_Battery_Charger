@@ -1,0 +1,12 @@
+VERSION:3 SOURCE_TIMESTAMP:50627F59
+NODE:I LEVEL:0 LINE:12 "C:\Users\anwar\OneDrive\Desktop\PDC\PDC battery charger\HMI v2.22\i2cmaster.h"
+NODE:M LEVEL:0 LINE:15 "SCL_CLOCK"
+NODE:M LEVEL:0 LINE:18 "F_CPU"
+NODE:F LEVEL:0 LINE:29 "i2c_init(void)"
+NODE:F LEVEL:0 LINE:43 "i2c_start(unsigned char address)"
+NODE:F LEVEL:0 LINE:79 "i2c_start_wait(unsigned char address)"
+NODE:F LEVEL:0 LINE:130 "i2c_rep_start(unsigned char address)"
+NODE:F LEVEL:0 LINE:140 "i2c_stop(void)"
+NODE:F LEVEL:0 LINE:158 "i2c_write(unsigned char data)"
+NODE:F LEVEL:0 LINE:182 "i2c_readAck(void)"
+NODE:F LEVEL:0 LINE:197 "i2c_readNak(void)"

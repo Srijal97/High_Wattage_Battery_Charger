@@ -1,0 +1,8 @@
+VERSION:3 SOURCE_TIMESTAMP:40DE82F5
+NODE:I LEVEL:0 LINE:9 "C:\Users\anwar\OneDrive\Desktop\PDC\PDC battery charger\HMI v2.22\24c_eeprom.h"
+NODE:I LEVEL:0 LINE:10 "C:\Users\anwar\OneDrive\Desktop\PDC\PDC battery charger\HMI v2.22\i2cmaster.h"
+NODE:F LEVEL:0 LINE:13 "writeByte(int address,uint8_t data)"
+NODE:F LEVEL:0 LINE:23 "readByte(int address)"
+NODE:F LEVEL:0 LINE:39 "readCurrentByte(void)"
+NODE:F LEVEL:0 LINE:51 "readData(int address,unsigned char * data,int len)"
+NODE:F LEVEL:0 LINE:68 "writePage(int address,unsigned char * data,uint8_t len)"

@@ -8,16 +8,24 @@
 #ifndef HEADERS_COMMANDS_H_
 #define HEADERS_COMMANDS_H_
 
+#define MAX_NUM_COMMANDS  16
 
 void command(void);
 void noOp(void);
 void mainOn(void);
 void mainOff(void);
 void resetFault(void);
-void readVolt(void);
-void readAmp(void);
-static void (*func[100])();
-void recOp(char*rec);
+void txFaultState(void);
+void txInputVoltage(void);
+void txOutputVoltage(void);
+void txOutputCurrent(void);
+void txBatteryCurrent(void);
+void rxSetOutputVoltage(int voltset);
+void rxSetBatteryCurrent(int ampset);
+
+
+static void (*select_function[MAX_NUM_COMMANDS])();
+void process_rx_command(char*rec);
 
 
 #endif /* HEADERS_COMMANDS_H_ */

@@ -1,0 +1,7 @@
+VERSION:3 SOURCE_TIMESTAMP:50589C39
+NODE:F LEVEL:0 LINE:3 "pointer_display_horiz(void)"
+NODE:F LEVEL:0 LINE:33 "pointer_display_vert(void)"
+NODE:F LEVEL:0 LINE:49 "show_volt(void)"
+NODE:F LEVEL:0 LINE:55 "show_current(void)"
+NODE:F LEVEL:0 LINE:62 "show_time(void)"
+NODE:F LEVEL:0 LINE:69 "show_date(void)"

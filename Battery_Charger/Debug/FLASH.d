@@ -1,8 +1,8 @@
 # FIXED
 
 FLASH.obj: ../FLASH.c
-FLASH.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/FLASH.h
-FLASH.obj: C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h
+FLASH.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/FLASH.h
+FLASH.obj: E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h
 FLASH.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h
 FLASH.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h
 FLASH.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h
@@ -38,8 +38,8 @@ FLASH.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include
 FLASH.obj: C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_DefaultISR.h
 
 ../FLASH.c: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/FLASH.h: 
-C:/Users/YSRAO/workspace_v9/Battery_Charger/Headers/main.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/FLASH.h: 
+E:/PDC-\ Battery\ Charger/2updated/High_Wattage_Battery_Charger/Battery_Charger/Headers/main.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/DSP28x_Project.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/common/include/F2806x_Cla_typedefs.h: 
 C:/ti/c2000/C2000Ware_2_00_00_02/device_support/f2806x/headers/include/F2806x_Device.h: 

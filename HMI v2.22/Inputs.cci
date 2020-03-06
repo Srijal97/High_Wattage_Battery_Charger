@@ -1,0 +1,6 @@
+VERSION:3 SOURCE_TIMESTAMP:50589C39
+NODE:F LEVEL:0 LINE:5 "input(int next)"
+NODE:F LEVEL:0 LINE:69 "input_volt(int next)"
+NODE:F LEVEL:0 LINE:161 "input_current(int next)"
+NODE:F LEVEL:0 LINE:255 "input_time(void)"
+NODE:F LEVEL:0 LINE:328 "input_date(void)"

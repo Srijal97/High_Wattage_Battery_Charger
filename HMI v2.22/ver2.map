@@ -1,0 +1,85 @@
+RAM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+temp_voltage                                                      0x058F       2
+temp_current                                                      0x0591       2
+set_voltage                                                       0x0593       4
+set_current                                                       0x0597       4
+actual_voltage                                                    0x059B       2
+actual_btcurrentdp                                                0x059D       2
+actual_btcurrentip                                                0x059F       2
+actual_ipvoltage                                                  0x05A1       2
+actual_opcurrentdp                                                0x05A3       2
+actual_opcurrentip                                                0x05A5       2
+set_flag                                                          0x05A7       2
+flag                                                              0x05A9       2
+n                                                                 0x05AB       2
+main_screen_trigger                                               0x05AD       2
+ms_update_flag                                                    0x05AF       2
+current_mainscreen_flag                                           0x05B1       2
+status                                                            0x05B3       2
+fault_flag                                                        0x05B5       2
+rtc_display_counter                                               0x05B7       2
+hour                                                              0x05B9       1
+minute                                                            0x05BA       1
+second                                                            0x05BB       1
+date                                                              0x05BC       1
+month                                                             0x05BD       1
+year                                                              0x05BE       1
+disp_time                                                         0x05BF       1
+disp_date                                                         0x05C0       1
+temp_hour                                                         0x05C1       1
+temp_minute                                                       0x05C2       1
+temp_second                                                       0x05C3       1
+disp_temp_time                                                    0x05C4       1
+temp_date                                                         0x05C5       1
+temp_month                                                        0x05C6       1
+temp_year                                                         0x05C7       1
+disp_temp_date                                                    0x05C8       1
+dataArr                                                           0x05C9       9
+fltArray                                                          0x05D2       9
+disp_volt                                                         0x05DB       3
+disp_current                                                      0x05DE       3
+disp_set_voltage                                                  0x05E1       3
+disp_set_btcurrent                                                0x05E4       4
+disp_actual_voltage                                               0x05E8       3
+disp_actual_btcurrent                                             0x05EB       4
+disp_actual_ipvoltage                                             0x05EF       3
+disp_actual_opcurrent                                             0x05F2       4
+xmitMsg                                                           0x05F6       2
+rdataA                                                            0x05F8      20
+comStart                                                          0x060C       2
+i                                                                 0x060E       2
+rx_buffer0                                                        0x0610      32
+rx_wr_index0                                                      0x0630       1
+rx_rd_index0                                                      0x0631       1
+rx_counter0                                                       0x0632       1
+tx_buffer0                                                        0x0633      64
+tx_wr_index0                                                      0x0673       1
+tx_rd_index0                                                      0x0674       1
+tx_counter0                                                       0x0675       1
+on_pressed                                                        0x0676       2
+off_pressed                                                       0x0678       2
+reset_pressed                                                     0x067A       2
+on_button_state                                                   0x067C       2
+off_button_state                                                  0x067E       2
+reset_button_state                                                0x0680       2
+_seed                                                             0x0682       4
+_base_y                                                           0x0686       4
+_lcd_x                                                            0x068A       1
+_lcd_y                                                            0x068B       1
+_lcd_maxx                                                         0x068C       1
+
+EEPROM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                          Register  Size
+--------------------------------------------------------------------------------
+Screen                                                            R4,R5        2
+Current_Screen                                                    R6,R7        2
+Pointer_horiz                                                     R8,R9        2
+Pointer_vert                                                      R10,R11      2
+Pt                                                                R12,R13      2
+rx_buffer_overflow0                                               R2.0      1bit
