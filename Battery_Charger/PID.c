@@ -2,7 +2,7 @@
  * PID.c
  *
  *  Created on: 02-Apr-2019
- *      Author: Ameya
+ *      Author: Ameya, Srijal
  */
 
 #include <main.h>

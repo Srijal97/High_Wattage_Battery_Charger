@@ -2,7 +2,7 @@
  * adc.c
  *
  *  Created on: Feb 21, 2019
- *      Author: BEE
+ *      Author: Srijal, BEE
  */
 
 #include <adc.h>
@@ -47,14 +47,14 @@ void ADC_setup(void)
     AdcRegs.ADCSOC1CTL.bit.CHSEL  = 1;  // Set SOC1 channel select to ADCINA1
     AdcRegs.ADCSOC1CTL.bit.TRIGSEL = 0; // set the trigger to software only
 
-    AdcRegs.ADCSOC2CTL.bit.CHSEL  = 2;  // Set SOC1 channel select to ADCINA1
-    AdcRegs.ADCSOC2CTL.bit.TRIGSEL = 0; // set the trigger to software only
+    AdcRegs.ADCSOC2CTL.bit.CHSEL  = 2;  
+    AdcRegs.ADCSOC2CTL.bit.TRIGSEL = 0; 
 
-    AdcRegs.ADCSOC5CTL.bit.CHSEL  = 5;  // Set SOC1 channel select to ADCINA1
-    AdcRegs.ADCSOC5CTL.bit.TRIGSEL = 0; // set the trigger to software only
+    AdcRegs.ADCSOC5CTL.bit.CHSEL  = 5;  
+    AdcRegs.ADCSOC5CTL.bit.TRIGSEL = 0; 
 
-    AdcRegs.ADCSOC6CTL.bit.CHSEL  = 6;  // Set SOC1 channel select to ADCINA1
-    AdcRegs.ADCSOC6CTL.bit.TRIGSEL = 0; // set the trigger to software only
+    AdcRegs.ADCSOC6CTL.bit.CHSEL  = 6;  
+    AdcRegs.ADCSOC6CTL.bit.TRIGSEL = 0; 
 
     AdcRegs.ADCSOC7CTL.bit.CHSEL  = 9;  // Set SOC7 channel select to ADCINB1
     AdcRegs.ADCSOC7CTL.bit.TRIGSEL = 0; // set the trigger to software only

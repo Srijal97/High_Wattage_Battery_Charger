@@ -2,7 +2,7 @@
  * Serial.c
  *
  *  Created on: 23-Mar-2019
- *      Author: Mr.Yash
+ *      Author: Mr.Yash, Mr. Srijal
  */
 
 
@@ -70,13 +70,23 @@ void SerialInit() {
 
 
     SciaRegs.SCICTL1.all = 0x0023;  // Relinquish SCI from Reset
-//    int i;
-//    for(i = 0; i<2; i++)
-//    {
-//        tx_data[i] = i;
-//    }
-    //rdata_pointA = tx_data[0];
+	
+	// The following code changes Tx pin from GPIO29 to GPIO12, 
+	// which was configured by default in fuction InitSciaGpio()
+	// This function InitSciaGpio(), is defined in file F2806x_Sci.c,
+    // a part of C2000Ware, so we do not make changes directly to that file. 
 
+	EALLOW;
+	
+	GpioCtrlRegs.GPAPUD.bit.GPIO29 = 1;	 // Disable pull-up for GPIO29 (SCITXDA) 
+    GpioCtrlRegs.GPAPUD.bit.GPIO12 = 0;  // Enable pull-up for GPIO12 (SCITXDA)
+	
+    
+    GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 0;  // Configure GPIO29 back to GPIO operation
+    GpioCtrlRegs.GPAMUX1.bit.GPIO12 = 2;  // Configure GPIO12 for SCITXDA operation
+
+    EDIS;
+}
 
 }
 
@@ -98,6 +108,7 @@ __interrupt void sciaRxFifoIsr(void)
 
     char data = SciaRegs.SCIRXBUF.all;
 
+	//logic to determine positive data start and neglect any spurious noise transmitted
     if(data == '<' && com_started == 0 && serial_data_received == 0) {
         rx_data[0] = data;  //  data
 
@@ -112,7 +123,7 @@ __interrupt void sciaRxFifoIsr(void)
             rx_index = 0;
             serial_data_received = 1;
 
-            process_rx_command(rx_data);
+            process_rx_command(rx_data); //once the logic determines data end, the received data is sent for processing
             serial_data_received = 0;
         }
     }

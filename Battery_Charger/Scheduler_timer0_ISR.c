@@ -80,6 +80,9 @@ __interrupt void Scheduler_timer0_ISR(void)
         SciaRegs.SCICTL1.bit.SWRESET = 1;  // end SCI SW RESET
     }
 
+	//the following logic controls the switching of the machine between different states and its effects on the functioning and characteristics of the machine
+
+    //logic for soft_start state of the machine
     if (system_state == 1  && fault_condition == 0) {
 
 

@@ -3,7 +3,7 @@
 // FILE:        main.c
 //
 // TITLE:       FIRMWARE FOR CONTROL SIGNAL GENERATION
-//              FOR DC-DC CHARGER
+//              FOR BATTERY CHARGER
 //
 //###########################################################################
 
@@ -141,20 +141,17 @@ void main(void)
 
     while(1)
     {
-        /*processor goes to sleep while
-         * all the peripherals are running*/
-        //sleep_mode();
-
         static Uint32 txValuesTime = 0;
-        //static int i = 0;
+        
+		  // all the enclosed functions are called every 500 ms
+       // this transmits the required parameters to ATmega128 (HMI) section
+	   
         if (delay_count_timer0 - txValuesTime > 5000) {
 
             txInputVoltage();
             txOutputVoltage();
             txOutputCurrent();
             txBatteryCurrent();
-            //i++;
-            //if(i%80 == 0)
             txFaultState();
 
             txValuesTime = delay_count_timer0;

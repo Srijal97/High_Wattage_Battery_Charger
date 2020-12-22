@@ -28,14 +28,18 @@ extern Uint16 output_voltage_setpoint;
 
 extern const Uint16 VOLTAGE_SENS_OFFSET_ERR;
 
-// commands will be given a 3 digit numeric code and followed by corresponding data if any
-
+// null command
 void noOp()
 {
 
 //    msg = "<000>";
 //    SCI_UpdateMonitor(msg);  // echoback for ACK
 }
+
+// commands will be given a 3 digit numeric code and followed by 4 digit corresponding data if any
+// all transmission and receiving of commands and data is done through serial communication
+// the data sent and received through serial interface(UART) is of the form <ccc-dddd> where c corresponds to command code digits and d corresponds to data digits
+
 
 static void (*select_function[MAX_NUM_COMMANDS])() = {
     noOp,  // 0
@@ -57,6 +61,8 @@ static void (*select_function[MAX_NUM_COMMANDS])() = {
 };
 
 
+// System state toggle if machine on button pressed on the hmi board(ATmega128)
+// Note that On state can only be requested if the current state of the system is Off
 
 void mainOn() {  // machine ON button pressed
 //    msg = "<001>";
@@ -67,6 +73,9 @@ void mainOn() {  // machine ON button pressed
 
 }
 
+// System state toggle if machine off button pressed on the HMI board(ATmega128)
+// Soft_Off can only be requested if the current system state is On or is in Auto_restart mode [Not implemented fully]
+
 void mainOff() {  // machine OFF button pressed
 //    msg = "<002>";
 //    SCI_UpdateMonitor(msg);
@@ -76,6 +85,7 @@ void mainOff() {  // machine OFF button pressed
 
 }
 
+// All fault conditions are reset once the reset button is pressed on the HMI board(ATmega128)
 void resetFault() {  // fault RESET button pressed
     msg = "<003>";
     SCI_UpdateMonitor(msg);
@@ -84,6 +94,8 @@ void resetFault() {  // fault RESET button pressed
 
 }
 
+
+// Transmits fault occurrence and type of fault as BCD
 void txFaultState() {
 
     char tx_str[] = {'<', '0', '0', '4', '-', '0', '0', '0', '0', '>'};
@@ -180,6 +192,8 @@ void rxSetBatteryCurrent(int rx_current_value) {
 
     batt_curr_setpoint = (Uint16)((float)rx_current_value * 98.5);
 }
+
+// Serves the received serial data by interpreting the received command code and separating the data corresponding to that command
 
 void process_rx_command(char *rx_str) { // rx_str = "<001-xxxx>"
 
